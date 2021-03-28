@@ -1,0 +1,19 @@
+<html>
+<h1>Weekly planner for {{season}}</h1>
+<table>
+    <tr>
+        <th>Activity</th>
+        {% for week in weeks %}
+            <th>{{week.strftime('%d')}}</th>
+        {% endfor %}
+    </tr>
+    {% for activity in activities %}
+    <tr>
+        <th>{{activity}}</th>
+        {% for week in weeks %}
+        <td border="1px"></td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+</html>

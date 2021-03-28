@@ -1,3 +1,8 @@
 <html>
 <h1> Available pages: </h1>
+<ul>
+    {% for page in pages %}
+        <a href="/{{page}}"><li>{{page}}</li></a>
+    {% endfor %}
+</ul>
 </html>

@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def root():
-    pages = []
+    pages = ['daily_planner','weekly_planner','projects','prodev','drawing','yearly_goals','spring_goals','disc']
     return render_template('index.html',pages=pages)
 
 @app.route('/weekly/<start>/<weeks>')
@@ -16,10 +16,8 @@ def weekly(start, weeks):
     dates = []
     week_delta = delta(days=7)
     weeks = int(weeks)
-    print(f'Starting with {date} for {weeks} weeks')
     for week in range(weeks):
         dates.append(date)
-        print(date.strftime('%m-%d'))
         date = date + week_delta
     return render_template('weekly.html',weeks=dates)
 
@@ -37,8 +35,81 @@ def daily_planner():
             temp_month += day
             dc += 1
         days.append(dc)
-    activities = ['Spanish','Dishes','Exercise']
+    activities = ['Spanish','Dishes','Exercise','Ab Exercises']
     return render_template('daily_planner.html',season=season, months=months, days=days, activities=activities)
+
+@app.route('/weekly_planner')
+def weekly_planner():
+    season = 'Spring 2021'
+    activities = ['Chore','House Project','Read News Letter','Men\'s Bible Study','Bible Memorization','Games with Ben','Drawing','Reading Bitcoin Book','Disc Golf']
+    weeks = []
+    date = datetime.strptime('2021-04-04', '%Y-%m-%d')
+    week_delta = delta(days=7)
+    weeks = 12
+    dates = []
+    for week in range(weeks):
+        dates.append(date)
+        date = date + week_delta
+    return render_template('weekly_planner.html',season=season,activities=activities,weeks=dates)
+
+@app.route('/projects')
+def house_projects():
+    date = datetime.strptime('2021-04-10', '%Y-%m-%d')
+    dates = []
+    week_delta = delta(days=7)
+    weeks = 12
+    for week in range(weeks):
+        dates.append(date)
+        date = date + week_delta
+    return render_template('weekly.html',weeks=dates, title='House Projects')
+
+@app.route('/prodev')
+def prodev():
+    date = datetime.strptime('2021-04-08', '%Y-%m-%d')
+    dates = []
+    week_delta = delta(days=7)
+    weeks = 12
+    for week in range(weeks):
+        dates.append(date)
+        date = date + week_delta
+    return render_template('weekly.html',weeks=dates, title='Professional Development')
+
+@app.route('/drawing')
+def drawing():
+    date = datetime.strptime('2021-04-04', '%Y-%m-%d')
+    dates = []
+    week_delta = delta(days=7)
+    weeks = 12
+    for week in range(weeks):
+        dates.append(date)
+        date = date + week_delta
+    return render_template('weekly.html',weeks=dates, title='Drawing')
+
+@app.route('/yearly_goals')
+def yearly_goals():
+    title = '2021 Goals'
+    goals = ['Learn to plumb','Draw 80 times','Brew a Rootbeer with a Gingerbug','Play 12 new video games','play 12 new board/card games','Read all of Harry Potter','Daily language lessons','Develop a six pack','Monthly Call w/ brady','Monthly Gigi time','Monthly tarts','Quarterly guys night','Do some freelance devops/dev work','Invest in stocks and crypto','Finish "Queens Theif" series','Read "Bitcoin for the Befuddled"','Setup Bible memorization scheme','Memorize several chunks of the Bible','Read a theology book','Beat ringfit','Track body fat','Run twice a week in summer','Teach Lucy "swim"','Make Lucy a mud kitchen','Get Lucy\'s car working']
+    return render_template('goals.html',title=title,goals=goals)
+
+@app.route('/spring_goals')
+def spring_goals():
+    title = 'Spring 2021: Season of Enjoying'
+    goals = ['Brew a root beer with ginger bug','Play 3 new video games (min 3 hours)','Have a guys night','Read "Bitcoin for the Befuddled"','Invest in some Cryptos','Design Bible Memorization scheme','Fix Lucy\'s car','Invite someone over','Beat Prentis in 30 throws','Draw twice a week']
+    return render_template('goals.html',title=title,goals=goals)
+
+@app.route('/disc')
+def disc():
+    date1 = datetime.strptime('2021-04-06', '%Y-%m-%d')
+    date2 = datetime.strptime('2021-04-09', '%Y-%m-%d')
+    weeks = 12
+    dates = []
+    week_delta = delta(days=7)
+    for i in range(weeks):
+        dates.append(date1)
+        dates.append(date2)
+        date1 = date1 + week_delta
+        date2 = date2 + week_delta
+    return render_template('disc.html',dates=dates)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port = 5000)

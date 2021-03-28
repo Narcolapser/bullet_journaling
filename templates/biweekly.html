@@ -1,0 +1,14 @@
+<html>
+    <center><h1>{{ title }}</h1></center>
+    <table>
+        <tr>
+            <th>{{ title }} #1</th>
+            <th>{{ title }} #2</th>
+        </tr>
+        {% for week in weeks %}
+        <tr>
+            <td>{{ week.strftime('%b %d') }}</td>
+        <tr>
+        {% endfor %}
+    </table>
+</html>

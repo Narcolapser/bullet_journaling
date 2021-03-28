@@ -1,20 +1,57 @@
-1. Daily planner
-2. Weekly planner
-3. Ring Fit tracker
-4. House projects
-5. Professional Development
+0. Theme and goals page. - check
+1. Daily planner - check
+2. Weekly planner - check
+3. Running Tracker - planned
+4. House projects - check
+5. Professional Development - check
 6. Hospitality
 	1. Tarts
 	2. Gigi
 	3. Brady
 	4. Who we invited over
 	5. What we did for guys night
-7. Bitcoin for the befudled
+7. Bitcoin for the befudled - planned
 8. Drawing
 9. Objectives
 	1. Lucy's Car
 	2. New video games
+	4. New board/card games
 	3. Brew rootbeer with ginger bug
-10. Bible Memorizing
-11. Disc golfing
-12. Crypto Investing
+10. Bible Memorizing - Planned
+11. Disc golfing - Planned
+12. Crypto Investing - Planned
+
+Running tracker:
+Landscape. Columns with the dates I am scheduled to run. Rows with overlapping distance, time, and heart rate.
+
+Bitcoin for the befuddled
+Portrait. 12 bitcoins, one for each chapter and one for each of the appendicies. 
+
+Disc golf:
+a grid. 11 columns, 25 rows. Row for each date and column for each hole (plus headers)
+
+Crypto investing
+6 rows, with a place to draw each a crypto logo, a short reason why this crypto, and the initial investment.
+
+Bible Memorizing
+Two halves. Top is a chart of number of verses memorized. buttom is a place to write the references. Lets put 6 rows with two columns.
+
+Hospitality
+5 rows, one for each item.
+    Tarts, Gigi, and Brady - 3 boxes
+    Invitation - spot for a stamp or something, who we invited over, what we ate, and when.
+    Guys night - Spot for a stamp or something. who was there, what we did, and when.
+
+Misc objectives:
+4 rows, one for each item agian.
+    Lucy's car, a grayed out image of a car to write over and a couple of lines. To get this to work:
+        1. Aquire means of adapting drill battery
+        2. Wire up adapter
+        3. Figure out how to make a gas guage
+        4. Wire up gas guage
+    New video games
+        3 lines, each with a little joystick to fill in, a space for the game name and 5 stars for rating.
+    New board/card games
+        3 lines, one with a die, one with a card, one with pawn, space for the name and 5 stars for rating.
+    Brew rootbeer
+        3 little bottles for 3 more attempts.
