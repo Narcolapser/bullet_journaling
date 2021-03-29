@@ -5,9 +5,10 @@
             <th>{{ title }} #1</th>
             <th>{{ title }} #2</th>
         </tr>
-        {% for week in weeks %}
+        {% for i in range(weeks1) %}
         <tr>
-            <td>{{ week.strftime('%b %d') }}</td>
+            <td>{{ weeks1[i].strftime('%b %d') }}</td>
+            <td>{{ weeks2[i].strftime('%b %d') }}</td>
         <tr>
         {% endfor %}
     </table>

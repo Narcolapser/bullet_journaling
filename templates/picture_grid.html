@@ -2,11 +2,18 @@
     <center><h1>{{title}}</h1></center>
     <div style="display: flex; flex-direction: column; width: 100%">
         {% for i in range(rows) %}
-        <div style="display: flex; flex-direction: row; flex-grow: 1">
+        <div style="display: flex; flex-drection: row; flex-grow: 1">
+            {% if row_titles is defined %}
+                <div style="flex-grow:1"><span>{{row_titles[i]}}</span></div>
+            {% endif %}
             {% for j in range(cols) %}
-            <div style="flex-grow:1"><center><img src="/static/bitcoin.png" style="object-fit: cover; width:75%; opacity: 0.5"/></center></div>
+                {% if pic_width is defined %}
+                    <div style="flex-grow:1"><center><img src="/static/{{picture}}" style="object-fit: cover; width:{{pic_width}}%; opacity: 0.5"/></center></div>
+                {% else %}
+                    <div style="flex-grow:1"><center><img src="/static/{{picture}}" style="object-fit: cover; width:75%; opacity: 0.5"/></center></div>
+                {% endif %}
             {% endfor %}
-        </div><br/>
+        </div>
         {% endfor %}
     </div>
 </html>

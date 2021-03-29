@@ -87,7 +87,13 @@ def drawing():
     for week in range(weeks):
         dates.append(date)
         date = date + week_delta
-    return render_template('weekly.html',weeks=dates, title='Drawing')
+
+    row_titles = [date.strftime('%b %d') for date in dates]
+    rows = 12
+    cols = 2
+    title = "Drawing"
+    picture = 'drawing.png'
+    return render_template('picture_grid.html',rows=rows, cols=cols, title=title, picture=picture, row_titles=row_titles, pic_width=10)
 
 @app.route('/yearly_goals')
 def yearly_goals():
