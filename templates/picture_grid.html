@@ -1,0 +1,12 @@
+<html>
+    <center><h1>{{title}}</h1></center>
+    <div style="display: flex; flex-direction: column; width: 100%">
+        {% for i in range(rows) %}
+        <div style="display: flex; flex-direction: row; flex-grow: 1">
+            {% for j in range(cols) %}
+            <div style="flex-grow:1"><center><img src="/static/bitcoin.png" style="object-fit: cover; width:75%; opacity: 0.5"/></center></div>
+            {% endfor %}
+        </div><br/>
+        {% endfor %}
+    </div>
+</html>

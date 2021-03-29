@@ -1,14 +1,18 @@
 import requests
 import json
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
 from datetime import datetime, timedelta as delta
 
 app = Flask(__name__)
 
 @app.route('/')
 def root():
-    pages = ['daily_planner','weekly_planner','projects','prodev','drawing','yearly_goals','spring_goals','disc']
+    pages = ['daily_planner','weekly_planner','projects','prodev','drawing','yearly_goals','spring_goals','disc','bitcoin']
     return render_template('index.html',pages=pages)
+
+#@app.route('/static/<item>')
+#def static(item):
+#    return send_file(f'/static/{item}')
 
 @app.route('/weekly/<start>/<weeks>')
 def weekly(start, weeks):
@@ -111,6 +115,14 @@ def disc():
         date1 = date1 + week_delta
         date2 = date2 + week_delta
     return render_template('disc.html',dates=dates)
+
+@app.route('/bitcoin')
+def bitcoin():
+    rows = 4
+    cols = 3
+    title = "Bitcoin for the Befuddled"
+    picture = 'bitcoin.png'
+    return render_template('picture_grid.html',rows=4, cols=3, title=title, picture=picture)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port = 5000)
