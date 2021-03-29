@@ -1,19 +1,19 @@
 <html>
-<h1>Daily planner for {{season}}</h1>
+<center><h1>Daily planner for {{season}}</h1></center>
 {% for i in range(3) %}
-<h2>{{months[i].strftime('%B')}}<h2>
-<table>
+<center><h2>{{months[i].strftime('%B')}}</h2></center>
+<table style="border-collapse:collapse; width:100%">
     <tr>
-        <th>Activity</th>
+        <th style="border:1px solid black;">Activity</th>
         {% for d in range(days[i]) %}
-        <th>{{d+1}}</th>
+        <th style="border:1px solid black;">{{d+1}}</th>
         {% endfor %}
     </tr>
     {% for activity in activities %}
     <tr>
-        <th>{{activity}}</th>
+        <th style="border:1px solid black;">{{activity}}</th>
         {% for d in range(days[i]) %}
-        <td border="1px"></td>
+        <td style="border:1px solid black;"></td>
         {% endfor %}
     </tr>
     {% endfor %}

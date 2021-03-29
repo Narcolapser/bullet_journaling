@@ -1,17 +1,17 @@
 <html>
 <center><h1>Disc Golf</h1><center>
-<table>
+<table style="border-collapse:collapse">
     <tr>
-        <th>Date</th>
+        <th style="border:1px solid black;">Date</th>
         {% for i in range(10) %}
-        <th>{{ i + 1 }}</th>
+        <th style="border:1px solid black;">{{ i + 1 }}</th>
         {% endfor %}
     </tr>
     {% for date in dates %}
     <tr>
-        <td>{{date.strftime('%b %d')}}</td>
+        <td style="border:1px solid black;">{{date.strftime('%b %d')}}</td>
         {% for i in range(10) %}
-        <th></th>
+        <th style="border:1px solid black;"></th>
         {% endfor %}
     </tr>
     {% endfor %}

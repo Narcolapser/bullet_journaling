@@ -93,9 +93,10 @@ def yearly_goals():
 
 @app.route('/spring_goals')
 def spring_goals():
-    title = 'Spring 2021: Season of Enjoying'
+    title = 'Spring 2021'
+    subtitle = 'Season of Enjoying'
     goals = ['Brew a root beer with ginger bug','Play 3 new video games (min 3 hours)','Have a guys night','Read "Bitcoin for the Befuddled"','Invest in some Cryptos','Design Bible Memorization scheme','Fix Lucy\'s car','Invite someone over','Beat Prentis in 30 throws','Draw twice a week']
-    return render_template('goals.html',title=title,goals=goals)
+    return render_template('goals.html',title=title,goals=goals,subtitle=subtitle)
 
 @app.route('/disc')
 def disc():

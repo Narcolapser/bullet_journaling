@@ -1,17 +1,17 @@
 <html>
-<h1>Weekly planner for {{season}}</h1>
-<table>
+<center><h1>Weekly planner for {{season}}</h1></center>
+<table style="border-collapse:collapse; width:100%">
     <tr>
-        <th>Activity</th>
+        <th style="border:1px solid black;">Activity</th>
         {% for week in weeks %}
-            <th>{{week.strftime('%d')}}</th>
+            <th style="border:1px solid black;">{{week.strftime('%b %d')}}</th>
         {% endfor %}
     </tr>
     {% for activity in activities %}
     <tr>
-        <th>{{activity}}</th>
+        <th style="border:1px solid black;">{{activity}}</th>
         {% for week in weeks %}
-        <td border="1px"></td>
+        <td style="border:1px solid black;" border="1px"></td>
         {% endfor %}
     </tr>
     {% endfor %}

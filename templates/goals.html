@@ -1,8 +1,9 @@
 <html>
     <center><h1>{{title}}</h1></center>
-    <ul>
+    <center><h2>{{subtitle}}<h1></center>
+    <ul style="list-style-type:none;">
     {% for goal in goals %}
-        <li>{{goal}}</li>
+        <li><input type="checkbox">{{goal}}</input></li>
     {% endfor %}
     </ul>
 </html>
