@@ -1,0 +1,31 @@
+<html>
+<center><h1>{{title}}</h1></center>
+<table style="border-collapse:collapse; width:100%">
+    {% for i in range(20) %}
+    <tr>
+        {% for date in dates %}
+        <td style="border:1px solid black;"></td>
+        {% endfor %}
+        {% for step in unit_steps %}
+        <td style="border:1px solid black;">{{step[i]}}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    <tr>
+        {% for date in dates %}
+        <td style="border:1px solid black;">{{date.strftime('%b %d')}}</td>
+        {% endfor %}
+        {% for unit in units %}
+        <td style="border:1px solid black;">{{unit}}</td>
+        {% endfor %}
+    </tr>
+</table>
+<center><h2>Passages Memorized</h2></center>
+<table style="border-collapse:collapse; width:100%">
+    {% for i in range(6) %}
+    <tr>
+        <td style="border:1px solid black; height:50px"></td>
+        <td style="border:1px solid black; height:50px"></td>
+    </tr>
+    {% endfor %}
+</html>
