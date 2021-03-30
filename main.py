@@ -7,9 +7,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def root():
-    pages = ['daily_planner','weekly_planner','projects','prodev','drawing','spring_goals',
+    pages = ['daily_planner','weekly_planner','projects','prodev','drawing','spring_goals','movies',
              'disc','bitcoin','running','crypto_investing','bible_mem','hospitality','misc_goals',
-             'yearly_goals','video_games','board_games','camping','themes']
+             'yearly_goals','video_games','board_games','camping','themes','archery','body_fat']
     return render_template('index.html',pages=pages)
 
 #@app.route('/static/<item>')
@@ -150,7 +150,12 @@ def running():
 
 @app.route('/crypto_investing')
 def crypto_investing():
-    return render_template('large_item_table.html',rows=6,title='Crypto Investing')
+    return render_template('large_item_table.html',rows=6,title='Crypto Investing',
+                           top_prompt='Reason',bottom_prompt='Initial Investment')
+
+@app.route('/movies')
+def movies():
+    return render_template('icon_list.html',title='Movies',rows=12,img='movie_tape.png',height='50')
 
 @app.route('/bible_mem')
 def bible_mem():
@@ -185,9 +190,19 @@ def board_games():
 def camping():
     return render_template('icon_list.html',title='Camping',rows=6,img='tent.png',height='100')
 
+@app.route('/archery')
+def archery():
+    return render_template('icon_list.html',title='Archery',rows=6,img='arrow_target.png',height='100')
+
 @app.route('/themes')
 def themes():
     return render_template('icon_list.html',title='Theme of each Season of 2021',rows=4,img='rainbow.png',height='100')
+
+@app.route('/body_fat')
+def body_fat():
+    months = ['April','May','June','July','August','September','October','November','December',
+              'January','February','March']
+    return render_template('body_fat.html',months=months)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port = 5000)
