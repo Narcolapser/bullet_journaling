@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route('/')
 def root():
     pages = ['daily_planner','weekly_planner','projects','prodev','drawing','yearly_goals','spring_goals',
-             'disc','bitcoin','running']
+             'disc','bitcoin','running','crypto_investing']
     return render_template('index.html',pages=pages)
 
 #@app.route('/static/<item>')
@@ -146,6 +146,10 @@ def running():
     units = ['Heart Rate (BPM)','Distance (M)','Time (m)']
     unit_steps = [range(100,180,4),[v/10.0 for v in range(10,30)],range(10,30)]
     return render_template('graph.html',dates=dates,title='Running',units=units,unit_steps=unit_steps)
+
+@app.route('/crypto_investing')
+def crypto_investing():
+    return render_template('large_item_table.html',rows=6,title='Crypto Investing')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port = 5000)
