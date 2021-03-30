@@ -1,0 +1,19 @@
+<html>
+    <center><h1>2021 Body Fat Tracking</h1></center>
+    <table style="border-collapse:collapse; width:100%">
+        <tr>
+            <th>Month</th>
+            <th>measured mm</th>
+            <th>percent fat</th>
+            <th>weight</th>
+        </tr>
+        {% for month in months %}
+        <tr>
+            <td style="border:1px solid black; height:70px">{{month}}</td>
+            <td style="border:1px solid black;"></td>
+            <td style="border:1px solid black;"></td>
+            <td style="border:1px solid black;"></td>
+        </tr>
+        {% endfor %}
+    </table>
+</html>
