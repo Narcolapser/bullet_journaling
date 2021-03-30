@@ -7,7 +7,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def root():
-    pages = ['daily_planner','weekly_planner','projects','prodev','drawing','yearly_goals','spring_goals','disc','bitcoin']
+    pages = ['daily_planner','weekly_planner','projects','prodev','drawing','yearly_goals','spring_goals',
+             'disc','bitcoin','running']
     return render_template('index.html',pages=pages)
 
 #@app.route('/static/<item>')
@@ -129,6 +130,22 @@ def bitcoin():
     title = "Bitcoin for the Befuddled"
     picture = 'bitcoin.png'
     return render_template('picture_grid.html',rows=4, cols=3, title=title, picture=picture)
+
+@app.route('/running')
+def running():
+    date1 = datetime.strptime('2021-04-05', '%Y-%m-%d')
+    date2 = datetime.strptime('2021-04-07', '%Y-%m-%d')
+    weeks = 12
+    dates = []
+    week_delta = delta(days=7)
+    for i in range(weeks):
+        dates.append(date1)
+        dates.append(date2)
+        date1 = date1 + week_delta
+        date2 = date2 + week_delta
+    units = ['Heart Rate (BPM)','Distance (M)','Time (m)']
+    unit_steps = [range(100,180,4),[v/10.0 for v in range(10,30)],range(10,30)]
+    return render_template('graph.html',dates=dates,title='Running',units=units,unit_steps=unit_steps)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port = 5000)

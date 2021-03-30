@@ -4,13 +4,13 @@
         {% for i in range(rows) %}
         <div style="display: flex; flex-drection: row; flex-grow: 1">
             {% if row_titles is defined %}
-                <div style="flex-grow:1"><span>{{row_titles[i]}}</span></div>
+                <div style="flex-grow:1; border: 1px solid black;"><span>{{row_titles[i]}}</span></div>
             {% endif %}
             {% for j in range(cols) %}
                 {% if pic_width is defined %}
-                    <div style="flex-grow:1"><center><img src="/static/{{picture}}" style="object-fit: cover; width:{{pic_width}}%; opacity: 0.5"/></center></div>
+                    <div style="flex-grow:1; border: 1px solid black;"><img src="/static/{{picture}}" style="object-fit: cover; width:{{pic_width}}%; opacity: 0.5"/></div>
                 {% else %}
-                    <div style="flex-grow:1"><center><img src="/static/{{picture}}" style="object-fit: cover; width:75%; opacity: 0.5"/></center></div>
+                    <div style="flex-grow:1; border: 1px solid black;"><center><img src="/static/{{picture}}" style="object-fit: cover; width:75%; opacity: 0.5"/></center></div>
                 {% endif %}
             {% endfor %}
         </div>
