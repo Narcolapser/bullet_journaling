@@ -7,8 +7,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def root():
-    pages = ['daily_planner','weekly_planner','projects','prodev','drawing','yearly_goals','spring_goals',
-             'disc','bitcoin','running','crypto_investing','bible_mem','hospitality','misc_goals']
+    pages = ['daily_planner','weekly_planner','projects','prodev','drawing','spring_goals',
+             'disc','bitcoin','running','crypto_investing','bible_mem','hospitality','misc_goals',
+             'yearly_goals','video_games','board_games','camping','themes']
     return render_template('index.html',pages=pages)
 
 #@app.route('/static/<item>')
@@ -162,7 +163,7 @@ def bible_mem():
         date1 = date1 + week_delta
     units = ['Verses']
     unit_steps = [range(0,100,5)]
-    return render_template('bible_verses.html',dates=dates,title='Bible Memorization',units=units,unit_steps=unit_steps)
+    return render_template('bible_verses.html',dates=dates,title='Bible Memorization', units=units,unit_steps=unit_steps)
     
 @app.route('/hospitality')
 def hospitality():
@@ -171,6 +172,22 @@ def hospitality():
 @app.route('/misc_goals')
 def misc_goals():
     return render_template('misc_goals.html')
+    
+@app.route('/video_games')
+def video_games():
+    return render_template('icon_list.html',title='New Video Games',rows=12,img='joystick.png',height='50')
+
+@app.route('/board_games')
+def board_games():
+    return render_template('icon_list.html',title='New Board/Card Games',rows=12,img='d20.png',height='50')
+
+@app.route('/camping')
+def camping():
+    return render_template('icon_list.html',title='Camping',rows=6,img='tent.png',height='100')
+
+@app.route('/themes')
+def themes():
+    return render_template('icon_list.html',title='Theme of each Season of 2021',rows=4,img='rainbow.png',height='100')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port = 5000)
