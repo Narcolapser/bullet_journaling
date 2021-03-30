@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route('/')
 def root():
     pages = ['daily_planner','weekly_planner','projects','prodev','drawing','yearly_goals','spring_goals',
-             'disc','bitcoin','running','crypto_investing']
+             'disc','bitcoin','running','crypto_investing','bible_mem']
     return render_template('index.html',pages=pages)
 
 #@app.route('/static/<item>')
@@ -150,6 +150,19 @@ def running():
 @app.route('/crypto_investing')
 def crypto_investing():
     return render_template('large_item_table.html',rows=6,title='Crypto Investing')
+
+@app.route('/bible_mem')
+def bible_mem():
+    date1 = datetime.strptime('2021-04-04', '%Y-%m-%d')
+    weeks = 12
+    dates = []
+    week_delta = delta(days=7)
+    for i in range(weeks):
+        dates.append(date1)
+        date1 = date1 + week_delta
+    units = ['Verses']
+    unit_steps = [range(0,100,5)]
+    return render_template('bible_verses.html',dates=dates,title='Bible Memorization',units=units,unit_steps=unit_steps)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port = 5000)
