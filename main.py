@@ -95,7 +95,7 @@ def drawing():
     cols = 2
     title = "Drawing"
     picture = 'drawing.png'
-    return render_template('picture_grid.html',rows=rows, cols=cols, title=title, picture=picture, row_titles=row_titles, pic_width=10)
+    return render_template('picture_grid.html',rows=rows, cols=cols, title=title, picture=picture, row_titles=row_titles, pic_width=20)
 
 @app.route('/yearly_goals')
 def yearly_goals():
@@ -167,7 +167,7 @@ def bible_mem():
         dates.append(date1)
         date1 = date1 + week_delta
     units = ['Verses']
-    unit_steps = [range(0,100,5)]
+    unit_steps = [range(0,105,5)]
     return render_template('bible_verses.html',dates=dates,title='Bible Memorization', units=units,unit_steps=unit_steps)
     
 @app.route('/hospitality')
@@ -196,7 +196,7 @@ def archery():
 
 @app.route('/themes')
 def themes():
-    return render_template('icon_list.html',title='Theme of each Season of 2021',rows=4,img='rainbow.png',height='100')
+    return render_template('icon_list.html',title='Theme of each Season of 2021',rows=4,img='rainbow.png',height='200')
 
 @app.route('/body_fat')
 def body_fat():
