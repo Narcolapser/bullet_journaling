@@ -9,7 +9,8 @@ app = Flask(__name__)
 def root():
     pages = ['daily_planner','weekly_planner','projects','prodev','drawing','spring_goals','movies',
              'disc','bitcoin','running','crypto_investing','bible_mem','hospitality','misc_goals',
-             'yearly_goals','video_games','board_games','camping','themes','archery','body_fat']
+             'yearly_goals','video_games','board_games','camping','themes','archery','body_fat',
+             'notes','cover']
     return render_template('index.html',pages=pages)
 
 #@app.route('/static/<item>')
@@ -198,11 +199,19 @@ def archery():
 def themes():
     return render_template('icon_list.html',title='Theme of each Season of 2021',rows=4,img='rainbow.png',height='200')
 
+@app.route('/notes')
+def notes():
+    return render_template('icon_list.html',title='Notes',rows=28,img='notebook.png',height='20')
+
 @app.route('/body_fat')
 def body_fat():
     months = ['April','May','June','July','August','September','October','November','December',
               'January','February','March']
     return render_template('body_fat.html',months=months)
+
+@app.route('/cover')
+def cover():
+    return render_template('cover.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port = 5000)
