@@ -203,7 +203,7 @@ def themes():
 @app.route('/notes')
 def notes():
     html = render_template('icon_list.html',title='Notes',rows=28,img='notebook.png',height='20')
-    page = HTML(string=html).write_pdf('/tmp/test.pdf')
+    page = HTML(string=html).write_pdf('/tmp/test.pdf',stylesheets=[CSS(string='@page {size: landscape}')])
     return render_template('icon_list.html',title='Notes',rows=28,img='notebook.png',height='20')
 
 @app.route('/body_fat')
