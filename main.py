@@ -2,6 +2,7 @@ import requests
 import json
 from flask import Flask, render_template, request, send_file
 from datetime import datetime, timedelta as delta
+from weasyprint import HTML, CSS
 
 app = Flask(__name__)
 
@@ -201,6 +202,8 @@ def themes():
 
 @app.route('/notes')
 def notes():
+    html = render_template('icon_list.html',title='Notes',rows=28,img='notebook.png',height='20')
+    page = HTML(string=html).write_pdf('/tmp/test.pdf')
     return render_template('icon_list.html',title='Notes',rows=28,img='notebook.png',height='20')
 
 @app.route('/body_fat')
@@ -212,6 +215,8 @@ def body_fat():
 @app.route('/cover')
 def cover():
     return render_template('cover.html')
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port = 5000)
