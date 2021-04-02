@@ -1,19 +1,19 @@
 <html>
     <center><h1>{{title}}</h1></center>
-    <div style="display: flex; flex-direction: column; width: 100%">
+    <table style="border-collapse:collapse; width:100%">
         {% for i in range(rows) %}
-        <div style="display: flex; flex-drection: row; flex-grow: 1">
+        <tr>
             {% if row_titles is defined %}
-                <div style="flex-grow:1; border: 1px solid black;"><span>{{row_titles[i]}}</span></div>
+                <td style="width:100px; border: 1px solid black;">{{row_titles[i]}}</td>
             {% endif %}
             {% for j in range(cols) %}
                 {% if pic_width is defined %}
-                    <div style="flex-grow:1; border: 1px solid black;"><img src="http://localhost:5000/static/{{picture}}" style="object-fit: cover; width:{{pic_width}}%; opacity: 0.5"/></div>
+                    <td style="border: 1px solid black;"><img src="http://localhost:5000/static/{{picture}}" style="object-fit: cover; width:{{pic_width}}%"/></td>
                 {% else %}
-                    <div style="flex-grow:1; border: 1px solid black;"><center><img src="http://localhost:5000/static/{{picture}}" style="object-fit: cover; width:75%; opacity: 0.5"/></center></div>
+                    <td style="border: 1px solid black;"><center><img src="http://localhost:5000/static/{{picture}}" style="object-fit: cover; width:75%; opacity: 0.5"/></center></td>
                 {% endif %}
             {% endfor %}
-        </div>
+        </tr>
         {% endfor %}
-    </div>
+    </table>
 </html>
