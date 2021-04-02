@@ -18,7 +18,7 @@ pages = [('cover',0,'portrait'),
          ('body_fat', 7,'portrait'),
          ('spring_goals', 8,'portrait'),
          ('daily_planner',9,'landscape'),
-         ('weekly_planner', 10,'portrait'),
+         ('weekly_planner', 10,'landscape'),
          ('hospitality', 11,'portrait'), 
          ('movies', 12,'portrait'),
          ('bible_mem', 13,'portrait'),
@@ -27,17 +27,30 @@ pages = [('cover',0,'portrait'),
          ('crypto_investing', 16,'portrait'),
          ('prodev', 17,'portrait'),
          ('projects', 18,'portrait'),
-         ('running', 19,'portrait'),
+         ('running', 19,'landscape'),
          ('disc', 20,'portrait'),
          ('misc_goals', 21,'portrait'),
          ('notes', 22,'portrait'),
          ('notes', 23,'portrait')]
 
 for page in pages:
+    print(f'Printing {page[0]}')
     r = requests.get(f'http://localhost:5000/{page[0]}')
-    print(page)
     outs = HTML(string=r.text).write_pdf(f'./{page[1]}_{page[0]}.pdf',stylesheets=[CSS(string='@page {size: ' + page[2] + '}')])
 
+index = []
+folio = []
+for page in pages:
+    if len(folio) < 4:
+        folio.append(f'{page[1]}_{page[0]}.pdf')
+    else:
+        index.append(folio)
+        folio = [f'{page[1]}_{page[0]}.pdf']
+
+nup = 'pdfnup {left} {right} -o f{folio_number}s{sheet_number}.pdf'
+for i, folio in enumerate(index):
+    print(nup.format(left=folio[3],right=folio[0],folio_number=i,sheet_number=0))
+    print(nup.format(left=folio[1],right=folio[2],folio_number=i,sheet_number=1))
 
 """
 
