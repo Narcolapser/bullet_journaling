@@ -33,24 +33,41 @@ pages = [('cover',0,'portrait'),
          ('notes', 22,'portrait'),
          ('notes', 23,'portrait')]
 
-for page in pages:
-    print(f'Printing {page[0]}')
-    r = requests.get(f'http://localhost:5000/{page[0]}')
-    outs = HTML(string=r.text).write_pdf(f'./{page[1]}_{page[0]}.pdf',stylesheets=[CSS(string='@page {size: ' + page[2] + '}')])
+#for page in pages:
+#    print(f'Printing {page[0]}')
+#    r = requests.get(f'http://localhost:5000/{page[0]}')
+#    outs = HTML(string=r.text).write_pdf(f'./{page[1]}_{page[0]}.pdf',stylesheets=[CSS(string='@page {size: ' + page[2] + '}')])
+
+# 1 sheet per folio
+# collation_pattern = [3,0,1,2]
+
+# 2 sheets per folio
+collation_pattern = [7,0,1,6,5,2,3,4]
+pad_page = '22_notes.pdf'
 
 index = []
 folio = []
 for page in pages:
-    if len(folio) < 4:
+    if len(folio) < len(collation_pattern):
         folio.append(f'{page[1]}_{page[0]}.pdf')
     else:
         index.append(folio)
         folio = [f'{page[1]}_{page[0]}.pdf']
 
+while len(folio) < len(collation_pattern):
+    folio.append(pad_page)
+
+index.append(folio)
+
 nup = 'pdfnup {left} {right} -o f{folio_number}s{sheet_number}.pdf'
 for i, folio in enumerate(index):
-    print(nup.format(left=folio[3],right=folio[0],folio_number=i,sheet_number=0))
-    print(nup.format(left=folio[1],right=folio[2],folio_number=i,sheet_number=1))
+    order = [folio[i] for i in collation_pattern]
+    pairs = []
+    for i in range(int(len(collation_pattern)/2)):
+        pairs.append((order[i*2+0], order[i*2+1]))
+    
+    for j, pair in enumerate(pairs):
+        print(nup.format(left=pair[0],right=pair[1],folio_number=i,sheet_number=j))
 
 """
 
