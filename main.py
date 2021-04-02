@@ -201,7 +201,7 @@ def themes():
 
 @app.route('/notes')
 def notes():
-    return render_template('icon_list.html',title='Notes',rows=28,img='notebook.png',height='20')
+    return render_template('icon_list.html',title='Notes',rows=21,img='notebook.png',height='20')
 
 @app.route('/body_fat')
 def body_fat():
