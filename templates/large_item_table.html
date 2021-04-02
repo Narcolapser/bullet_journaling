@@ -1,14 +1,14 @@
 <html>
     <center><h1>{{title}}</h1></center>
-    <div style="display: flex; flex-direction: column; width: 100%">
+    <table style="width: 100%">
         {% for i in range(rows) %}
-        <div style="display: flex; flex-drection: row; flex-grow: 1" >
-            <div style="flex: 1; height:150px; border: 1px solid lightgray"></div>
-            <div style="flex: 3; display: flex; flex-direction: column">
-                <div style="flex: 1; border: 1px solid lightgray">{{top_prompt}}:</div>
-                <div style="flex: 1; border: 1px solid lightgray">{{bottom_prompt}}:</div>
-            </div>
-        </div>
+        <tr style="width:100%" >
+            <td style="height:120px; width:20%; border: 1px solid lightgray" rowspan="2"></td>
+            <td style="height:60px; border: 1px solid lightgray; width:80%; vertical-align: top">{{top_prompt}}:</td>
+        </tr>
+        <tr>
+            <td style="height:60px; border: 1px solid lightgray; width:80%; vertical-align: top">{{bottom_prompt}}:</td>
+        </tr>
         {% endfor %}
     </div>
 </html>
