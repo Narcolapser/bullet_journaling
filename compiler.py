@@ -8,12 +8,35 @@ pages = ['daily_planner','weekly_planner','projects','prodev','drawing','spring_
 
 #page = 
 
-pages = [('cover',0,'portrait'), ('yearly_goals',1,'portrait'), ('daily_planner',2,'landscape')]
+pages = [('cover',0,'portrait'),
+         ('yearly_goals',1,'portrait'),
+         ('themes', 2,'portrait'),
+         ('archery', 3,'portrait'),
+         ('camping', 4,'portrait'),
+         ('board_games', 5,'portrait'),
+         ('video_games', 6,'portrait'), 
+         ('body_fat', 7,'portrait'),
+         ('spring_goals', 8,'portrait'),
+         ('daily_planner',9,'landscape'),
+         ('weekly_planner', 10,'portrait'),
+         ('hospitality', 11,'portrait'), 
+         ('movies', 12,'portrait'),
+         ('bible_mem', 13,'portrait'),
+         ('drawing', 14,'portrait'),
+         ('bitcoin', 15,'portrait'),
+         ('crypto_investing', 16,'portrait'),
+         ('prodev', 17,'portrait'),
+         ('projects', 18,'portrait'),
+         ('running', 19,'portrait'),
+         ('disc', 20,'portrait'),
+         ('misc_goals', 21,'portrait'),
+         ('notes', 22,'portrait'),
+         ('notes', 23,'portrait')]
 
 for page in pages:
     r = requests.get(f'http://localhost:5000/{page[0]}')
     print(page)
-    outs = HTML(string=r.text).write_pdf(f'/tmp/{page[1]} - {page[0]}.pdf',stylesheets=[CSS(string='@page {size: ' + page[2] + '}')])
+    outs = HTML(string=r.text).write_pdf(f'./{page[1]}_{page[0]}.pdf',stylesheets=[CSS(string='@page {size: ' + page[2] + '}')])
 
 
 """
