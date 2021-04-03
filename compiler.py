@@ -17,18 +17,18 @@ pages = [('cover',0,'portrait'),
          ('video_games', 6,'portrait'), 
          ('body_fat', 7,'portrait'),
          ('spring_goals', 8,'portrait'),
-         ('daily_planner',9,'landscape'),
+         ('drawing', 9,'portrait'),
          ('weekly_planner', 10,'landscape'),
          ('hospitality', 11,'portrait'), 
          ('movies', 12,'portrait'),
          ('bible_mem', 13,'portrait'),
-         ('drawing', 14,'portrait'),
+         ('daily_planner',14,'landscape'),
          ('bitcoin', 15,'portrait'),
          ('crypto_investing', 16,'portrait'),
          ('prodev', 17,'portrait'),
          ('projects', 18,'portrait'),
-         ('running', 19,'landscape'),
-         ('disc', 20,'portrait'),
+         ('disc', 19,'portrait'),
+         ('running', 20,'landscape'),
          ('misc_goals', 21,'portrait'),
          ('notes', 22,'portrait'),
          ('notes', 23,'portrait')]
@@ -59,15 +59,23 @@ while len(folio) < len(collation_pattern):
 
 index.append(folio)
 
-nup = 'pdfnup {left} {right} -o f{folio_number}s{sheet_number}.pdf'
+docs = []
+nup = 'pdfnup --rotateoversize true {left} {right} -o f{folio_number}s{sheet_number}.pdf'
 for i, folio in enumerate(index):
     order = [folio[n] for n in collation_pattern]
     pairs = []
     for n in range(int(len(collation_pattern)/2)):
         pairs.append((order[n*2+0], order[n*2+1]))
     
+    
     for j, pair in enumerate(pairs):
+        docs.append(f'f{i}s{j}.pdf')
         print(nup.format(left=pair[0],right=pair[1],folio_number=i,sheet_number=j))
+
+# Next create the final PDF compiled of all the above
+doc_string = ' '.join(docs)
+print(f'pdfunite {doc_string} journal.pdf')
+print('rm f*.pdf *_*.pdf')
 
 """
 
