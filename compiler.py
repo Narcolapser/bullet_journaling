@@ -33,6 +33,11 @@ pages = [('cover',0,'portrait'),
          ('notes', 22,'portrait'),
          ('notes', 23,'portrait')]
 
+pages = [('quarter_goals',0,'portrait'),
+         ('daily_planner',1,'landscape'),
+         ('weekly_planner',2,'landscape'),
+         ('hospitality', 3,'portrait'),
+
 for page in pages:
     print(f'Printing {page[0]}')
     r = requests.get(f'http://localhost:5000/{page[0]}')
