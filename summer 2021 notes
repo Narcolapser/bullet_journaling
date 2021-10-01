@@ -15,7 +15,16 @@ Pages:
     Thick as Theives - Done
     Pro Dev - Done
     House Projects - Done
-    New Website - good enough
+    New Website - Changed my mind.
     Swiming - Swimming
     Misc Objectives
     Notes to pad - Done
+
+
+Development:
+I want to skip using PDFNup. It's not working for me anyway. So what I need to do is read in a pdf into pypdf3, rotate it 90 degress, halve it in size, and lastly place it on a new page. So lets take those steps one at a time.
+
+1. Read in pdf from - check
+2. Shrink the pdf to half the size
+3. Rotate the pdf to it on half the page
+4. Place two items on one page.

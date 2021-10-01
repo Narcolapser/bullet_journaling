@@ -12,14 +12,14 @@ def root():
 #             'yearly_goals','video_games','board_games','camping','themes','archery','body_fat',
 #             'notes','cover']
     pages = ['daily_planner','weekly_planner','quarter_goals','hospitality','couples_bible_study','thick_as_thieves',
-        'prodev','projects','bible_mem','grilling','movies','swimming', 'website', 'misc_goals']
+        'prodev','projects','bible_mem','grilling','movies','swimming', 'website', 'misc_goals', 'notes']
     return render_template('index.html',pages=pages)
 
 @app.route('/quarter_goals')
 def quarter_goals():
     title = 'Summer 2021'
     subtitle = 'Season of Summer Vacation'
-    goals = ['Brew a ginger bug','Play 3 new video games (min 3 hours)','Have a guys night','Read "Thick as Thieves"','Buy a Stock','Fix Lucy\'s car','Invite someone over','Draw twice a week','Swim 4 laps in 3 minutes','Learn to plumb','Get media to be stable']
+    goals = ['Brew a ginger bug','Play 3 new video games (min 3 hours)','Have a guys night','Read "Thick as Thieves"','Buy a Stock','Fix Lucy\'s car','Invite someone over','Draw twice a week','Swim 4 laps in 3 minutes','Learn to plumb','Get media to be stable','Get PDF publishing of journal working']
     return render_template('goals.html',title=title,goals=goals,subtitle=subtitle)
 
 @app.route('/daily_planner/')
@@ -133,16 +133,26 @@ def grilling():
 
 @app.route('/swimming')
 def swimming():
-    date1 = datetime.strptime('2021-07-06', '%Y-%m-%d')
-    date2 = datetime.strptime('2021-07-09', '%Y-%m-%d')
+    date1 = datetime.strptime('2021-07-05', '%Y-%m-%d')
+    date2 = datetime.strptime('2021-07-06', '%Y-%m-%d')
+    date3 = datetime.strptime('2021-07-08', '%Y-%m-%d')
+    date4 = datetime.strptime('2021-07-09', '%Y-%m-%d')
     weeks = 14
     dates = []
     week_delta = delta(days=7)
     for i in range(weeks):
+#        dates.append(date1)
+#        dates.append(date2)
+#        dates.append(date3)
+#        dates.append(date4)
+#        date1 = date1 + week_delta
+#        date2 = date2 + week_delta
+#        date3 = date3 + week_delta
+#        date4 = date4 + week_delta
         dates.append(date1)
-        dates.append(date2)
+        dates.append(date1)
+#        dates.append(date1)
         date1 = date1 + week_delta
-        date2 = date2 + week_delta
     units = ['Heart Rate (BPM)','Distance (Laps)','Lap Time (s)']
     unit_steps = [range(100,180,4),[v for v in range(8,30)],range(30,112,4)]
     return render_template('graph.html',dates=dates,title='Swimming',units=units,unit_steps=unit_steps)
@@ -150,6 +160,10 @@ def swimming():
 @app.route('/website')
 def website():
     return render_template('icon_list.html',title='Coding: Personal website redesign',rows=14,img='www.png',height='50')
+
+@app.route('/notes')
+def notes():
+    return render_template('icon_list.html',title='Notes',rows=21,img='notebook.png',height='20')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port = 5000)
