@@ -17,6 +17,8 @@ p3 = PageObject.createBlankPage(None, 17*72, 11*72)
 p3.mergeScaledTranslatedPage(p1, 1, 0, 0)
 p3.mergeScaledTranslatedPage(p2, 1, 8.5*72, 0)
 
+p3.scaleTo(11*72,8.5*72)
+
 pdfw = PdfFileWriter()
 pdfw.addPage(p3)
 pdfw.write(open('out.pdf','wb'))
