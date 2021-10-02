@@ -30,15 +30,15 @@ def create_page(file1, file2, rot1=False, rot2=False):
 #        p2 = r2.getPage(0)
 
     outs = PageObject.createBlankPage(None, 17*72, 11*72)
-    outs.mergeRotatedScaledTranslatedPage(p1, 90 if rot1 else 0, 1, 0, 0)
-    outs.mergeRotatedScaledTranslatedPage(p2, 90 if rot2 else 0, 1, 8.5*72, 0)
+    outs.mergeScaledTranslatedPage(p1, 1, 0, 0)
+    outs.mergeScaledTranslatedPage(p2, 1, 8.5*72, 0)
     outs.scaleTo(11*72,8.5*72)
     outs.rotateCounterClockwise(90)
     return outs
 
 f1 = open('0_quarter_goals.pdf','rb')
-#f2 = open('3_hospitality.pdf','rb')
-f2 = open('1_daily_planner.pdf','rb')
+f2 = open('3_hospitality.pdf','rb')
+#f2 = open('1_daily_planner.pdf','rb')
 
 outs = create_page(f1, f2, False, True)
 
