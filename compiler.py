@@ -1,5 +1,7 @@
 from io import BytesIO
 import os
+from weasyprint import HTML, CSS
+import requests
 
 from PyPDF3 import PdfFileWriter, PdfFileReader
 from PyPDF3.pdf import PageObject
@@ -14,12 +16,6 @@ def merge_to_page(page1, page2):
     outs.rotateCounterClockwise(90)
     return outs
 
-#def create_page(file1, file2, rot1=False, rot2=False):
-#    r1 = PdfFileReader(f1)
-#    p1 = r1.getPage(0)
-
-#    r2 = PdfFileReader(f2)
-#    p2 = r2.getPage(0)
 def create_page(p1, p2, rot1=False, rot2=False):
     outs = PageObject.createBlankPage(None, 17*72, 11*72)
 
@@ -38,8 +34,7 @@ def create_page(p1, p2, rot1=False, rot2=False):
     return outs
 
 def build_folio(pages, padding=None):
-    if len(pages) > 12:
-        raise Exception(f'Cannot collate more than 12 pages, {len(pages)} were provided.')
+    assert(len(pages) > 12)
 
     collation_patterns = {4:[3,0,1,2], 8:[7,0,1,6,5,2,3,4], 12:[11,0,1,10,9,2,3,8,7,4,5,6]}
 
@@ -48,10 +43,11 @@ def build_folio(pages, padding=None):
         padding = ('blank', PageObject.createBlankPage(None, 8.5*72, 11*72), 'landscape')
 
     # pad out the folio till it is 4, 8, or 12 pages long.
-    #while len(pages)%4 != 0:
-    while len(pages) not in collation_patterns:
+    while len(pages) not in collation_patterns and len(pages) <= 12:
         pages.append(padding)
         print(len(pages))
+    
+    assert(len(pages) > 12)
 
     collated = [pages[n] for n in collation_patterns[len(pages)]]
     
@@ -93,22 +89,31 @@ def compile_journal(directory, pad_path=None, folio_size=8):
             index.addPage(page)
     index.write(open('out.pdf','wb'))
 
+
+pages = [('quarter_goals',0,'portrait'),
+         ('daily_planner',1,'landscape'),
+         ('weekly_planner', 2,'landscape'),
+         ('hospitality', 3,'portrait'),
+         ('couples_bible_study', 4,'portrait'),
+         ('bible_mem', 5,'portrait'),
+         ('movies', 6,'portrait'), 
+         ('drawing', 7,'portrait'),
+         ('grilling', 8,'portrait'),
+         ('prodev', 9,'portrait'), 
+         ('projects', 10,'portrait'),
+         ('thick_as_thieves', 11,'portrait'),
+         ('swimming', 12,'landscape'),
+         ('misc_goals', 13,'portrait'),
+         ('notes', 14,'portrait'),
+         ('notes', 15,'portrait'),]
+
+def print_journal(pages):
+    for page in pages:
+        print('Printing ./{1:0>2}_{0}.pdf'.format(page[0],page[1]))
+        r = requests.get(f'http://localhost:5000/{page[0]}')
+        outs = HTML(string=r.text).write_pdf('./{1:0>2}_{0}.pdf'.format(page[0],page[1]),stylesheets=[CSS(string='@page {size: ' + page[2] + '}')])
+
 if __name__ == '__main__':
+    print_journal(pages)
     compile_journal('./')
 
-#f2 = open('3_hospitality.pdf','rb')
-#f1 = open('0_quarter_goals.pdf','rb')
-
-#outs = create_page(f1, f2, False, False)
-#pdfw = PdfFileWriter()
-#pdfw.addPage(outs)
-#pdfw.write(open('out.pdf','wb'))
-
-
-#f1 = open('2_weekly_planner.pdf','rb')
-#f2 = open('1_daily_planner.pdf','rb')
-
-#outs = create_page(f1, f2, True, True)
-#pdfw = PdfFileWriter()
-#pdfw.addPage(outs)
-#pdfw.write(open('rot.pdf','wb'))

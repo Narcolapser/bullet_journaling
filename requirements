@@ -1,4 +1,4 @@
 weasyprint
 flask
 requests
-pdfnup3
+pypdf3
