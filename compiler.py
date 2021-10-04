@@ -34,7 +34,7 @@ def create_page(p1, p2, rot1=False, rot2=False):
     return outs
 
 def build_folio(pages, padding=None):
-    assert(len(pages) > 12)
+    assert(len(pages) <= 12)
 
     collation_patterns = {4:[3,0,1,2], 8:[7,0,1,6,5,2,3,4], 12:[11,0,1,10,9,2,3,8,7,4,5,6]}
 
@@ -47,7 +47,7 @@ def build_folio(pages, padding=None):
         pages.append(padding)
         print(len(pages))
     
-    assert(len(pages) > 12)
+    assert(len(pages) <= 12)
 
     collated = [pages[n] for n in collation_patterns[len(pages)]]
     
@@ -79,7 +79,7 @@ def compile_journal(directory, pad_path=None, folio_size=8):
             if len(pdfs) == 0:
                 break
         folios.append(folio)
-    print(folios)
+
     joined_folios = []
     for folio in folios:
         joined_folios.append(build_folio(folio))
