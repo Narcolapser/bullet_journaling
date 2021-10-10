@@ -138,6 +138,10 @@ def disc():
 def incognito():
     return render_template('icon_list.html',title='Go Incognito',rows=27,img='techlore.jpg',height='25')
 
+@app.route('/monthly_recap')
+def monthly_recap():
+    return render_template('icon_list_sections.html',title='Monthly Recap',rows = 10, img='notebook.png',height='20',
+                           sections=['October','November','December'])
 @app.route('/notes')
 def notes():
     return render_template('icon_list.html',title='Notes',rows=21,img='notebook.png',height='20')

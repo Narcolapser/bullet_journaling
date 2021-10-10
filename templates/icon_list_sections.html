@@ -1,0 +1,28 @@
+<html>
+<style>
+div {
+    background-image: url("static/backgrounds/{{background}}"); 
+    opacity: 0.3;
+    background-size: 100%;
+}
+img.bg_image {
+    opacity:0.3;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+}
+</style>
+<center><h1>{{ title | safe}}</h1></center>
+<img class="bg_image" src="/static/backgrounds/{{background}}"/>
+
+    {% for section in sections %}
+        <center><h2>{{section}}</h2></center>
+        {% for i in range(rows) %}
+            <img style="margin:  0; height:{{height}}px" src="/static/{{img}}"/>
+            <hr size="3px" width="100%" style="margin: 0 2 8 2;height:2px;border-width:0;color:black;background-color:black"/>
+        {% endfor %}
+    {% endfor %}
+
+</html>
