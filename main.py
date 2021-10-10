@@ -23,8 +23,9 @@ def root():
 def quarter_goals():
     title = 'Summer 2021'
     subtitle = 'Season of Privacy'
-    goals = ['Migrate off of gMail to ProtonMail','Migrate existing online services to an email proxy',
-        'Try 3 New Board Games','Try 3 new Video Games','Upgrade home WiFi','Clean up Bitwarden','Plan Weight Bench']
+    goals = ['Migrate off of gMail to ProtonMail','Migrate setup email proxy',
+        'Try 3 New Board Games','Try 3 new Video Games','Upgrade home WiFi','Clean up Bitwarden','Plan Weight Bench',
+        'Get FOSS plackards made for office', 'Shape website redesign project', 'Read "Becoming Invisible"']
     return render_template('goals.html',title=title,goals=goals,subtitle=subtitle)
 
 @app.route('/daily_planner/')
