@@ -59,7 +59,7 @@ def weekly_planner():
         date = date + week_delta
     return render_template('weekly_planner.html',season=season,activities=activities,weeks=dates)
 
-@app.route('/projects')
+@app.route('/house_projects')
 def house_projects():
     date = datetime.strptime('2021-10-16', '%Y-%m-%d')
     dates = []
@@ -78,11 +78,12 @@ def movies():
 
 @app.route('/couples_bible_study')
 def couples_bible_study():
-    return render_template('icon_list.html',title='Couple\'s Bible Study:\n The 10 Most Misunderstood Verses in the Bible',rows=10,img='bible.png',height='50')
+    return render_template('icon_list.html',title='Couple\'s Bible Study:</br> The 10 Most Misunderstood Verses in the Bible',rows=10,img='bible.png',height='50')
+
 
 @app.route('/reading')
-def thick_as_thieves():
-    return render_template('icon_list.html',title='Return of the Thief',rows=13,img='book.png',height='50',background='thick_as_thieves.jpg')
+def reading():
+    return render_template('icon_list.html',title='Return of the Thief',rows=24,img='book.png',height='25',background='return of the thief.jpeg')
     
 @app.route('/hospitality')
 def hospitality():
@@ -93,22 +94,34 @@ def misc_goals():
     return render_template('misc_goals.html')
 
 @app.route('/Running')
-def swimming():
-    date1 = datetime.strptime('2021-07-05', '%Y-%m-%d')
-    date2 = datetime.strptime('2021-07-06', '%Y-%m-%d')
-    date3 = datetime.strptime('2021-07-08', '%Y-%m-%d')
-    date4 = datetime.strptime('2021-07-09', '%Y-%m-%d')
+def Running():
+    date1 = datetime.strptime('2021-10-11', '%Y-%m-%d')
+    date2 = datetime.strptime('2021-10-14', '%Y-%m-%d')
     weeks = 12
     dates = []
     week_delta = delta(days=7)
     for i in range(weeks):
         dates.append(date1)
         dates.append(date1)
-#        dates.append(date1)
         date1 = date1 + week_delta
     units = ['BPM','Miles','Time']
-    unit_steps = [range(100,180,4),[v for v in range(8,30)],range(30,112,4)]
+    unit_steps = [range(100,180,4),[v/10.0 for v in range(15,35)],range(10,30)]
     return render_template('graph.html',dates=dates,title='Running',units=units,unit_steps=unit_steps)
+
+@app.route('/ringfit')
+def ringfit():
+    date1 = datetime.strptime('2021-10-13', '%Y-%m-%d')
+    date2 = datetime.strptime('2021-10-15', '%Y-%m-%d')
+    weeks = 12
+    dates = []
+    week_delta = delta(days=7)
+    for i in range(weeks):
+        dates.append(date1)
+        dates.append(date1)
+        date1 = date1 + week_delta
+    units = ['BPM','Distance','Calories']
+    unit_steps = [range(100,180,4),[v/10.0 for v in range(0,20)],range(10,30)]
+    return render_template('graph.html',dates=dates,title='Ring Fit',units=units,unit_steps=unit_steps)
 
 @app.route('/disc')
 def disc():
@@ -120,6 +133,10 @@ def disc():
         dates.append(date1)
         date1 = date1 + week_delta
     return render_template('disc.html',dates=dates)
+
+@app.route('/incognito')
+def incognito():
+    return render_template('icon_list.html',title='Go Incognito',rows=27,img='techlore.jpg',height='25')
 
 @app.route('/notes')
 def notes():
