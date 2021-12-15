@@ -1,23 +1,14 @@
+
+
 Pages that make me draw graphs. Like I did for weight training. What would be nice is to have it generate the grid automatically based on a starting and stopping value.
 
 Cute out lines to fill in.
 
 Fun little diagrams of the activity with dates and bubbles to fill in.
 
-Rows to fill in with what I did with included date.
-
-Grid of daily and weekly objectives
-
 Daily planner? Not sure if it matters since I have moved to a more relaxed set of things for the week and not specific thing for each night.
-
-"Season of" page
-
-Goals page
-
-Monthly recap page?
 
 Some how hexagons?
 
-I haven't gotten camping or archery in yet
 
-I need to make a cover page and a notes page yet.
+I should make a base method for getting the date range. I've got all these bits of repetitive code for getting sequences of dates. It would be nice to have a single method where I could define the start and end date and then you pass to it which days of the week you want.

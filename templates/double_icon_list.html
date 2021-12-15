@@ -1,0 +1,13 @@
+<center><h1>{{ title | safe}}</h1></center>
+<img class="bg_image" src="http://localhost:5000/static/backgrounds/{{background}}"/>
+
+    <table>
+        {% for i in range(rows) %}
+        <tr>
+            <td><img style="margin:  0; height:{{height}}px" src="http://localhost:5000/static/{{img}}"/></td>
+            <td><img style="margin:  0; height:{{height}}px" src="http://localhost:5000/static/{{img}}"/></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</html>

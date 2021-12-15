@@ -7,12 +7,6 @@ app = Flask(__name__)
 
 @app.route('/')
 def root():
-#    pages = ['daily_planner','weekly_planner','projects','prodev','drawing','spring_goals','movies',
-#             'disc','bitcoin','running','crypto_investing','bible_mem','hospitality','misc_goals',
-#             'yearly_goals','video_games','board_games','camping','themes','archery','body_fat',
-#             'notes','cover']
-#    pages = ['daily_planner','weekly_planner','quarter_goals','hospitality','couples_bible_study','thick_as_thieves',
-#        'prodev','projects','bible_mem','grilling','movies','swimming', 'website', 'misc_goals', 'notes']
     pages = []
     for rule in app.url_map.iter_rules():
         if "GET" in rule.methods:
@@ -23,9 +17,11 @@ def root():
 def quarter_goals():
     title = 'Summer 2021'
     subtitle = 'Season of Privacy'
-    goals = ['Migrate off of gMail to ProtonMail','Migrate setup email proxy',
+    goals = ['Migrate off of gMail to ProtonMail','Setup email proxying',
         'Try 3 New Board Games','Try 3 new Video Games','Upgrade home WiFi','Clean up Bitwarden','Plan Weight Bench',
-        'Get FOSS plackards made for office', 'Shape website redesign project', 'Read "Becoming Invisible"']
+        'Get FOSS plackards made for office', 'Shape website redesign project', 'Read "Becoming Invisible"',
+        'Setup Kodi','Finish Computer','Install Mushroom buttons in garage','Clean garage',
+        'Touchplate Lights in Homeassistant', 'Improve bullet journal software']
     return render_template('goals.html',title=title,goals=goals,subtitle=subtitle)
 
 @app.route('/daily_planner/')
@@ -42,13 +38,13 @@ def daily_planner():
             temp_month += day
             dc += 1
         days.append(dc)
-    activities = ['Update Journal','Spanish','Dishes','Exercise']
+    activities = ['Update Journal','Spanish','Dishes','Exercise','Bible']
     return render_template('daily_planner.html',season=season, months=months, days=days, activities=activities)
 
 @app.route('/weekly_planner')
 def weekly_planner():
     season = 'Summer 2021'
-    activities = ['Chore','House Project','Read News Letter','Men\'s Bible Study','Bible reading',
+    activities = ['Chore','Clean Desk','House Project','Disc','Running','Read News Letter','Men\'s Bible Study',
         'Couple\'s bible study','Games with Ben','Return of the thief']
     weeks = []
     date = datetime.strptime('2021-07-04', '%Y-%m-%d')
@@ -65,7 +61,7 @@ def house_projects():
     date = datetime.strptime('2021-10-16', '%Y-%m-%d')
     dates = []
     week_delta = delta(days=7)
-    weeks = 12
+    weeks = 11
     for week in range(weeks):
         dates.append(date)
         date = date + week_delta
@@ -84,7 +80,12 @@ def couples_bible_study():
 
 @app.route('/reading')
 def reading():
-    return render_template('icon_list.html',title='Return of the Thief',rows=24,img='book.png',height='25',background='return of the thief.jpeg')
+    return render_template('icon_list.html',title='Return of the Thief:</br>The Book of Pheris, Vol I',rows=8,img='book.png',height='25',background='return of the thief.jpeg')
+
+
+@app.route('/reading2')
+def reading2():
+    return render_template('icon_list.html',title='Return of the Thief:</br>The Book of Pheris, Vol II',rows=14,img='book.png',height='25',background='return of the thief.jpeg')
     
 @app.route('/hospitality')
 def hospitality():
@@ -103,8 +104,9 @@ def Running():
     week_delta = delta(days=7)
     for i in range(weeks):
         dates.append(date1)
-        dates.append(date1)
+        dates.append(date2)
         date1 = date1 + week_delta
+        date2 = date2 + week_delta
     units = ['BPM','Miles','Time']
     unit_steps = [range(100,180,4),[v/10.0 for v in range(15,35)],range(10,30)]
     return render_template('graph.html',dates=dates,title='Running',units=units,unit_steps=unit_steps)
@@ -118,8 +120,9 @@ def ringfit():
     week_delta = delta(days=7)
     for i in range(weeks):
         dates.append(date1)
-        dates.append(date1)
+        dates.append(date2)
         date1 = date1 + week_delta
+        date2 = date2 + week_delta
     units = ['BPM','Distance','Calories']
     unit_steps = [range(100,180,4),[v/10.0 for v in range(0,20)],range(10,30)]
     return render_template('graph.html',dates=dates,title='Ring Fit',units=units,unit_steps=unit_steps)
@@ -137,11 +140,33 @@ def disc():
 
 @app.route('/incognito')
 def incognito():
-    return render_template('icon_list.html',title='Go Incognito',rows=27,img='techlore.jpg',height='25')
+    rows = 14
+    cols = 2
+    title = 'Go Incognito Lessons'
+    picture = 'techlore.jpg'
+    row_titles = [f'{i*2+1} & {i*2+2}' for i in range(rows-1)] + ['27']
+    return render_template('picture_grid.html',rows=rows, cols=cols, title=title, picture=picture, row_titles=row_titles, pic_width=15)
+    
+@app.route('/drawing')
+def drawing():
+    date = datetime.strptime('2021-07-04', '%Y-%m-%d')
+    dates = []
+    week_delta = delta(days=7)
+    weeks = 14
+    for week in range(weeks):
+        dates.append(date)
+        date = date + week_delta
+
+    row_titles = [date.strftime('%b %d') for date in dates]
+    rows = 14
+    cols = 2
+    title = "Drawing"
+    picture = 'drawing.png'
+    return render_template('picture_grid.html',rows=rows, cols=cols, title=title, picture=picture, row_titles=row_titles, pic_width=20)
 
 @app.route('/monthly_recap')
 def monthly_recap():
-    return render_template('icon_list_sections.html',title='Monthly Recap',rows = 10, img='notebook.png',height='20',
+    return render_template('icon_list_sections.html',title='Monthly Recap',rows = 7, img='notebook.png',height='12',
                            sections=['October','November','December'])
 @app.route('/notes')
 def notes():

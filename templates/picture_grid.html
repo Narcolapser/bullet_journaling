@@ -8,9 +8,9 @@
             {% endif %}
             {% for j in range(cols) %}
                 {% if pic_width is defined %}
-                    <td style="border: 1px solid black;"><img src="/static/{{picture}}" style="object-fit: cover; width:{{pic_width}}%"/></td>
+                    <td style="border: 1px solid black;"><img src="http://localhost:5000/static/{{picture}}" style="object-fit: cover; width:{{pic_width}}%"/></td>
                 {% else %}
-                    <td style="border: 1px solid black;"><center><img src="/static/{{picture}}" style="object-fit: cover; width:75%; opacity: 0.5"/></center></td>
+                    <td style="border: 1px solid black;"><center><img src="http://localhost:5000/static/{{picture}}" style="object-fit: cover; width:{{pic_width}}%"/></center></td>
                 {% endif %}
             {% endfor %}
         </tr>
