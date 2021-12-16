@@ -5,6 +5,33 @@ from datetime import datetime, timedelta as delta
 
 app = Flask(__name__)
 
+season = "Winter 2022"
+
+# The first sunday of the quarter
+sdate = datetime.strptime('2022-01-02', '%Y-%m-%d')
+
+# The last saturday of the quarter
+fdate = datetime.strptime('2022-03-26', '%Y-%m-%d')
+
+def get_multi_date_sequence(days_of_week):
+    dow_list = [sdate + delta(days=dow) for dow in days_of_week]
+    week_delta = delta(days=7)
+    dates = []
+    while dow_list[0] <= fdate:
+        for i,date in enumerate(dow_list):
+            dates.append(date)
+            dow_list[i] = date + week_delta
+    return dates
+
+def get_date_sequence(dow):
+    date = sdate + delta(days=dow)
+    week_delta = delta(days=7)
+    dates = []
+    while date <= fdate:
+        dates.append(date)
+        date = date + week_delta
+    return dates
+
 @app.route('/')
 def root():
     pages = []
@@ -26,7 +53,6 @@ def quarter_goals():
 
 @app.route('/daily_planner/')
 def daily_planner():
-    season = "Fall 2021"
     ms = '%Y-%m'
     months = [datetime.strptime('2021-10-10', ms+'-%d'),datetime.strptime('2021-11', ms), datetime.strptime('2021-12', ms)]
     days = []
@@ -43,17 +69,10 @@ def daily_planner():
 
 @app.route('/weekly_planner')
 def weekly_planner():
-    season = 'Summer 2021'
     activities = ['Chore','Clean Desk','House Project','Disc','Running','Read News Letter','Men\'s Bible Study',
         'Couple\'s bible study','Games with Ben','Return of the thief']
     weeks = []
-    date = datetime.strptime('2021-07-04', '%Y-%m-%d')
-    week_delta = delta(days=7)
-    weeks = 14
-    dates = []
-    for week in range(weeks):
-        dates.append(date)
-        date = date + week_delta
+    dates = get_date_sequence(0)
     return render_template('weekly_planner.html',season=season,activities=activities,weeks=dates)
 
 @app.route('/house_projects')
@@ -97,16 +116,17 @@ def misc_goals():
 
 @app.route('/Running')
 def Running():
-    date1 = datetime.strptime('2021-10-11', '%Y-%m-%d')
-    date2 = datetime.strptime('2021-10-14', '%Y-%m-%d')
-    weeks = 12
-    dates = []
-    week_delta = delta(days=7)
-    for i in range(weeks):
-        dates.append(date1)
-        dates.append(date2)
-        date1 = date1 + week_delta
-        date2 = date2 + week_delta
+#    date1 = datetime.strptime('2021-10-11', '%Y-%m-%d')
+#    date2 = datetime.strptime('2021-10-14', '%Y-%m-%d')
+#    weeks = 12
+#    dates = []
+#    week_delta = delta(days=7)
+#    for i in range(weeks):
+#        dates.append(date1)
+#        dates.append(date2)
+#        date1 = date1 + week_delta
+#        date2 = date2 + week_delta
+    dates = get_multi_date_sequence([1,3])
     units = ['BPM','Miles','Time']
     unit_steps = [range(100,180,4),[v/10.0 for v in range(15,35)],range(10,30)]
     return render_template('graph.html',dates=dates,title='Running',units=units,unit_steps=unit_steps)
