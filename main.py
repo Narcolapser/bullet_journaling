@@ -53,8 +53,10 @@ def quarter_goals():
 
 @app.route('/daily_planner/')
 def daily_planner():
+    # We later strip off the date and use just the month, so we just need to know that we got to the next month with
+    # these sequence of dates not that we got to the first of said month. 
+    months = [sdate+delta(days=0),sdate+delta(days=31),sdate+delta(days=62)]
     ms = '%Y-%m'
-    months = [datetime.strptime('2021-10-10', ms+'-%d'),datetime.strptime('2021-11', ms), datetime.strptime('2021-12', ms)]
     days = []
     day = delta(days=1)
     for month in months:
@@ -77,14 +79,7 @@ def weekly_planner():
 
 @app.route('/house_projects')
 def house_projects():
-    date = datetime.strptime('2021-10-16', '%Y-%m-%d')
-    dates = []
-    week_delta = delta(days=7)
-    weeks = 11
-    for week in range(weeks):
-        dates.append(date)
-        date = date + week_delta
-    return render_template('weekly.html',weeks=dates, title='House Projects')
+    return render_template('weekly.html',weeks=get_date_sequence(6), title='House Projects')
 
 
 @app.route('/movies')
@@ -116,46 +111,21 @@ def misc_goals():
 
 @app.route('/Running')
 def Running():
-#    date1 = datetime.strptime('2021-10-11', '%Y-%m-%d')
-#    date2 = datetime.strptime('2021-10-14', '%Y-%m-%d')
-#    weeks = 12
-#    dates = []
-#    week_delta = delta(days=7)
-#    for i in range(weeks):
-#        dates.append(date1)
-#        dates.append(date2)
-#        date1 = date1 + week_delta
-#        date2 = date2 + week_delta
-    dates = get_multi_date_sequence([1,3])
+    dates = get_multi_date_sequence([1,4])
     units = ['BPM','Miles','Time']
     unit_steps = [range(100,180,4),[v/10.0 for v in range(15,35)],range(10,30)]
     return render_template('graph.html',dates=dates,title='Running',units=units,unit_steps=unit_steps)
 
 @app.route('/ringfit')
 def ringfit():
-    date1 = datetime.strptime('2021-10-13', '%Y-%m-%d')
-    date2 = datetime.strptime('2021-10-15', '%Y-%m-%d')
-    weeks = 12
-    dates = []
-    week_delta = delta(days=7)
-    for i in range(weeks):
-        dates.append(date1)
-        dates.append(date2)
-        date1 = date1 + week_delta
-        date2 = date2 + week_delta
+    dates = get_multi_date_sequence([3,5])
     units = ['BPM','Distance','Calories']
     unit_steps = [range(100,180,4),[v/10.0 for v in range(0,20)],range(10,30)]
     return render_template('graph.html',dates=dates,title='Ring Fit',units=units,unit_steps=unit_steps)
 
 @app.route('/disc')
 def disc():
-    date1 = datetime.strptime('2021-10-12', '%Y-%m-%d')
-    weeks = 12
-    dates = []
-    week_delta = delta(days=7)
-    for i in range(weeks):
-        dates.append(date1)
-        date1 = date1 + week_delta
+    dates = get_date_sequence(2)
     return render_template('disc.html',dates=dates)
 
 @app.route('/incognito')
@@ -169,16 +139,10 @@ def incognito():
     
 @app.route('/drawing')
 def drawing():
-    date = datetime.strptime('2021-07-04', '%Y-%m-%d')
-    dates = []
-    week_delta = delta(days=7)
-    weeks = 14
-    for week in range(weeks):
-        dates.append(date)
-        date = date + week_delta
+    dates = get_date_sequence(0)
 
     row_titles = [date.strftime('%b %d') for date in dates]
-    rows = 14
+    rows = len(row_titles)
     cols = 2
     title = "Drawing"
     picture = 'drawing.png'

@@ -1,7 +1,3 @@
-
-
-Pages that make me draw graphs. Like I did for weight training. What would be nice is to have it generate the grid automatically based on a starting and stopping value.
-
 Cute out lines to fill in.
 
 Fun little diagrams of the activity with dates and bubbles to fill in.
@@ -10,5 +6,4 @@ Daily planner? Not sure if it matters since I have moved to a more relaxed set o
 
 Some how hexagons?
 
-
-I should make a base method for getting the date range. I've got all these bits of repetitive code for getting sequences of dates. It would be nice to have a single method where I could define the start and end date and then you pass to it which days of the week you want.
+I need to change the model for how I do this. Right now I define each route in code, but several of them have become very simple, like single line, as I abstract out things like date sequences. I'd like to shift to a data driven approach, perhaps with yaml. But I think I'll wait till next quarter to attempt such. I'd like to see how hard my code is to read when it becomes as succinct as it will be with all these one liners. 
