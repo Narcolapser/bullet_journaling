@@ -142,7 +142,7 @@ def arms():
 @app.route('/legs')
 def legs():
     #dates = get_multi_date_sequence([3,5])
-        dates = get_date_sequence(THURSDAY)
+    dates = get_date_sequence(THURSDAY)
     units = ['Glute','Goblet','Carry','Lift','Crunch']
     unit_steps = [range(11,31),range(11,31),range(31,91),range(11,31),range(11,31)]
     return render_template('graph.html',dates=dates,title='Weight Lifting: Legs',units=units,unit_steps=unit_steps)
