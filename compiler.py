@@ -97,20 +97,21 @@ pages = [('quarter_goals',0,'portrait'),
          ('hospitality', 4,'portrait'),
          ('couples_bible_study', 5,'portrait'),
          ('movies', 6,'portrait'),
-         ('reading', 7, 'portrait'),
-         ('reading2', 8, 'portrait'),
-         ('incognito', 9, 'portrait'),
-         ('house_projects', 10,'portrait'),
-         ('Running', 11,'landscape'),
-         ('disc', 12,'landscape'),
-         ('ringfit', 13,'landscape'),
-         ('misc_goals', 14,'portrait'),
+         ('house_projects', 7, 'portrait'),
+         ('reasonforgod', 8, 'portrait'),
+         ('queensthief', 9, 'portrait'),
+         ('microservices', 10,'portrait'),
+         ('misc_goals', 11,'portrait'),
+         ('ringfit', 12,'landscape'),
+         ('arms', 13,'landscape'),
+         ('legs', 14,'landscape'),
          ('notes', 15,'portrait'),]
 
 def print_journal(pages):
     for page in pages:
-        print('Printing ./{1:0>2}_{0}.pdf'.format(page[0],page[1]))
+        print('Printing ./{1:0>2}_{0}.pdf'.format(page[0],page[1]), end='...')
         r = requests.get(f'http://localhost:5000/{page[0]}')
+        print(r.status_code)
         outs = HTML(string=r.text).write_pdf('./{1:0>2}_{0}.pdf'.format(page[0],page[1]),stylesheets=[CSS(string='@page {size: ' + page[2] + '}')])
 
 if __name__ == '__main__':

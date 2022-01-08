@@ -13,6 +13,15 @@ sdate = datetime.strptime('2022-01-02', '%Y-%m-%d')
 # The last saturday of the quarter
 fdate = datetime.strptime('2022-03-26', '%Y-%m-%d')
 
+
+SUNDAY = 0
+MONDAY = 1
+TUESDAY = 2
+WEDNESDAY = 3
+THURSDAY = 4
+FRIDAY = 5
+SATURDAY = 6
+
 def get_multi_date_sequence(days_of_week):
     dow_list = [sdate + delta(days=dow) for dow in days_of_week]
     week_delta = delta(days=7)
@@ -24,7 +33,7 @@ def get_multi_date_sequence(days_of_week):
     return dates
 
 def get_date_sequence(dow):
-    date = sdate + delta(days=dow)
+    date = sdate + delta(days=SATURDAY)
     week_delta = delta(days=7)
     dates = []
     while date <= fdate:
@@ -42,14 +51,14 @@ def root():
 
 @app.route('/quarter_goals')
 def quarter_goals():
-    title = 'Summer 2021'
-    subtitle = 'Season of Privacy'
-    goals = ['Migrate off of gMail to ProtonMail','Setup email proxying',
-        'Try 3 New Board Games','Try 3 new Video Games','Upgrade home WiFi','Clean up Bitwarden','Plan Weight Bench',
-        'Get FOSS plackards made for office', 'Shape website redesign project', 'Read "Becoming Invisible"',
-        'Setup Kodi','Finish Computer','Install Mushroom buttons in garage','Clean garage',
-        'Touchplate Lights in Homeassistant', 'Improve bullet journal software']
-    return render_template('goals.html',title=title,goals=goals,subtitle=subtitle)
+    subtitle = 'Season of Automation'
+    goals = ['Budget Automations - Walmart', ' Budget Automations - Ace', 'Budget Automations - Amazon',
+        'Budget Automations - Server for scrapers', 'Smartify all touchplate lights',
+        'Get Home Assistant usable and Dependable for Megan', 'Smartify Garage Doors', 'Setup 433mhz network',
+        'Thermometers in various rooms', 'Purchase and setup 3D printer', 'Read Theology Book', 'Beat Ringfit',
+        'Improve bullet journal software','Re-organize desk','Fix Basement lights', 'Upgrade home WiFi', 
+        'Wire new outlet for sump pump']
+    return render_template('goals.html',title=season,goals=goals,subtitle=subtitle)
 
 @app.route('/daily_planner/')
 def daily_planner():
@@ -66,92 +75,78 @@ def daily_planner():
             temp_month += day
             dc += 1
         days.append(dc)
-    activities = ['Update Journal','Spanish','Dishes','Exercise','Bible']
+    activities = ['Update Journal', 'Dishes','Exercise','Bible']
     return render_template('daily_planner.html',season=season, months=months, days=days, activities=activities)
 
 @app.route('/weekly_planner')
 def weekly_planner():
-    activities = ['Chore','Clean Desk','House Project','Disc','Running','Read News Letter','Men\'s Bible Study',
-        'Couple\'s bible study','Games with Ben','Return of the thief']
+    activities = ['Chore','Clean Desk','House Project','Read News Letter','Men\'s Bible Study',
+        'Couple\'s bible study','Games with Ben','Return of the thief','The Reason for God','Building Microservices',
+        'Lucy Time']
     weeks = []
-    dates = get_date_sequence(0)
+    dates = get_date_sequence(SUNDAY)
     return render_template('weekly_planner.html',season=season,activities=activities,weeks=dates)
 
-@app.route('/house_projects')
-def house_projects():
-    return render_template('weekly.html',weeks=get_date_sequence(6), title='House Projects')
+@app.route('/monthly_recap')
+def monthly_recap():
+    return render_template('icon_list_sections.html',title='Monthly Recap',rows = 7, img='notebook.png',height='12',
+                           sections=['January','February','March'])
 
-
-@app.route('/movies')
-def movies():
-    return render_template('icon_list.html',title='Movies',rows=12,img='movie_tape.png',height='50')
-
-
-@app.route('/couples_bible_study')
-def couples_bible_study():
-    return render_template('icon_list.html',title='Couple\'s Bible Study:</br> The 10 Most Misunderstood Verses in the Bible',rows=10,img='bible.png',height='50')
-
-
-@app.route('/reading')
-def reading():
-    return render_template('icon_list.html',title='Return of the Thief:</br>The Book of Pheris, Vol I',rows=8,img='book.png',height='25',background='return of the thief.jpeg')
-
-
-@app.route('/reading2')
-def reading2():
-    return render_template('icon_list.html',title='Return of the Thief:</br>The Book of Pheris, Vol II',rows=14,img='book.png',height='25',background='return of the thief.jpeg')
-    
 @app.route('/hospitality')
 def hospitality():
     return render_template('hospitality.html')
+
+@app.route('/couples_bible_study')
+def couples_bible_study():
+    return render_template('weekly.html',weeks=get_date_sequence(SATURDAY), title='Couple\'s Bible Study')
+
+@app.route('/movies')
+def movies():
+    return render_template('weekly.html',weeks=get_date_sequence(SUNDAY), title='Movies')
+
+@app.route('/house_projects')
+def house_projects():
+    return render_template('weekly.html',weeks=get_date_sequence(SATURDAY), title='House Projects')
+
+@app.route('/reasonforgod')
+def reading1():
+    return render_template('icon_list.html',title='Return of the Thief:</br>The Book of Pheris, Vol II',rows=14,img='book.png',height='25',background='return of the thief.jpeg')
+
+@app.route('/queensthief')
+def reading2():
+    return render_template('icon_list.html',title='The Reason For God',rows=14,img='book.png',height='25',background='reason_for_God.jpg')
+    
+@app.route('/microservices')
+def reading3():
+    return render_template('icon_list.html',title='Building Microservices',rows=16,img='book.png',height='23',background='building_microservices.jpg')
 
 @app.route('/misc_goals')
 def misc_goals():
     return render_template('misc_goals.html')
 
-@app.route('/Running')
-def Running():
-    dates = get_multi_date_sequence([1,4])
-    units = ['BPM','Miles','Time']
-    unit_steps = [range(100,180,4),[v/10.0 for v in range(15,35)],range(10,30)]
-    return render_template('graph.html',dates=dates,title='Running',units=units,unit_steps=unit_steps)
-
 @app.route('/ringfit')
 def ringfit():
     dates = get_multi_date_sequence([3,5])
-    units = ['BPM','Distance','Calories']
-    unit_steps = [range(100,180,4),[v/10.0 for v in range(0,20)],range(10,30)]
+    units = ['BPM','Time','Calories']
+    unit_steps = [range(70,150,4),range(5,25),range(20,80,3)]
     return render_template('graph.html',dates=dates,title='Ring Fit',units=units,unit_steps=unit_steps)
 
-@app.route('/disc')
-def disc():
-    dates = get_date_sequence(2)
-    return render_template('disc.html',dates=dates)
+@app.route('/arms')
+def arms():
+    #dates = get_multi_date_sequence([3,5])
+    dates = get_date_sequence(TUESDAY)
+    units = ['Press','Angel','Curl','Tricep','Row']
+    unit_steps = [range(11,31),range(11,31),range(11,31),range(11,31),range(11,31)]
+    return render_template('graph.html',dates=dates,title='Weight Lifting: Arms',units=units,unit_steps=unit_steps)
 
-@app.route('/incognito')
-def incognito():
-    rows = 14
-    cols = 2
-    title = 'Go Incognito Lessons'
-    picture = 'techlore.jpg'
-    row_titles = [f'{i*2+1} & {i*2+2}' for i in range(rows-1)] + ['27']
-    return render_template('picture_grid.html',rows=rows, cols=cols, title=title, picture=picture, row_titles=row_titles, pic_width=15)
-    
-@app.route('/drawing')
-def drawing():
-    dates = get_date_sequence(0)
+@app.route('/legs')
+def legs():
+    #dates = get_multi_date_sequence([3,5])
+        dates = get_date_sequence(THURSDAY)
+    units = ['Glute','Goblet','Carry','Lift','Crunch']
+    unit_steps = [range(11,31),range(11,31),range(31,91),range(11,31),range(11,31)]
+    return render_template('graph.html',dates=dates,title='Weight Lifting: Legs',units=units,unit_steps=unit_steps)
 
-    row_titles = [date.strftime('%b %d') for date in dates]
-    rows = len(row_titles)
-    cols = 2
-    title = "Drawing"
-    picture = 'drawing.png'
-    return render_template('picture_grid.html',rows=rows, cols=cols, title=title, picture=picture, row_titles=row_titles, pic_width=20)
-
-@app.route('/monthly_recap')
-def monthly_recap():
-    return render_template('icon_list_sections.html',title='Monthly Recap',rows = 7, img='notebook.png',height='12',
-                           sections=['October','November','December'])
 @app.route('/notes')
 def notes():
     return render_template('icon_list.html',title='Notes',rows=21,img='notebook.png',height='20')
