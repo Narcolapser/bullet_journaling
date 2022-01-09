@@ -9,3 +9,5 @@ Some how hexagons?
 I need to change the model for how I do this. Right now I define each route in code, but several of them have become very simple, like single line, as I abstract out things like date sequences. I'd like to shift to a data driven approach, perhaps with yaml. But I think I'll wait till next quarter to attempt such. I'd like to see how hard my code is to read when it becomes as succinct as it will be with all these one liners. 
 
 Add page numbers. No idea how I will do that but it would be really nice. 
+
+
