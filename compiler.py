@@ -10,16 +10,19 @@ from fpdf import FPDF
 
 
 class NumberPDF(FPDF):
-    # Overload Header
-    def header(self):
-        pass
+    def __init__(self, lpage, rpage):
+        super(NumberPDF, self).__init__()
+        self.lpage = lpage
+        self.rpage = rpage
 
     # Overload Footer
     def footer(self):
         self.set_y(-15)
         self.set_font('Arial', 'I', 8)
-        self.cell(129, 10, "10", 1, 0, 'L')
-        self.cell(129, 10, "22", 1, 0, 'R')
+        if self.lpage:
+            self.cell(129, 10, str(self.lpage), 0, 0, 'L')
+        if self.rpage:
+            self.cell(129, 10, str(self.rpage), 0, 0, 'R')
 
 tmp_file = '/tmp/rotpdf.pdf'
 
@@ -31,7 +34,7 @@ def merge_to_page(page1, page2):
     outs.rotateCounterClockwise(90)
     return outs
 
-def create_page(p1, p2, rot1=False, rot2=False):
+def create_page(p1, p2, rot1=False, rot2=False, lpage_num=None, rpage_num=None):
     outs = PageObject.createBlankPage(None, 17*72, 11*72)
 
     if rot1:
@@ -47,7 +50,7 @@ def create_page(p1, p2, rot1=False, rot2=False):
     outs.scaleTo(11*72,8.5*72)
     outs.rotateCounterClockwise(90)
     
-    temp = NumberPDF()
+    temp = NumberPDF(lpage_num, rpage_num)
     temp.add_page(orientation='L')
     temp.output('/tmp/pntemp.pdf')
     num_page = PdfFileReader('/tmp/pntemp.pdf').getPage(0)
@@ -82,11 +85,16 @@ def build_folio(pages, padding=None, starting_page_number=None):
         page2 = collated[n*2+1]
         rot2 = page2['/MediaBox'][2] > page2['/MediaBox'][3]
 
-        joined.append(create_page(page1, page2, rot1, rot2))
+        if starting_page_number:
+            lpage = starting_page_number + collation_patterns[len(pages)][n*2+0]
+            rpage = starting_page_number + collation_patterns[len(pages)][n*2+1]
+            joined.append(create_page(page1, page2, rot1, rot2, lpage, rpage))
+        else:
+            joined.append(create_page(page1, page2, rot1, rot2))
 
     return joined
 
-def compile_journal(directory, pad_path=None, folio_size=8):
+def compile_journal(directory, pad_path=None, folio_size=8, starting_page_num=1):
     pdfs = [f for f in os.listdir(directory) if '.pdf' in f and f[0:2].isdigit()]
     pdfs.sort()
     
@@ -103,8 +111,8 @@ def compile_journal(directory, pad_path=None, folio_size=8):
         folios.append(folio)
 
     joined_folios = []
-    for folio in folios:
-        joined_folios.append(build_folio(folio))
+    for i,folio in enumerate(folios):
+        joined_folios.append(build_folio(folio,None,i*len(folio)+starting_page_num))
     index = PdfFileWriter()
     for folio in joined_folios:
         for page in folio:
