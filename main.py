@@ -5,13 +5,14 @@ from datetime import datetime, timedelta as delta
 
 app = Flask(__name__)
 
-season = "Winter 2022"
+year = '2022'
+season = f'Spring {year}'
 
 # The first sunday of the quarter
-sdate = datetime.strptime('2022-01-02', '%Y-%m-%d')
+sdate = datetime.strptime('2022-04-03', '%Y-%m-%d')
 
 # The last saturday of the quarter
-fdate = datetime.strptime('2022-03-26', '%Y-%m-%d')
+fdate = datetime.strptime('2022-07-02', '%Y-%m-%d')
 
 
 SUNDAY = 0
@@ -33,7 +34,7 @@ def get_multi_date_sequence(days_of_week):
     return dates
 
 def get_date_sequence(dow):
-    date = sdate + delta(days=SATURDAY)
+    date = sdate + delta(days=dow)
     week_delta = delta(days=7)
     dates = []
     while date <= fdate:
@@ -49,16 +50,92 @@ def root():
             pages.append(rule.endpoint)
     return render_template('index.html',pages=pages)
 
+# Annual pages
+@app.route('/title_page')
+def title_page():
+    return render_template('cover.html')
+
+@app.route('/annual_goals')
+def annual_goals():
+    goals = [goal.replace('\n','') for goal in '''
+* Learn Ham Radio
+* Camp More
+* Visit as many of the 19 parks Megan has listed as possible.
+* Read 8 Books
+* Print a Gun
+* Finish Computer
+* Read "Crossing on Time"
+* Read CS books on my self that I never got around to
+* Setup Server in Basement
+* Create a game in unreal engine
+* Demo a game on switch.
+'''.split('* ')[1:]]
+    return render_template('goals.html',title='Annual Goals',goals=goals,subtitle='')
+
+@app.route('/themes_page')
+def themes_page():
+    return render_template('icon_list.html',title='Themes',rows=4,img='rainbow.png',height='120')
+
+@app.route('/camping')
+def camping():
+    return render_template('icon_list.html',title='Camping',rows=6,img='tent.png',height='60')
+
+@app.route('/parks')
+def parks():
+    return render_template('icon_list.html',title='Parks',rows=20,img='tree and table.png',height='30')
+
+@app.route('/body')
+def body():
+    months = ['April','May','June','July','August','September','November','December','January','February','March']
+    return render_template('body_fat.html',year=year,months=months)
+
+@app.route('/new_games')
+def vodogams():
+    return render_template('icon_list.html',title='New Video Games',rows=12,img='d20.png',height='40')
+
+@app.route('/events')
+def events():
+    return render_template('icon_list.html',title='Notable Events',rows=12,img='calendar.jpg',height='40')
+
+# Quarter Pages
 @app.route('/quarter_goals')
 def quarter_goals():
-    subtitle = 'Season of Automation'
-    goals = ['Budget Automations - Walmart', ' Budget Automations - Ace', 'Budget Automations - Amazon',
-        'Budget Automations - Server for scrapers', 'Smartify all touchplate lights',
-        'Get Home Assistant usable and Dependable for Megan', 'Smartify Garage Doors', 'Setup 433mhz network',
-        'Thermometers in various rooms', 'Purchase and setup 3D printer', 'Read Theology Book', 'Beat Ringfit',
-        'Improve bullet journal software','Re-organize desk','Fix Basement lights', 'Upgrade home WiFi', 
-        'Wire new outlet for sump pump']
+    subtitle = 'Season of Automation v2'
+    goals = [goal.title().replace('\n','') for goal in '''
+* Organize Desk
+* Recreate Personal Website
+* Improve Bullet Journal Software
+* Wire new outlet for sump pump
+* Cover Sump
+* Design Refined Computer Case
+* Get Lucy's Wine from Joe
+* Replace light in bathroom
+* Learn to Plumb: Lucy's Mud Kitchen
+* Learn to Plumb: Shower Fixtures
+* Learn to Plumb: Valve to mainfloor bath
+'''.split('* ')[1:]]
     return render_template('goals.html',title=season,goals=goals,subtitle=subtitle)
+
+@app.route('/auto')
+def auto():
+    subtitle = 'Automation Task'
+    goals = [goal.title().replace('\n','') for goal in '''
+* Tracking Electricity Usage
+* Tracking Water Usage
+* Tracking Gas Usage
+* Garage Door - Position
+* Garage Door - Open
+* Setup 433mhz Sensors
+* Wireless Switch - Mainfloor Vanity
+* Wireless Switch - Upstairs Vanity
+* Pantry Lights
+* 3D Printer
+* TV
+* Button for Lucy to control her room's lights
+* Door+Window sensors
+* Thermometers Scattered Around
+'''.split('* ')[1:]]
+    return render_template('goals.html',title=subtitle,goals=goals)
 
 @app.route('/daily_planner/')
 def daily_planner():
@@ -75,22 +152,19 @@ def daily_planner():
             temp_month += day
             dc += 1
         days.append(dc)
-    activities = ['Update Journal', 'Dishes','Exercise','Bible']
+    activities = ['Update Journal', 'Spanish', 'Dishes','Exercise','Bible']
     return render_template('daily_planner.html',season=season, months=months, days=days, activities=activities)
 
 @app.route('/weekly_planner')
 def weekly_planner():
-    activities = ['Chore','Clean Desk','House Project','Read News Letter','Men\'s Bible Study',
-        'Couple\'s bible study','Games with Ben','Return of the thief','The Reason for God','Building Microservices',
-        'Lucy Time']
-    weeks = []
+    activities = ['Chore','Clean Desks','House Project','Read News Letter','Games with Ben']
     dates = get_date_sequence(SUNDAY)
     return render_template('weekly_planner.html',season=season,activities=activities,weeks=dates)
 
 @app.route('/monthly_recap')
 def monthly_recap():
     return render_template('icon_list_sections.html',title='Monthly Recap',rows = 7, img='notebook.png',height='12',
-                           sections=['January','February','March'])
+                           sections=['April','May','June'])
 
 @app.route('/hospitality')
 def hospitality():
@@ -107,29 +181,80 @@ def movies():
 @app.route('/house_projects')
 def house_projects():
     return render_template('weekly.html',weeks=get_date_sequence(SATURDAY), title='House Projects')
-
-@app.route('/reasonforgod')
-def reading1():
-    return render_template('icon_list.html',title='Return of the Thief:</br>The Book of Pheris, Vol II',rows=14,img='book.png',height='25',background='return of the thief.jpeg')
-
-@app.route('/queensthief')
-def reading2():
-    return render_template('icon_list.html',title='The Reason For God',rows=14,img='book.png',height='25',background='reason_for_God.jpg')
     
 @app.route('/microservices')
 def reading3():
     return render_template('icon_list.html',title='Building Microservices',rows=16,img='book.png',height='23',background='building_microservices.jpg')
 
-@app.route('/misc_goals')
-def misc_goals():
-    return render_template('misc_goals.html')
+@app.route('/cc')
+def cc():
+    return render_template('icon_list.html',title='Case for Christ',rows=15,img='book.png',height='23',background='caseforchrist.jpg')
 
-@app.route('/ringfit')
-def ringfit():
-    dates = get_multi_date_sequence([3,5])
-    units = ['BPM','Time','Calories']
-    unit_steps = [range(70,150,4),range(5,25),range(20,80,3)]
-    return render_template('graph.html',dates=dates,title='Ring Fit',units=units,unit_steps=unit_steps)
+@app.route('/celebrations')
+def celebrations():
+    return render_template('icon_list.html',title='Celebrations!',rows=21,img='tada.png',height='20')
+
+@app.route('/lucy_time')
+def lucy_time():
+    return render_template('weekly.html',weeks=get_date_sequence(TUESDAY), title='Lucy Time', background='playground.png')
+
+@app.route('/run')
+def run():
+    dates = get_multi_date_sequence([MONDAY,THURSDAY])
+    #dates = get_date_sequence(TUESDAY)
+    units = ['Miles','BPM','Time']
+    unit_steps = [[float(i)/10 for i in range(16,35)],range(100,180,4),range(11,31)]
+    return render_template('graph.html',dates=dates,title='Running',units=units,unit_steps=unit_steps)
+
+@app.route('/pixel')
+def pixels():
+    dates = get_multi_date_sequence([SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY])
+    
+    # Can't use a set because sets are unordered.
+    months = []
+    for date in dates:
+        month = date.strftime('%B')
+        if month not in months:
+            months.append(month)
+
+    # Pad the months to get calendars
+    calendars = {month:[] for month in months}
+    for date in dates:
+        month = date.strftime('%B')
+        if len(calendars[month]) == 0:
+            day_of_week = int(date.strftime('%w'))
+            for pad in range(day_of_week):
+                calendars[month].append('')
+        calendars[month].append(date.strftime('%d'))
+        
+    # Convert the calendars into lists of weeks for the template to render on.
+    weeks = {month:[] for month in months}
+    for month in calendars:
+        dow = 0
+        week = []
+        for date in calendars[month]:
+            week.append(date)
+            dow += 1
+            if dow == 7:
+                dow = 0
+                weeks[month].append(week)
+                week = []
+        if dow != 0:
+            # If a month only has 1 week in it, we need to pad the end just to make sure the widths all line up.
+            while dow < 7:
+                week.append('')
+                dow += 1
+            weeks[month].append(week)
+    
+    return render_template('pixels.html',months=months,weeks=weeks,season=season)
+    
+@app.route('/swim')
+def swim():
+    dates = get_multi_date_sequence([TUESDAY,FRIDAY])
+    #dates = get_date_sequence(TUESDAY)
+    units = ['Laps','BPM','Time']
+    unit_steps = [range(12,33),range(100,180,4),range(11,31)]
+    return render_template('graph.html',dates=dates,title='Swim',units=units,unit_steps=unit_steps)
 
 @app.route('/arms')
 def arms():
@@ -143,7 +268,7 @@ def arms():
 def legs():
     #dates = get_multi_date_sequence([3,5])
     dates = get_date_sequence(THURSDAY)
-    units = ['Glute','Goblet','Carry','Lift','Crunch']
+    units = ['Glute','Goblet','Carry']
     unit_steps = [range(11,31),range(11,31),range(31,91),range(11,31),range(11,31)]
     return render_template('graph.html',dates=dates,title='Weight Lifting: Legs',units=units,unit_steps=unit_steps)
 

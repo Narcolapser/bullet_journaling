@@ -1,5 +1,21 @@
 <html>
+<style>
+div {
+    background-image: url("static/backgrounds/{{background}}"); 
+    opacity: 0.3;
+    background-size: 100%;
+}
+img.bg_image {
+    opacity:0.3;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+}
+</style>
 <center><h1>{{ title }}</h1></center>
+<img class="bg_image" src="http://localhost:5000/static/backgrounds/{{background}}"/>
 {% for week in weeks %}
     <p style="margin: 30 0 2 0;">{{ week.strftime('%b %d') }}</p>
     <hr size="3px" width="100%" style="margin: 0 2 8 2;"/>

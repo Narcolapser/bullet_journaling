@@ -1,0 +1,21 @@
+<html>
+<center><h1>{{season}} in pixels</h1></center>
+{% for month in months %}
+<center><h2>{{month}}</h2></center>
+<center>
+    <table style="border-collapse:collapse; width:30%">
+        {% for week in weeks[month] %}
+            <tr>
+                {% for day in week %}
+                    {% if day == '' %}
+                        <th style="border:0px solid white; width:20px"></th>
+                    {% else %}
+                        <th style="border:1px solid black; width:20px">{{day}}</th>
+                    {% endif %}
+                {% endfor %} 
+            </tr>
+        {% endfor %}
+    </table>
+</center>
+{% endfor %}
+</html>

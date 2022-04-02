@@ -1,0 +1,112 @@
+Read "Case For Christ"
+Read "Building Micro Services"
+Run Monday+Thursday
+Weight lift Tuesday+Friday
+Tumble with Lucy Also mondays?
+Get Together with Friends on a monthly basis at minimum
+Automation tasks:
+    * tasks!
+Spanish
+Learn to plum:
+    * Lucy's Mud
+    * Replace valve to mainfloor bath
+    * Replace shower fixtures
+
+Pages:
+1. Title Page - Done
+2. Daily Planner - Needs tweaking
+3. Weekly Planner - Done
+4. Monthly Recap - Done
+5. Season in pixels - Done
+6. Celebrations - Done 
+7. Case for Christ - Done
+8. Building Micro Services - Done
+9. Lucy Time - Done 
+10. House Projects - Done
+11. Running - Done
+12. Swimming - Done
+13. Weight Lifting: Arms
+14. Weight Lifting: Legs
+15. Hospitality - Done
+16. Movies - Done
+17. Couples Bible Study - Done
+18. Automation Tasks - Done
+
+Daily:
+* Update Journal
+* Spanish
+* Dishes
+* Exercise
+* Bible
+
+Weekly:
+* Chore
+* Clean Desks
+* House Project
+* Read News Letter
+* Games with Ben
+
+Objectives: What are these? Is this a Todo list?
+* Organize Desk
+* Recreate Personal Website
+* Improve Bullet Journal Software
+* Wire new outlet for sump pump
+* Cover Sump
+* Design Refined Computer Case
+* Get Lucy's Wine from Joe
+* Replace light in bathroom
+* Learn to Plumb: Lucy's Mud Kitchen
+* Learn to Plumb: Shower Fixtures
+* Learn to Plumb: Valve to mainfloor bath
+
+
+Automations:
+* Tracking Electricity Usage
+* Tracking Water Usage
+* Tracking Gas Usage
+* Garage Door - Position
+* Garage Door - Open
+* Setup 433mhz Sensors
+* Wireless Switch - Mainfloor Vanity
+* Wireless Switch - Upstairs Vanity
+* Pantry Lights
+* 3D Printer
+* TV
+* Button for Lucy to control her room's lights
+* Door+Window sensors
+* Thermometers Scattered Around
+
+Season in Pixels:
+    Excited
+    Calm
+    Happy
+    Loved
+    Normal
+    Sad
+    Nervous
+    Angry
+    Stressed
+    Bored
+    
+    Wonderful
+    good
+    normal
+    exhausted
+    depressed
+    frustrated
+    stressed
+    sick
+    
+    I like this set best
+    Happy
+    Sad
+    Anxious
+    Angry
+    Excited
+    Productive
+    Stressed
+    Relaxed
+
+It is theoretically possible for 5 months to be represented in a season. So I need a way to capture that. Provided a range of dates I need to create a list of lists. The inner lists is a set of strings with a blank string representing a non-date, i.e. a filler in the calendar before the month starts, and numbers representing days. 
+
+I'm fairly certain I can't use variables in the templates them selves, so it's not just calendars I need to make, it's the weekly rows. So I've got a list of lists of lists. Or a list of months and each month is a list of weeks. 
