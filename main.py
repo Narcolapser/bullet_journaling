@@ -258,19 +258,27 @@ def swim():
 
 @app.route('/arms')
 def arms():
-    #dates = get_multi_date_sequence([3,5])
     dates = get_date_sequence(TUESDAY)
-    units = ['Press','Angel','Curl','Tricep','Row']
-    unit_steps = [range(11,31),range(11,31),range(11,31),range(11,31),range(11,31)]
-    return render_template('graph.html',dates=dates,title='Weight Lifting: Arms',units=units,unit_steps=unit_steps)
+    items = ['Chest Press','Angel','Bicep Curl','Tricep Curl','Bent Over Row']
+    steps = 10
+    item_bounds = [[11,31],[11,31],[11,31],[11,31],[11,31]]
+    item_intervals = [int((bound[1]-bound[0])/steps) for bound in item_bounds]
+    item_units = [range(bound[0],bound[1],item_intervals[i]) for i,bound in enumerate(item_bounds)]
+    print(item_units)
+    return render_template('stacked_graph.html',dates=dates,title='Weight Lifting: Arms',items=items,
+        item_units=item_units, steps=steps)
 
 @app.route('/legs')
 def legs():
-    #dates = get_multi_date_sequence([3,5])
     dates = get_date_sequence(THURSDAY)
-    units = ['Glute','Goblet','Carry']
-    unit_steps = [range(11,31),range(11,31),range(31,91),range(11,31),range(11,31)]
-    return render_template('graph.html',dates=dates,title='Weight Lifting: Legs',units=units,unit_steps=unit_steps)
+    items = ['Glute Bridge','Goblet Squats','Farmers Carry','Weighted Lounges','Step Ups']
+    steps = 10
+    item_bounds = [[11,31],[11,31],[11,31],[11,31],[11,31]]
+    item_intervals = [int((bound[1]-bound[0])/steps) for bound in item_bounds]
+    item_units = [range(bound[0],bound[1],item_intervals[i]) for i,bound in enumerate(item_bounds)]
+    print(item_units)
+    return render_template('stacked_graph.html',dates=dates,title='Weight Lifting: Arms',items=items,
+        item_units=item_units, steps=steps)
 
 @app.route('/notes')
 def notes():

@@ -90,22 +90,36 @@ def compile_journal(directory, pad_path=None, folio_size=8):
     index.write(open('out.pdf','wb'))
 
 
-pages = [('quarter_goals',0,'portrait'),
-         ('daily_planner',1,'landscape'),
-         ('weekly_planner', 2,'landscape'),
-         ('monthly_recap', 3,'portrait'),
-         ('hospitality', 4,'portrait'),
-         ('couples_bible_study', 5,'portrait'),
-         ('movies', 6,'portrait'),
-         ('house_projects', 7, 'portrait'),
-         ('reasonforgod', 8, 'portrait'),
-         ('queensthief', 9, 'portrait'),
-         ('microservices', 10,'portrait'),
-         ('misc_goals', 11,'portrait'),
-         ('ringfit', 12,'landscape'),
-         ('arms', 13,'landscape'),
-         ('legs', 14,'landscape'),
-         ('notes', 15,'portrait'),]
+pages = [('title_page',0,'portrait'),
+         ('annual_goals',1,'portrait'),
+         ('themes_page',2,'portrait'),
+         ('camping',3,'portrait'),
+         ('parks',4,'portrait'),
+         ('body',5,'portrait'),
+         ('new_games',6,'portrait'),
+         ('events',7,'portrait'),
+         
+         ('quarter_goals',8,'portrait'),
+         ('daily_planner',9,'landscape'),
+         ('weekly_planner', 10,'landscape'),
+         ('monthly_recap', 11,'portrait'),
+         ('pixels', 12,'portrait'),
+         ('celebrations', 13,'portrait'),
+         ('hospitality', 14,'portrait'),
+         ('couples_bible_study', 15,'portrait'),
+         ('auto', 16,'portrait'),
+         ('house_projects', 17, 'portrait'),
+         ('cc', 18, 'portrait'),
+         ('microservices', 19,'portrait'),
+         ('movies', 20,'portrait'),
+         ('lucy_time', 21,'portrait'),
+         ('run', 22,  'landscape'),
+         ('swim', 23, 'landscape'),
+         ('arms', 24, 'landscape'),
+         ('legs', 25, 'landscape'),
+         ('notes', 26,'portrait'),
+         ('notes', 27,'portrait'),]
+
 
 def print_journal(pages):
     for page in pages:

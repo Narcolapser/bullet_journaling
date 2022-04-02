@@ -13,24 +13,24 @@ Learn to plum:
     * Replace shower fixtures
 
 Pages:
-1. Title Page - Done
+1. Goals - Done
 2. Daily Planner - Needs tweaking
 3. Weekly Planner - Done
 4. Monthly Recap - Done
-5. Season in pixels - Done
+5. Season in pixels - Needs Legend
 6. Celebrations - Done 
-7. Case for Christ - Done
-8. Building Micro Services - Done
-9. Lucy Time - Done 
+7. Hospitality - Done
+8. Couples Bible Study - Done
+9. Automation Tasks - Done
 10. House Projects - Done
-11. Running - Done
-12. Swimming - Done
-13. Weight Lifting: Arms
-14. Weight Lifting: Legs
-15. Hospitality - Done
-16. Movies - Done
-17. Couples Bible Study - Done
-18. Automation Tasks - Done
+11. Case for Christ - Done
+12. Building Micro Services - Done
+13. Movies - Done
+14. Lucy Time - Done 
+15. Running - Done
+16. Swimming - Done
+17. Weight Lifting: Arms - Done
+18. Weight Lifting: Legs - Done
 
 Daily:
 * Update Journal
@@ -110,3 +110,9 @@ Season in Pixels:
 It is theoretically possible for 5 months to be represented in a season. So I need a way to capture that. Provided a range of dates I need to create a list of lists. The inner lists is a set of strings with a blank string representing a non-date, i.e. a filler in the calendar before the month starts, and numbers representing days. 
 
 I'm fairly certain I can't use variables in the templates them selves, so it's not just calendars I need to make, it's the weekly rows. So I've got a list of lists of lists. Or a list of months and each month is a list of weeks. 
+
+Weight lifting - Stacked Graph
+
+I'm going to use the design I used first in my first bullet journal. This is a stack of graphs, with dates at the bottom of each graph and number of reps on the left. This is designed to create columns for me to color in as I successfully accomplish various objectives. 
+
+
