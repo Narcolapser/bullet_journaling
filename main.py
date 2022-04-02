@@ -65,8 +65,8 @@ def annual_goals():
 * Print a Gun
 * Finish Computer
 * Read "Crossing on Time"
-* Read CS books on my self that I never got around to
-* Setup Server in Basement
+* Read unread CS books on my self
+* Setup permanent location for server in Basement
 * Create a game in unreal engine
 * Demo a game on switch.
 '''.split('* ')[1:]]
@@ -104,13 +104,13 @@ def quarter_goals():
     goals = [goal.title().replace('\n','') for goal in '''
 * Organize Desk
 * Recreate Personal Website
-* Improve Bullet Journal Software
 * Wire new outlet for sump pump
 * Cover Sump
 * Design Refined Computer Case
 * Learn to Plumb: Lucy's Mud Kitchen
 * Learn to Plumb: Shower Fixtures
 * Learn to Plumb: Valve to mainfloor bath
+* Improve Bullet Journal Software
 '''.split('* ')[1:]]
     return render_template('goals.html',title=season,goals=goals,subtitle=subtitle)
 
@@ -127,7 +127,7 @@ def auto():
 * Wireless Switch - Mainfloor Vanity
 * Wireless Switch - Upstairs Vanity
 * Pantry Lights
-* 3D Printer
+* 3D Printer - Octoprint
 * TV Controlled From Home Assistant
 * Door Sensors
 * Window Sensors
@@ -175,11 +175,11 @@ def couples_bible_study():
 
 @app.route('/movies')
 def movies():
-    return render_template('weekly.html',weeks=get_date_sequence(SUNDAY), title='Movies')
+    return render_template('weekly.html',weeks=get_date_sequence(SUNDAY), title='Movies', background='popcorn.png')
 
 @app.route('/house_projects')
 def house_projects():
-    return render_template('weekly.html',weeks=get_date_sequence(SATURDAY), title='House Projects')
+    return render_template('weekly.html',weeks=get_date_sequence(SATURDAY), title='House Projects', background='digging.png')
     
 @app.route('/microservices')
 def reading3():
@@ -258,7 +258,7 @@ def swim():
 
 @app.route('/arms')
 def arms():
-    dates = get_date_sequence(TUESDAY)
+    dates = get_date_sequence(MONDAY)
     items = ['Chest Press','Angel','Bicep Curl','Tricep Curl','Bent Over Row']
     steps = 5
     item_bounds = [[10,30],[10,30],[10,30],[10,30],[10,30]]
