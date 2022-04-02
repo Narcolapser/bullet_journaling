@@ -209,6 +209,7 @@ def run():
 
 @app.route('/pixels')
 def pixels():
+    emotions = ['Happy','Sad','Anxious','Angry','Excited','Productive','Stressed','Relaxed']
     dates = get_multi_date_sequence([SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY])
     
     # Can't use a set because sets are unordered.
@@ -247,7 +248,7 @@ def pixels():
                 dow += 1
             weeks[month].append(week)
     
-    return render_template('pixels.html',months=months,weeks=weeks,season=season)
+    return render_template('pixels.html',months=months,weeks=weeks,season=season,emotions=emotions)
     
 @app.route('/swim')
 def swim():
