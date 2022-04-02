@@ -2,3 +2,4 @@ weasyprint
 flask
 requests
 pypdf3
+fpdf

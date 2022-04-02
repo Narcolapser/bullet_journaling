@@ -6,6 +6,20 @@ import requests
 from PyPDF3 import PdfFileWriter, PdfFileReader
 from PyPDF3.pdf import PageObject
 
+from fpdf import FPDF
+
+
+class NumberPDF(FPDF):
+    # Overload Header
+    def header(self):
+        pass
+
+    # Overload Footer
+    def footer(self):
+        self.set_y(-15)
+        self.set_font('Arial', 'I', 8)
+        self.cell(0, 10, "Page Numba", 0, 0, 'C')
+
 tmp_file = '/tmp/rotpdf.pdf'
 
 def merge_to_page(page1, page2):
@@ -31,6 +45,11 @@ def create_page(p1, p2, rot1=False, rot2=False):
 
     outs.scaleTo(11*72,8.5*72)
     outs.rotateCounterClockwise(90)
+    temp = NumberPDF()
+    temp.add_page()
+    temp.output('/tmp/pntemp.pdf')
+    num_page = PdfFileReader('/tmp/pntemp.pdf').getPage(0)
+    outs.mergePage(num_page)
     return outs
 
 def build_folio(pages, padding=None):
