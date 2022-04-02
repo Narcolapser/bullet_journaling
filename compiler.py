@@ -18,7 +18,8 @@ class NumberPDF(FPDF):
     def footer(self):
         self.set_y(-15)
         self.set_font('Arial', 'I', 8)
-        self.cell(0, 10, "Page Numba", 0, 0, 'C')
+        self.cell(129, 10, "10", 1, 0, 'L')
+        self.cell(129, 10, "22", 1, 0, 'R')
 
 tmp_file = '/tmp/rotpdf.pdf'
 
@@ -45,14 +46,16 @@ def create_page(p1, p2, rot1=False, rot2=False):
 
     outs.scaleTo(11*72,8.5*72)
     outs.rotateCounterClockwise(90)
+    
     temp = NumberPDF()
-    temp.add_page()
+    temp.add_page(orientation='L')
     temp.output('/tmp/pntemp.pdf')
     num_page = PdfFileReader('/tmp/pntemp.pdf').getPage(0)
     outs.mergePage(num_page)
+    
     return outs
 
-def build_folio(pages, padding=None):
+def build_folio(pages, padding=None, starting_page_number=None):
     assert(len(pages) <= 12)
 
     collation_patterns = {4:[3,0,1,2], 8:[7,0,1,6,5,2,3,4], 12:[11,0,1,10,9,2,3,8,7,4,5,6]}
