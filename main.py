@@ -108,8 +108,6 @@ def quarter_goals():
 * Wire new outlet for sump pump
 * Cover Sump
 * Design Refined Computer Case
-* Get Lucy's Wine from Joe
-* Replace light in bathroom
 * Learn to Plumb: Lucy's Mud Kitchen
 * Learn to Plumb: Shower Fixtures
 * Learn to Plumb: Valve to mainfloor bath
@@ -123,8 +121,8 @@ def auto():
 * Tracking Electricity Usage
 * Tracking Water Usage
 * Tracking Gas Usage
-* Garage Door - Position
-* Garage Door - Open
+* Garage Door - Position Sensor
+* Garage Door - Open/Close Action
 * Setup 433mhz Sensors
 * Wireless Switch - Mainfloor Vanity
 * Wireless Switch - Upstairs Vanity
@@ -199,14 +197,6 @@ def celebrations():
 def lucy_time():
     return render_template('weekly.html',weeks=get_date_sequence(TUESDAY), title='Lucy Time', background='playground.png')
 
-@app.route('/run')
-def run():
-    dates = get_multi_date_sequence([MONDAY,THURSDAY])
-    #dates = get_date_sequence(TUESDAY)
-    units = ['Miles','BPM','Time']
-    unit_steps = [[float(i)/10 for i in range(16,35)],range(100,180,4),range(11,31)]
-    return render_template('graph.html',dates=dates,title='Running',units=units,unit_steps=unit_steps)
-
 @app.route('/pixels')
 def pixels():
     emotions = ['Happy','Sad','Anxious','Angry','Excited','Productive','Stressed','Relaxed']
@@ -249,6 +239,14 @@ def pixels():
             weeks[month].append(week)
     
     return render_template('pixels.html',months=months,weeks=weeks,season=season,emotions=emotions)
+
+@app.route('/run')
+def run():
+    dates = get_multi_date_sequence([TUESDAY,FRIDAY])
+    #dates = get_date_sequence(TUESDAY)
+    units = ['Miles','BPM','Time']
+    unit_steps = [[float(i)/10 for i in range(16,35)],range(100,180,4),range(11,31)]
+    return render_template('graph.html',dates=dates,title='Running',units=units,unit_steps=unit_steps)
     
 @app.route('/swim')
 def swim():
