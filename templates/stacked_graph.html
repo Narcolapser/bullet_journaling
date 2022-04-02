@@ -1,0 +1,28 @@
+<html>
+<center><h1 style="margin: 5px;">{{title}}</h1></center>
+{% for i in range(items|length) %}
+<center><h2 style="margin: 5px;" >{{items[i]}}</h2></center>
+<table style="border-collapse:collapse; width:100%">
+    
+    {% for r in range(steps) %}
+    <tr>
+        <td style="border:1px solid black;">{{item_units[i][r]}}</td>
+        {% for date in dates %}
+        <td style="border:1px solid black;"></td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    <tr>
+        <td style="border:1px solid black;">Rep Count</td>
+        {% for date in dates %}
+        <td style="border:1px solid black;">{{date.strftime('%d')}}</td>
+        {% endfor %}
+        {% for unit in units %}
+        <td style="border:1px solid black;">{{unit}}</td>
+        {% endfor %}
+    </tr>
+</table>
+{% endfor %}
+</html>
+
+

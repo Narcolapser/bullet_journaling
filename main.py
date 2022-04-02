@@ -74,11 +74,11 @@ def annual_goals():
 
 @app.route('/themes_page')
 def themes_page():
-    return render_template('icon_list.html',title='Themes',rows=4,img='rainbow.png',height='120')
+    return render_template('icon_list.html',title='Themes',rows=4,img='rainbow.png',height='150')
 
 @app.route('/camping')
 def camping():
-    return render_template('icon_list.html',title='Camping',rows=6,img='tent.png',height='60')
+    return render_template('icon_list.html',title='Camping',rows=6,img='tent.png',height='80')
 
 @app.route('/parks')
 def parks():
@@ -86,7 +86,7 @@ def parks():
 
 @app.route('/body')
 def body():
-    months = ['April','May','June','July','August','September','November','December','January','February','March']
+    months = ['April','May','June','July','August','September','October','November','December','January','February','March']
     return render_template('body_fat.html',year=year,months=months)
 
 @app.route('/new_games')
@@ -130,14 +130,15 @@ def auto():
 * Wireless Switch - Upstairs Vanity
 * Pantry Lights
 * 3D Printer
-* TV
-* Button for Lucy to control her room's lights
-* Door+Window sensors
+* TV Controlled From Home Assistant
+* Door Sensors
+* Window Sensors
 * Thermometers Scattered Around
+* Smartify Remaining lights
 '''.split('* ')[1:]]
     return render_template('goals.html',title=subtitle,goals=goals)
 
-@app.route('/daily_planner/')
+@app.route('/daily_planner')
 def daily_planner():
     # We later strip off the date and use just the month, so we just need to know that we got to the next month with
     # these sequence of dates not that we got to the first of said month. 
@@ -206,7 +207,7 @@ def run():
     unit_steps = [[float(i)/10 for i in range(16,35)],range(100,180,4),range(11,31)]
     return render_template('graph.html',dates=dates,title='Running',units=units,unit_steps=unit_steps)
 
-@app.route('/pixel')
+@app.route('/pixels')
 def pixels():
     dates = get_multi_date_sequence([SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY])
     
@@ -260,11 +261,15 @@ def swim():
 def arms():
     dates = get_date_sequence(TUESDAY)
     items = ['Chest Press','Angel','Bicep Curl','Tricep Curl','Bent Over Row']
-    steps = 10
-    item_bounds = [[11,31],[11,31],[11,31],[11,31],[11,31]]
+    steps = 5
+    item_bounds = [[10,30],[10,30],[10,30],[10,30],[10,30]]
     item_intervals = [int((bound[1]-bound[0])/steps) for bound in item_bounds]
-    item_units = [range(bound[0],bound[1],item_intervals[i]) for i,bound in enumerate(item_bounds)]
-    print(item_units)
+    item_units = []
+    for i,bounds in enumerate(item_bounds):
+        units = [bounds[1]]
+        for j in range(steps-1):
+            units.append(bounds[1] - item_intervals[i] * (j+1))
+        item_units.append(units)
     return render_template('stacked_graph.html',dates=dates,title='Weight Lifting: Arms',items=items,
         item_units=item_units, steps=steps)
 
@@ -272,11 +277,15 @@ def arms():
 def legs():
     dates = get_date_sequence(THURSDAY)
     items = ['Glute Bridge','Goblet Squats','Farmers Carry','Weighted Lounges','Step Ups']
-    steps = 10
-    item_bounds = [[11,31],[11,31],[11,31],[11,31],[11,31]]
+    steps = 5
+    item_bounds = [[10,30],[10,30],[10,30],[10,30],[10,30]]
     item_intervals = [int((bound[1]-bound[0])/steps) for bound in item_bounds]
-    item_units = [range(bound[0],bound[1],item_intervals[i]) for i,bound in enumerate(item_bounds)]
-    print(item_units)
+    item_units = []
+    for i,bounds in enumerate(item_bounds):
+        units = [bounds[1]]
+        for j in range(steps-1):
+            units.append(bounds[1] - item_intervals[i] * (j+1))
+        item_units.append(units)
     return render_template('stacked_graph.html',dates=dates,title='Weight Lifting: Arms',items=items,
         item_units=item_units, steps=steps)
 

@@ -115,8 +115,8 @@ pages = [('title_page',0,'portrait'),
          ('lucy_time', 21,'portrait'),
          ('run', 22,  'landscape'),
          ('swim', 23, 'landscape'),
-         ('arms', 24, 'landscape'),
-         ('legs', 25, 'landscape'),
+         ('arms', 24, 'portrait'),
+         ('legs', 25, 'portrait'),
          ('notes', 26,'portrait'),
          ('notes', 27,'portrait'),]
 
