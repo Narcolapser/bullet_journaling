@@ -120,35 +120,26 @@ def compile_journal(directory, pad_path=None, folio_size=8, starting_page_num=1)
     index.write(open('out.pdf','wb'))
 
 
-pages = [('title_page',0,'portrait'),
-         ('annual_goals',1,'portrait'),
-         ('themes_page',2,'portrait'),
-         ('camping',3,'portrait'),
-         ('parks',4,'portrait'),
-         ('body',5,'portrait'),
-         ('new_games',6,'portrait'),
-         ('events',7,'portrait'),
-         
-         ('quarter_goals',8,'portrait'),
-         ('daily_planner',9,'landscape'),
-         ('weekly_planner', 10,'landscape'),
-         ('monthly_recap', 11,'portrait'),
-         ('pixels', 12,'portrait'),
-         ('celebrations', 13,'portrait'),
-         ('hospitality', 14,'portrait'),
-         ('couples_bible_study', 15,'portrait'),
-         ('auto', 16,'portrait'),
-         ('house_projects', 17, 'portrait'),
-         ('cc', 18, 'portrait'),
-         ('microservices', 19,'portrait'),
-         ('movies', 20,'portrait'),
-         ('lucy_time', 21,'portrait'),
-         ('run', 22,  'landscape'),
-         ('swim', 23, 'landscape'),
-         ('arms', 24, 'portrait'),
-         ('legs', 25, 'portrait'),
-         ('notes', 26,'portrait'),
-         ('notes', 27,'portrait'),]
+pages = [('quarter_goals',0,'portrait'),
+         ('daily_planner',1,'landscape'),
+         ('weekly_planner', 2,'landscape'),
+         ('monthly_recap', 3,'portrait'),
+         ('pixels', 4,'portrait'),
+         ('celebrations', 5,'portrait'),
+         ('hospitality', 6,'portrait'),
+         ('couples_bible_study', 7,'portrait'),
+         ('devops', 8,'portrait'),
+         ('dragon', 9,'portrait'),
+         ('house_projects', 10, 'portrait'),
+         ('cc', 11, 'portrait'),
+         ('movies', 12,'portrait'),
+         ('lucy_time', 13,'portrait'),
+         ('run', 14,  'landscape'),
+         ('swim', 15, 'landscape'),
+         ('arms', 16, 'portrait'),
+         ('legs', 17, 'portrait'),
+         ('notes', 18,'portrait'),
+         ('notes', 19,'portrait'),]
 
 
 def print_journal(pages):
@@ -159,6 +150,6 @@ def print_journal(pages):
         outs = HTML(string=r.text).write_pdf('./{1:0>2}_{0}.pdf'.format(page[0],page[1]),stylesheets=[CSS(string='@page {size: ' + page[2] + '}')])
 
 if __name__ == '__main__':
-    print_journal(pages)
-    compile_journal('./')
+    print_journal(pages[16:])
+    compile_journal('./', starting_page_num=45)
 

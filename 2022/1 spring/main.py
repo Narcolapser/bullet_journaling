@@ -6,13 +6,13 @@ from datetime import datetime, timedelta as delta
 app = Flask(__name__)
 
 year = '2022'
-season = f'Summer {year}'
+season = f'Spring {year}'
 
 # The first sunday of the quarter
-sdate = datetime.strptime('2022-07-03', '%Y-%m-%d')
+sdate = datetime.strptime('2022-04-03', '%Y-%m-%d')
 
 # The last saturday of the quarter
-fdate = datetime.strptime('2022-10-01', '%Y-%m-%d')
+fdate = datetime.strptime('2022-07-02', '%Y-%m-%d')
 
 
 SUNDAY = 0
@@ -50,29 +50,91 @@ def root():
             pages.append(rule.endpoint)
     return render_template('index.html',pages=pages)
 
+# Annual pages
+@app.route('/title_page')
+def title_page():
+    return render_template('cover.html')
+
+@app.route('/annual_goals')
+def annual_goals():
+    goals = [goal.replace('\n','') for goal in '''
+* Learn Ham Radio
+* Camp More
+* Visit as many of the 19 parks Megan has listed as possible.
+* Read 8 Books
+* Print a Gun
+* Finish Computer
+* Read "Crossing on Time"
+* Read unread CS books on my self
+* Setup permanent location for server in Basement
+* Create a game in unreal engine
+* Demo a game on switch.
+'''.split('* ')[1:]]
+    return render_template('goals.html',title='Annual Goals',goals=goals,subtitle='')
+
+@app.route('/themes_page')
+def themes_page():
+    return render_template('icon_list.html',title='Themes',rows=4,img='rainbow.png',height='150')
+
+@app.route('/camping')
+def camping():
+    return render_template('icon_list.html',title='Camping',rows=6,img='tent.png',height='80')
+
+@app.route('/parks')
+def parks():
+    return render_template('icon_list.html',title='Parks',rows=20,img='tree and table.png',height='30')
+
+@app.route('/body')
+def body():
+    months = ['April','May','June','July','August','September','October','November','December','January','February','March']
+    return render_template('body_fat.html',year=year,months=months)
+
+@app.route('/new_games')
+def vodogams():
+    return render_template('icon_list.html',title='New Video Games',rows=12,img='d20.png',height='40')
+
+@app.route('/events')
+def events():
+    return render_template('icon_list.html',title='Notable Events',rows=12,img='calendar.jpg',height='40')
+
 # Quarter Pages
 @app.route('/quarter_goals')
 def quarter_goals():
-    subtitle = 'Season of Legal Preparedness'
-    goals = [goal.replace('\n','') for goal in '''
-* Prepared: Sort out My and Megan's Wills
-* Prepared: My and Megan's Living Wills
-* Prepared: Health Care Power of Attorney
-* Prepared: Financial Power of Attorney
-* Prepared: Compile Retirement Info
-* Prepared: Move Pension out of SDRS
-* Prepared: Consider options with SDRS SRP
-* Prepared: Lucy's guardianship plan
-* Prepared: Life Insurance Beneficiaries
-* Prepared: Freeze our Credit 
-* Prepared: Update Info in Firesafe
-* Prepared: Get a local bank account
-* Prepared: ESOP beneficiaries
+    subtitle = 'Season of Automation v2'
+    goals = [goal.title().replace('\n','') for goal in '''
+* Organize Desk
 * Recreate Personal Website
+* Wire new outlet for sump pump
+* Cover Sump
 * Design Refined Computer Case
-* Move server and Wifi
+* Learn to Plumb: Lucy's Mud Kitchen
+* Learn to Plumb: Shower Fixtures
+* Learn to Plumb: Valve to mainfloor bath
+* Improve Bullet Journal Software
 '''.split('* ')[1:]]
     return render_template('goals.html',title=season,goals=goals,subtitle=subtitle)
+
+@app.route('/auto')
+def auto():
+    subtitle = 'Automation Task'
+    goals = [goal.title().replace('\n','') for goal in '''
+* Tracking Electricity Usage
+* Tracking Water Usage
+* Tracking Gas Usage
+* Garage Door - Position Sensor
+* Garage Door - Open/Close Action
+* Setup 433mhz Sensors
+* Wireless Switch - Mainfloor Vanity
+* Wireless Switch - Upstairs Vanity
+* Pantry Lights
+* 3D Printer - Octoprint
+* TV Controlled From Home Assistant
+* Door Sensors
+* Window Sensors
+* Thermometers Scattered Around
+* Smartify Remaining lights
+'''.split('* ')[1:]]
+    return render_template('goals.html',title=subtitle,goals=goals)
 
 @app.route('/daily_planner')
 def daily_planner():
@@ -89,24 +151,55 @@ def daily_planner():
             temp_month += day
             dc += 1
         days.append(dc)
-    activities = ['Case for Christ', 'Dishes','Exercise','Update Journal']
+    activities = ['Update Journal', 'Spanish', 'Dishes','Exercise','Bible']
     return render_template('daily_planner.html',season=season, months=months, days=days, activities=activities)
 
 @app.route('/weekly_planner')
 def weekly_planner():
-    activities = ['Read News Letter', 'Read DevOps Handbook', 'Read Dragon Book', 'Games with Ben',
-        'Chore', 'House Project', 'Clean Desks', 'Clean Garage', 'Water Plants']
+    activities = ['Chore','Clean Desks','House Project','Read News Letter','Games with Ben']
     dates = get_date_sequence(SUNDAY)
     return render_template('weekly_planner.html',season=season,activities=activities,weeks=dates)
 
 @app.route('/monthly_recap')
 def monthly_recap():
     return render_template('icon_list_sections.html',title='Monthly Recap',rows = 7, img='notebook.png',height='12',
-                           sections=['July','August','September'])
+                           sections=['April','May','June'])
+
+@app.route('/hospitality')
+def hospitality():
+    return render_template('hospitality.html')
+
+@app.route('/couples_bible_study')
+def couples_bible_study():
+    return render_template('weekly.html',weeks=get_date_sequence(SATURDAY), title='Couple\'s Bible Study')
+
+@app.route('/movies')
+def movies():
+    return render_template('weekly.html',weeks=get_date_sequence(SUNDAY), title='Movies', background='popcorn.png')
+
+@app.route('/house_projects')
+def house_projects():
+    return render_template('weekly.html',weeks=get_date_sequence(SATURDAY), title='House Projects', background='digging.png')
+    
+@app.route('/microservices')
+def reading3():
+    return render_template('icon_list.html',title='Building Microservices',rows=16,img='book.png',height='23',background='building_microservices.jpg')
+
+@app.route('/cc')
+def cc():
+    return render_template('icon_list.html',title='Case for Christ',rows=15,img='book.png',height='23',background='caseforchrist.jpg')
+
+@app.route('/celebrations')
+def celebrations():
+    return render_template('icon_list.html',title='Celebrations!',rows=21,img='tada.png',height='20')
+
+@app.route('/lucy_time')
+def lucy_time():
+    return render_template('weekly.html',weeks=get_date_sequence(TUESDAY), title='Lucy Time', background='playground.png')
 
 @app.route('/pixels')
 def pixels():
-    emotions = ['Happy','Sad','Anxious','Tired','Excited','Productive','Stressed','Relaxed']
+    emotions = ['Happy','Sad','Anxious','Angry','Excited','Productive','Stressed','Relaxed']
     dates = get_multi_date_sequence([SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY])
     
     # Can't use a set because sets are unordered.
@@ -147,56 +240,20 @@ def pixels():
     
     return render_template('pixels.html',months=months,weeks=weeks,season=season,emotions=emotions)
 
-@app.route('/celebrations')
-def celebrations():
-    return render_template('icon_list.html',title='Celebrations!',rows=21,img='tada.png',height='20')
-
-@app.route('/hospitality')
-def hospitality():
-    return render_template('hospitality.html')
-
-@app.route('/couples_bible_study')
-def couples_bible_study():
-    return render_template('weekly.html',weeks=get_date_sequence(SATURDAY), title='Couple\'s Bible Study')
-    
-@app.route('/devops')
-def devops():
-    return render_template('icon_list.html',title='DevOps Handbook',rows=23,img='book.png',height='17',background='devops.jpg')
-    
-@app.route('/dragon')
-def dragon():
-    return render_template('icon_list.html',title='The Dragon Book',rows=12,img='book.png',height='30',background='dragonbook.jpg')
-
-@app.route('/house_projects')
-def house_projects():
-    return render_template('weekly.html',weeks=get_date_sequence(SATURDAY), title='House Projects', background='digging.png')
-
-@app.route('/cc')
-def cc():
-    return render_template('icon_list.html',title='Case for Christ',rows=15,img='book.png',height='23',background='caseforchrist.jpg')
-
-@app.route('/movies')
-def movies():
-    return render_template('weekly.html',weeks=get_date_sequence(SUNDAY), title='Movies', background='popcorn.png')
-
-@app.route('/lucy_time')
-def lucy_time():
-    return render_template('weekly.html',weeks=get_date_sequence(TUESDAY), title='Lucy Time', background='playground.png')
-
 @app.route('/run')
 def run():
     dates = get_multi_date_sequence([TUESDAY,FRIDAY])
     #dates = get_date_sequence(TUESDAY)
     units = ['Miles','BPM','Time']
-    unit_steps = [[float(i)/10 for i in range(16,36)],range(100,180,4),range(11,31)]
+    unit_steps = [[float(i)/10 for i in range(16,35)],range(100,180,4),range(11,31)]
     return render_template('graph.html',dates=dates,title='Running',units=units,unit_steps=unit_steps)
     
 @app.route('/swim')
 def swim():
     dates = get_multi_date_sequence([TUESDAY,FRIDAY])
     #dates = get_date_sequence(TUESDAY)
-    units = ['Breast','Crawl','BPM','Time']
-    unit_steps = [range(8,29),range(8,29),range(100,180,4),range(11,31)]
+    units = ['Laps','BPM','Time']
+    unit_steps = [range(12,33),range(100,180,4),range(11,31)]
     return render_template('graph.html',dates=dates,title='Swim',units=units,unit_steps=unit_steps)
 
 @app.route('/arms')
@@ -204,7 +261,7 @@ def arms():
     dates = get_date_sequence(MONDAY)
     items = ['Chest Press','Angel','Bicep Curl','Tricep Curl','Bent Over Row']
     steps = 5
-    item_bounds = [[10,45],[10,45],[10,45],[10,45],[10,45]]
+    item_bounds = [[10,30],[10,30],[10,30],[10,30],[10,30]]
     item_intervals = [int((bound[1]-bound[0])/steps) for bound in item_bounds]
     item_units = []
     for i,bounds in enumerate(item_bounds):
@@ -220,7 +277,7 @@ def legs():
     dates = get_date_sequence(THURSDAY)
     items = ['Glute Bridge','Goblet Squats','Farmers Carry','Weighted Lounges','Step Ups']
     steps = 5
-    item_bounds = [[10,45],[10,45],[70,150],[10,45],[10,45]]
+    item_bounds = [[10,30],[10,30],[10,30],[10,30],[10,30]]
     item_intervals = [int((bound[1]-bound[0])/steps) for bound in item_bounds]
     item_units = []
     for i,bounds in enumerate(item_bounds):
@@ -228,7 +285,7 @@ def legs():
         for j in range(steps-1):
             units.append(bounds[1] - item_intervals[i] * (j+1))
         item_units.append(units)
-    return render_template('stacked_graph.html',dates=dates,title='Weight Lifting: Legs',items=items,
+    return render_template('stacked_graph.html',dates=dates,title='Weight Lifting: Arms',items=items,
         item_units=item_units, steps=steps)
 
 @app.route('/notes')
