@@ -128,17 +128,17 @@ pages = [('quarter_goals',0,'portrait'),
          ('celebrations', 5,'portrait'),
          ('hospitality', 6,'portrait'),
          ('couples_bible_study', 7,'portrait'),
-         ('devops', 8,'portrait'),
-         ('dragon', 9,'portrait'),
-         ('house_projects', 10, 'portrait'),
-         ('cc', 11, 'portrait'),
-         ('movies', 12,'portrait'),
-         ('lucy_time', 13,'portrait'),
-         ('run', 14,  'landscape'),
-         ('swim', 15, 'landscape'),
-         ('arms', 16, 'portrait'),
-         ('legs', 17, 'portrait'),
-         ('notes', 18,'portrait'),
+         ('dragon', 8,'portrait'),
+         ('ham', 9,'portrait'),
+         ('sensors', 10, 'portrait'),
+         ('rokenbok', 11, 'portrait'),
+         ('house_projects', 12, 'portrait'),
+         ('cathol', 13, 'portrait'),
+         ('movies', 14,'portrait'),
+         ('lucy_time', 15,'portrait'),
+         ('run', 16,  'landscape'),
+         ('arms', 17, 'portrait'),
+         ('legs', 18, 'portrait'),
          ('notes', 19,'portrait'),]
 
 
@@ -150,6 +150,6 @@ def print_journal(pages):
         outs = HTML(string=r.text).write_pdf('./{1:0>2}_{0}.pdf'.format(page[0],page[1]),stylesheets=[CSS(string='@page {size: ' + page[2] + '}')])
 
 if __name__ == '__main__':
-    print_journal(pages[16:])
-    compile_journal('./', starting_page_num=45)
+    print_journal(pages)
+    compile_journal('./', starting_page_num=49)
 

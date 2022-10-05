@@ -1,0 +1,32 @@
+<html>
+<style>
+div {
+    background-image: url("static/backgrounds/{{background}}"); 
+    opacity: 0.3;
+    background-size: 100%;
+}
+img.bg_image {
+    opacity:0.3;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+}
+</style>
+<center><h1>{{ title | safe}}</h1></center>
+<img class="bg_image" src="http://localhost:5000/static/backgrounds/{{background}}"/>
+
+    {% for section,rows in sections %}
+        <center><h2>{{section}}</h2></center>
+        {% for caption,counter in rows %}
+            <table style="width: 100%;">
+                <tr><td>{{ caption }}</td><td style="text-align: end;">{{counter}}</td></tr>
+                <tr >
+                    <td colspan="2" style="border: 1px solid black; height:25px"></td>
+                </tr>
+            </table>
+        {% endfor %}
+    {% endfor %}
+
+</html>
