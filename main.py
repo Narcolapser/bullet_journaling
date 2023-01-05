@@ -5,14 +5,14 @@ from datetime import datetime, timedelta as delta
 
 app = Flask(__name__)
 
-year = '2022'
-season = f'Fall {year}'
+year = '2023'
+season = f'Winter {year}'
 
 # The first sunday of the quarter
-sdate = datetime.strptime('2022-10-02', '%Y-%m-%d')
+sdate = datetime.strptime('2023-01-01', '%Y-%m-%d')
 
 # The last saturday of the quarter
-fdate = datetime.strptime('2022-12-31', '%Y-%m-%d')
+fdate = datetime.strptime('2023-03-25', '%Y-%m-%d')
 
 
 SUNDAY = 0
@@ -53,17 +53,9 @@ def root():
 # Quarter Pages
 @app.route('/quarter_goals')
 def quarter_goals():
-    subtitle = 'Season of Analog'
+    subtitle = 'Season of Nothing New'
     goals = [goal.replace('\n','') for goal in '''
-* Analog: Get HAM Radio License
-* Analog: AM radio from components
-* Analog: FM radio from components
-* Analog: Make an AM/FM radio with arduino
-* Analog: Battery + Solar project
-* Analog: Servo Project
-* Recreate Personal Website
-* Design Refined Computer Case
-* Move server to understairs rack
+* Clear everything off of Habitica todo list
 '''.split('* ')[1:]]
     return render_template('goals.html',title=season,goals=goals,subtitle=subtitle)
 
@@ -82,13 +74,13 @@ def daily_planner():
             temp_month += day
             dc += 1
         days.append(dc)
-    activities = ['Why We\'re Catholic', 'Dishes','Exercise','Update Journal']
+    activities = ['Screwtape', 'Dishes','Exercise','Update Journal']
     return render_template('daily_planner.html',season=season, months=months, days=days, activities=activities)
 
 @app.route('/weekly_planner')
 def weekly_planner():
     activities = '''
-* Sensor project
+* Nothing New
 * Read News Letter
 * Lucy Time!
 * Games with Ben
@@ -105,11 +97,11 @@ def weekly_planner():
 @app.route('/monthly_recap')
 def monthly_recap():
     return render_template('icon_list_sections.html',title='Monthly Recap',rows = 7, img='notebook.png',height='12',
-                           sections=['October','November','December'])
+                           sections=['January','February','March'])
 
 @app.route('/pixels')
 def pixels():
-    emotions = ['Happy','Sad','Anxious','Tired','Excited','Productive','Stressed','Relaxed']
+    emotions = ['Happy','Productive','Fun','Relaxed','Tired','Excited','Sad','Anxious']
     dates = get_multi_date_sequence([SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY])
     
     # Can't use a set because sets are unordered.
