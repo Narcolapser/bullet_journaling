@@ -159,9 +159,6 @@ def couples_bible_study():
 def religionbook():
     return render_template('icon_list.html',title='The Screwtape Letters',rows=25,img='book.png',height='15',background='screwtape.jpeg')
 
-#@app.route('/dragon')
-#def dragon():
-#    return render_template('icon_list.html',title='The Dragon Book',rows=12,img='book.png',height='30',background='dragonbook.jpg')
 
 @app.route('/dragon')
 def dragon():
@@ -184,6 +181,11 @@ def lucy_time():
 def sensors():
     return render_template('icon_list.html',title='Sensor Projects',rows=24,img='sensor.png',height='15',background='sensor.png')
 
+@app.route('/boardgames')
+def boardgames():
+    entry = {'title': '__________________________', 'image_url':'http://localhost:5000/static/d20.png', 'extra':'☆☆☆☆☆'}
+    items = [entry for i in range(6)]
+    return render_template('item_grid.html', title='New Boardgames', items=items, columns=2)
 
 @app.route('/biking')
 def bike():
@@ -224,6 +226,10 @@ def legs():
         item_units.append(units)
     return render_template('stacked_graph.html',dates=dates,title='Weight Lifting: Legs',items=items,
         item_units=item_units, steps=steps)
+
+@app.route('/handball')
+def handball():
+    return render_template('weekly.html',weeks=get_date_sequence(THURSDAY), title='Handball', background='handball.png')
 
 @app.route('/notes')
 def notes():

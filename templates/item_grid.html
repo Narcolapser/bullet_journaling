@@ -1,0 +1,31 @@
+<html>
+    <style>
+        .item-grid {
+            display: grid;
+            grid-template-columns: repeat({{ columns }}, 1fr);
+            grid-gap: 16px;
+        }
+        .item {
+            border: 1px solid lightgray;
+            text-align: center;
+        }
+        .item img {
+            height: 120px;
+        }
+        .item span {
+            display: block;
+            margin-top: 8px;
+        }
+    </style>
+    <center><h1>{{ title }}</h1></center>
+    <div class="item-grid">
+        {% for item in items %}
+            <div class="item">
+                <img src="{{ item.image_url }}" />
+                <span>{{ item.title }}</span>
+                <span>{{ item.extra }}</span>
+            </div>
+        {% endfor %}
+    </div>
+</html>
+

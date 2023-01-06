@@ -6,41 +6,18 @@
     </style>
     <center><h1>Misc Objectives</h1></center>
     <table style="border-collapse:collapse; width:100%">
-        <tr ><td colspan=3><center>New video games</center></td></tr>
-        <tr>
-            <td style="height:180px;">
-                <center><img src="http://localhost:5000/static/joystick.png" style="height: 120px"/></center>
-                <span>Name:</span>
-                <center>☆☆☆☆☆</center>
-            </td>
-            <td style="height:180px;">
-                <center><img src="http://localhost:5000/static/joystick.png" style="height: 120px"/></center>
-                <span>Name:</span>
-                <center>☆☆☆☆☆</center>
-            </td>
-            <td style="height:180px;">
-                <center><img src="http://localhost:5000/static/joystick.png" style="height: 120px"/></center>
-                <span>Name:</span>
-                <center>☆☆☆☆☆</center>
-            </td>
-        </tr>
-        <tr ><td colspan=3><center>New board/card games</center></td></tr>
-        <tr>
-            <td style="height:180px;">
-                <center><img src="http://localhost:5000/static/d20.png" style="height: 120px"/></center>
-                <span>Name:</span>
-                <center>☆☆☆☆☆</center>
-            </td>
-            <td style="height:180px;">
-                <center><img src="http://localhost:5000/static/d20.png" style="height: 120px"/></center>
-                <span>Name:</span>
-                <center>☆☆☆☆☆</center>
-            </td>
-            <td style="height:180px;">
-                <center><img src="http://localhost:5000/static/d20.png" style="height: 120px"/></center>
-                <span>Name:</span>
-                <center>☆☆☆☆☆</center>
-            </td>
-        </tr>
+        {% for row in rows %}
+            <tr ><td colspan=3><center>{{ row.title }}</center></td></tr>
+            <tr>
+                {% for item in range(3) %}
+                    <td style="height:180px;">
+                        <center><img src="{{ row.image_url }}" style="height: 120px"/></center>
+                        <span>Name:</span>
+                        <center>☆☆☆☆☆</center>
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
     </table>
 </html>
+
