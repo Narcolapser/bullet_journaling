@@ -56,6 +56,7 @@ def quarter_goals():
     subtitle = 'Season of Nothing New'
     goals = [goal.replace('\n','') for goal in '''
 * Clear everything off of Habitica todo list
+* Clean and organize under stairs shelves
 '''.split('* ')[1:]]
     return render_template('goals.html',title=season,goals=goals,subtitle=subtitle)
 
@@ -153,19 +154,23 @@ def hospitality():
 @app.route('/couples_bible_study')
 def couples_bible_study():
     return render_template('weekly.html',weeks=get_date_sequence(SATURDAY), title='Couple\'s Bible Study')
-    
-    
+
+@app.route('/screwtape')
+def religionbook():
+    return render_template('icon_list.html',title='The Screwtape Letters',rows=25,img='book.png',height='15',background='screwtape.jpeg')
+
+#@app.route('/dragon')
+#def dragon():
+#    return render_template('icon_list.html',title='The Dragon Book',rows=12,img='book.png',height='30',background='dragonbook.jpg')
+
 @app.route('/dragon')
 def dragon():
-    return render_template('icon_list.html',title='The Dragon Book',rows=12,img='book.png',height='30',background='dragonbook.jpg')
+    sections = [['Chapter 4',[('Pages',279)]],['Chapter 5',[('Pages',343)]],['Chapter 6',[('Pages',389)]],['Chapter 7',[('Pages',463)]],['Chapter 8',[('Pages',513)]],['Chapter 9',[('Pages',585)]],['Chapter 10',[('Pages',723)]],['Chapter 11',[('Pages',733)]],['Chapter 12',[('Pages',745)]]]
+    return render_template('bars.html',title='Dragon Book',sections=sections)
 
 @app.route('/house_projects')
 def house_projects():
     return render_template('icon_list.html',title='House Projects',rows=10,img='checkedbox.png',height='60', background='handyman.png')
-
-@app.route('/cathol')
-def cc():
-    return render_template('icon_list.html',title='Why We\'re Catholic',rows=25,img='book.png',height='15',background='whywerecatholic.jpeg')
 
 @app.route('/movies')
 def movies():
@@ -178,25 +183,15 @@ def lucy_time():
 @app.route('/sensors')
 def sensors():
     return render_template('icon_list.html',title='Sensor Projects',rows=24,img='sensor.png',height='15',background='sensor.png')
-    
-@app.route('/ham')
-def ham():
-    sections = [['Technical License',[('Questions',100),('Questions',200),('Questions',300),('Questions',400),('Questions',423)]],
-     ['General License License',[('Questions',100),('Questions',200),('Questions',300),('Questions',400),('Questions',454)]]]
-    return render_template('bars.html',title='HAM Radio Test Prep',sections=sections)
 
-@app.route('/rokenbok')
-def rokenbok():
-    return render_template('icon_list_sections.html',title='Rokenbok Experiments',rows = 7, img='Radio Tower.png',height='12',
-                           sections=['Observing','Decoding','Transmitting'])
 
-@app.route('/run')
-def run():
-    dates = get_multi_date_sequence([MONDAY,THURSDAY])
+@app.route('/biking')
+def bike():
+    dates = get_multi_date_sequence([TUESDAY,FRIDAY])
     #dates = get_date_sequence(TUESDAY)
-    units = ['Miles','BPM','Time']
-    unit_steps = [[float(i)/10 for i in range(16,36)],range(120,200,4),range(15,35)]
-    return render_template('graph.html',dates=dates,title='Running',units=units,unit_steps=unit_steps)
+    units = ['BPM','Time']
+    unit_steps = [range(120,200,4),range(20,40)]
+    return render_template('graph.html',dates=dates,title='Biking',units=units,unit_steps=unit_steps)
 
 @app.route('/arms')
 def arms():
