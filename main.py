@@ -187,6 +187,12 @@ def boardgames():
     items = [entry for i in range(6)]
     return render_template('item_grid.html', title='New Boardgames', items=items, columns=2)
 
+@app.route('/seedlings')
+def seedlings():
+    entry = {'title': '__________________________', 'image_url':'http://localhost:5000/static/seedling.jpg', 'extra':'Prep Time:_________________'}
+    items = [entry for i in range(12)]
+    return render_template('item_grid.html', title='Seedling plantings', items=items, columns=3)
+
 @app.route('/biking')
 def bike():
     dates = get_multi_date_sequence([TUESDAY,FRIDAY])
