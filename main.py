@@ -192,7 +192,7 @@ def boardgames():
 
 @app.route('/seedlings')
 def seedlings():
-    entry = {'title': '__________________________', 'image_url':'http://localhost:5000/static/seedling.jpg', 'extra':'Prep Time:_________________'}
+    entry = {'title': 'Plant:__________________', 'image_url':'http://localhost:5000/static/seedling.jpg', 'extra':'Prep Time:_____________'}
     items = [entry for i in range(12)]
     col_num = 3
     rows = [items[i:i+col_num] for i in range(0, len(items), col_num)]
