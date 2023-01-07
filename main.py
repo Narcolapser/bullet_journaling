@@ -57,6 +57,8 @@ def quarter_goals():
     goals = [goal.replace('\n','') for goal in '''
 * Clear everything off of Habitica todo list
 * Clean and organize under stairs shelves
+* Freeze Credit
+* Use or Dispose of sassafrass tea
 '''.split('* ')[1:]]
     return render_template('goals.html',title=season,goals=goals,subtitle=subtitle)
 
@@ -81,7 +83,7 @@ def daily_planner():
 @app.route('/weekly_planner')
 def weekly_planner():
     activities = '''
-* Nothing New
+* Catchup Task
 * Read News Letter
 * Lucy Time!
 * Games with Ben
@@ -192,6 +194,42 @@ def seedlings():
     entry = {'title': '__________________________', 'image_url':'http://localhost:5000/static/seedling.jpg', 'extra':'Prep Time:_________________'}
     items = [entry for i in range(12)]
     return render_template('item_grid.html', title='Seedling plantings', items=items, columns=3)
+    
+@app.route('/computing')
+def computing():
+    items = [
+        {'title': 'Migrate off of gmail', 'image_url':'https://clipartcraft.com/images/gmail-logo-transparent-8.png'},
+        {'title': 'Build out backups', 'image_url':'http://localhost:5000/static/nas.svg'},
+        {'title': 'Budget Automations: Ace', 'image_url':'https://thehardwareconnection.com/wp-content/uploads/2020/06/Ace-logo.jpg'},
+        {'title': 'Budget Automations: Hyvee', 'image_url':'https://shelbyreport.nyc3.cdn.digitaloceanspaces.com/wp-content/uploads/2019/06/HY-VEE.png'},
+        {'title': 'Recreate Personal Website', 'image_url':'http://localhost:5000/static/www.png'},
+        {'title': 'Improve Bullet Journal Software', 'image_url':'http://localhost:5000/static/notebook.png'}
+    ]
+    return render_template('item_grid.html', title='Computing', items=items, columns=2)
+
+@app.route('/electronics')
+def electronics():
+    items = [
+        {'title': 'Re-Do the Ther-Mom-eter', 'image_url':'https://clipartcraft.com/images/thermometer-clipart-transparent-background-2.png'},
+        {'title': 'Cases for Distributed Nodes', 'image_url':'https://media.istockphoto.com/vectors/adapter-vector-id1245795116?k=6&m=1245795116&s=170667a&w=0&h=Wv1VYYM2ulWzjfHg5GkpVJJtdlYsihp8F4sBf9ZHq9g='},
+        {'title': 'Finish Computer', 'image_url':'https://images.cdn4.stockunlimited.net/clipart/computer-cabinet_1614954.jpg'},
+        {'title': 'Decide on 433mhz', 'image_url':'http://localhost:5000/static/Radio Tower.png'},
+        {'title': 'Batter+Solar Project', 'image_url':'http://localhost:5000/static/battery.png'},
+        {'title': 'Finish Thor', 'image_url':'http://localhost:5000/static/current_warning.png', 'extra':'Draw power from within!'}
+    ]
+    return render_template('item_grid.html', title='Electronics', items=items, columns=2)
+    
+@app.route('/Preping')
+def Preping():
+    items = [
+        {'title': 'Print and Sign Wills', 'image_url':'https://media.istockphoto.com/vectors/signed-last-will-rgb-color-icon-document-with-stamp-notarized-and-vector-id1225537357?k=6&m=1225537357&s=612x612&w=0&h=j-SKPHODecbNo_LT5cB5qiczgRFENKO5ID7cVswRM28='},
+        {'title': 'Compile Retirement Info', 'image_url':'https://media.istockphoto.com/illustrations/flat-round-icon-illustration-id517173627?k=6&m=517173627&s=612x612&w=0&h=1Xlb8G7mX-VeqO6D-U4iNSdu6Tob4P5KEVjKNLDDy4E='},
+        {'title': 'Move funds out of SDRS-SRP', 'image_url':'https://media.istockphoto.com/vectors/map-of-the-us-state-of-south-dakota-vector-id1189596183?k=6&m=1189596183&s=612x612&w=0&h=3HU4fCjjvBgVcwvS6_NJjNc1b3yfarENESTUKNLfy0g='},
+        {'title': 'Life Insurance Beneficiaries', 'image_url':'https://media.istockphoto.com/illustrations/life-insurance-stamp-illustration-id468291652?k=6&m=468291652&s=612x612&w=0&h=uLx9qVj1BVDIRA0EGaCkbVh5lqPijKVAVRVLwH32PcM='},
+        {'title': 'ESOP Beneficiaries', 'image_url':'http://localhost:5000/static/esop.jpg'},
+        {'title': 'Update Info in Firesafe', 'image_url':'https://etc.usf.edu/clipart/19100/19122/safe_19122_md.gif'}
+    ]
+    return render_template('item_grid.html', title='Preping', items=items, columns=2)
 
 @app.route('/biking')
 def bike():
@@ -220,9 +258,9 @@ def arms():
 @app.route('/legs')
 def legs():
     dates = get_date_sequence(FRIDAY)
-    items = ['Step Ups','Glute Bridge','Weighted Lounges','Goblet Squats','Farmers Carry']
+    items = ['90° Toe Taps','Frappes','Knee Pushes','Passe','Cross Crunches']
     steps = 5
-    item_bounds = [[10,45],[10,45],[10,30],[10,45],[70,150]]
+    item_bounds = [[70,150],[45,90],[70,150],[30,90],[70,150]]
     item_intervals = [int((bound[1]-bound[0])/steps) for bound in item_bounds]
     item_units = []
     for i,bounds in enumerate(item_bounds):
@@ -230,7 +268,7 @@ def legs():
         for j in range(steps-1):
             units.append(bounds[1] - item_intervals[i] * (j+1))
         item_units.append(units)
-    return render_template('stacked_graph.html',dates=dates,title='Weight Lifting: Legs',items=items,
+    return render_template('stacked_graph.html',dates=dates,title='Leg Day!',items=items,
         item_units=item_units, steps=steps)
 
 @app.route('/handball')
