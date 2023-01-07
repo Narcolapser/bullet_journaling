@@ -55,10 +55,10 @@ def root():
 def quarter_goals():
     subtitle = 'Season of Nothing New'
     goals = [goal.replace('\n','') for goal in '''
-* Clear everything off of Habitica todo list
-* Clean and organize under stairs shelves
+* Clear Everything off of Habitica Todo List
+* Clean and Organize Understairs Shelves
 * Freeze Credit
-* Use or Dispose of sassafrass tea
+* Use or Dispose of Sassafrass Tea
 '''.split('* ')[1:]]
     return render_template('goals.html',title=season,goals=goals,subtitle=subtitle)
 
@@ -89,7 +89,6 @@ def weekly_planner():
 * Games with Ben
 * Couples Bible study
 * Chore
-* House Project
 * Clean Garage
 * Clean Desks
 * Water Plants
@@ -157,9 +156,9 @@ def hospitality():
 def couples_bible_study():
     return render_template('weekly.html',weeks=get_date_sequence(SATURDAY), title='Couple\'s Bible Study')
 
-@app.route('/screwtape')
+@app.route('/religionbook')
 def religionbook():
-    return render_template('icon_list.html',title='The Screwtape Letters',rows=25,img='book.png',height='15',background='screwtape.jpeg')
+    return render_template('icon_list.html',title='The Screwtape Letters',rows=31,img='book.png',height='15',background='screwtape.jpeg')
 
 
 @app.route('/dragon')
@@ -177,7 +176,7 @@ def movies():
 
 @app.route('/lucy_time')
 def lucy_time():
-    return render_template('weekly.html',weeks=get_date_sequence(TUESDAY), title='Lucy Time', background='playground.png')
+    return render_template('weekly.html',weeks=get_date_sequence(TUESDAY), title='Lucy Time', background='dalle - snow playing.png')
 
 @app.route('/sensors')
 def sensors():
@@ -232,7 +231,7 @@ def Preping():
     return render_template('item_grid.html', title='Preping', items=items, columns=2)
 
 @app.route('/biking')
-def bike():
+def biking():
     dates = get_multi_date_sequence([TUESDAY,FRIDAY])
     #dates = get_date_sequence(TUESDAY)
     units = ['BPM','Time']
@@ -241,7 +240,7 @@ def bike():
 
 @app.route('/arms')
 def arms():
-    dates = get_date_sequence(TUESDAY)
+    dates = get_date_sequence(MONDAY)
     items = ['Chest Press','Angel','Bicep Curl','Tricep Curl','Bent Over Row']
     steps = 5
     item_bounds = [[10,45],[10,45],[10,45],[10,45],[10,45]]
@@ -257,7 +256,7 @@ def arms():
 
 @app.route('/legs')
 def legs():
-    dates = get_date_sequence(FRIDAY)
+    dates = get_date_sequence(WEDNESDAY)
     items = ['90° Toe Taps','Frappes','Knee Pushes','Passe','Cross Crunches']
     steps = 5
     item_bounds = [[70,150],[45,90],[70,150],[30,90],[70,150]]
