@@ -186,13 +186,17 @@ def sensors():
 def boardgames():
     entry = {'title': '__________________________', 'image_url':'http://localhost:5000/static/d20.png', 'extra':'☆☆☆☆☆'}
     items = [entry for i in range(6)]
-    return render_template('item_grid.html', title='New Boardgames', items=items, columns=2)
+    col_num = 2
+    rows = [items[i:i+col_num] for i in range(0, len(items), col_num)]
+    return render_template('item_grid.html', title='New Boardgames', rows=rows)
 
 @app.route('/seedlings')
 def seedlings():
     entry = {'title': '__________________________', 'image_url':'http://localhost:5000/static/seedling.jpg', 'extra':'Prep Time:_________________'}
     items = [entry for i in range(12)]
-    return render_template('item_grid.html', title='Seedling plantings', items=items, columns=3)
+    col_num = 3
+    rows = [items[i:i+col_num] for i in range(0, len(items), col_num)]
+    return render_template('item_grid.html', title='Seedling plantings', rows=rows)
     
 @app.route('/computing')
 def computing():
@@ -204,7 +208,9 @@ def computing():
         {'title': 'Recreate Personal Website', 'image_url':'http://localhost:5000/static/www.png'},
         {'title': 'Improve Bullet Journal Software', 'image_url':'http://localhost:5000/static/notebook.png'}
     ]
-    return render_template('item_grid.html', title='Computing', items=items, columns=2)
+    col_num = 2
+    rows = [items[i:i+col_num] for i in range(0, len(items), col_num)]
+    return render_template('item_grid.html', title='Computing', rows=rows)
 
 @app.route('/electronics')
 def electronics():
@@ -216,7 +222,9 @@ def electronics():
         {'title': 'Batter+Solar Project', 'image_url':'http://localhost:5000/static/battery.png'},
         {'title': 'Finish Thor', 'image_url':'http://localhost:5000/static/current_warning.png', 'extra':'Draw power from within!'}
     ]
-    return render_template('item_grid.html', title='Electronics', items=items, columns=2)
+    col_num = 2
+    rows = [items[i:i+col_num] for i in range(0, len(items), col_num)]
+    return render_template('item_grid.html', title='Electronics', rows=rows)
     
 @app.route('/Preping')
 def Preping():
@@ -228,7 +236,9 @@ def Preping():
         {'title': 'ESOP Beneficiaries', 'image_url':'http://localhost:5000/static/esop.jpg'},
         {'title': 'Update Info in Firesafe', 'image_url':'https://etc.usf.edu/clipart/19100/19122/safe_19122_md.gif'}
     ]
-    return render_template('item_grid.html', title='Preping', items=items, columns=2)
+    col_num = 2
+    rows = [items[i:i+col_num] for i in range(0, len(items), col_num)]
+    return render_template('item_grid.html', title='Preping', rows=rows)
 
 @app.route('/biking')
 def biking():
