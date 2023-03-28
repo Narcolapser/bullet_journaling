@@ -1,0 +1,35 @@
+<html>
+    <center><h1>2023 in pixels</h1></center>
+    <div style="width: 100%; display: flex;">
+        {% for collection in collections %}
+            <div style="width: 33%; margin-top:100px">
+                {% for month in collection['months'] %}
+                <center><h2>{{month}}</h2></center>
+                <div style="margin-left:20%;">
+                    <table style="border-collapse:collapse">
+                        {% for week in collection['weeks'][month] %}
+                            <tr>
+                                {% for day in week %}
+                                    {% if day == '' %}
+                                        <th style="border:0px solid white; width:20px"></th>
+                                    {% else %}
+                                        <th style="border:1px solid black; width:20px">{{day}}</th>
+                                    {% endif %}
+                                {% endfor %} 
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+    <center>
+        <div>
+            {% for emotion in emotions %}
+                    ☐ {{emotion}} 
+            {% endfor %}
+        </div>
+    </center>
+</html>
+

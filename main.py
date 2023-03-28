@@ -6,13 +6,13 @@ from datetime import datetime, timedelta as delta
 app = Flask(__name__)
 
 year = '2023'
-season = f'Winter {year}'
+season = f'Spring {year}'
 
 # The first sunday of the quarter
-sdate = datetime.strptime('2023-01-01', '%Y-%m-%d')
+sdate = datetime.strptime('2023-04-02', '%Y-%m-%d')
 
 # The last saturday of the quarter
-fdate = datetime.strptime('2023-03-25', '%Y-%m-%d')
+fdate = datetime.strptime('2023-05-27', '%Y-%m-%d')
 
 
 SUNDAY = 0
@@ -23,15 +23,18 @@ THURSDAY = 4
 FRIDAY = 5
 SATURDAY = 6
 
-def get_multi_date_sequence(days_of_week):
-    dow_list = [sdate + delta(days=dow) for dow in days_of_week]
+def get_specific_multi_date_sequence(days_of_week,start,end):
+    dow_list = [start + delta(days=dow) for dow in days_of_week]
     week_delta = delta(days=7)
     dates = []
-    while dow_list[0] <= fdate:
+    while dow_list[0] <= end:
         for i,date in enumerate(dow_list):
             dates.append(date)
             dow_list[i] = date + week_delta
     return dates
+
+def get_multi_date_sequence(days_of_week):
+    return get_specific_multi_date_sequence(sdate,fdate)
 
 def get_date_sequence(dow):
     date = sdate + delta(days=dow)
@@ -50,15 +53,121 @@ def root():
             pages.append(rule.endpoint)
     return render_template('index.html',pages=pages)
 
+
+# Annual pages
+@app.route('/title_page')
+def title_page():
+    return render_template('cover.html')
+
+@app.route('/annual_goals')
+def annual_goals():
+    goals = [goal.replace('\n','') for goal in '''
+* Learn UT5
+* Make a game for switch
+* Read a CS book each quarter
+* Participate in NaNoWriMo
+* Participate in Advent of Code
+* Spend more time outside
+* Slow down an enjoy things more
+* Get promoted to Dev III
+* Learn to use my sextant
+'''.split('* ')[1:]]
+    return render_template('goals.html',title='Annual Goals',goals=goals,subtitle='')
+
+@app.route('/themes_page')
+def themes_page():
+    return render_template('icon_list.html',title='Themes',rows=4,img='rainbow.png',height='150')
+
+@app.route('/body')
+def body():
+    months = ['April','May','June','July','August','September','October','November','December','January','February','March']
+    return render_template('body_fat.html',year=year,months=months)
+
+@app.route('/new_games')
+def new_games():
+    return render_template('icon_list.html',title='Games (Video and Board)',rows=12,img='d20.png',height='40')
+    
+@app.route('/books')
+def books():
+    return render_template('icon_list.html',title='Books',rows=25,img='d20.png',height='12')
+
+@app.route('/events')
+def events():
+    return render_template('icon_list.html',title='Notable Events',rows=12,img='calendar.jpg',height='40')
+
+@app.route('/annual_pixels')
+def annual_pixels():
+    emotions = ['Happy','Fun','Relaxed','Productive','Tired','Sad','Anxious']
+    sdate1 = datetime.strptime('2023-04-01', '%Y-%m-%d')
+    sdate2 = datetime.strptime('2023-08-01', '%Y-%m-%d')
+    sdate3 = datetime.strptime('2023-12-01', '%Y-%m-%d')
+
+    fdate1 = datetime.strptime('2023-07-31', '%Y-%m-%d')
+    fdate2 = datetime.strptime('2023-11-30', '%Y-%m-%d')
+    fdate3 = datetime.strptime('2024-03-31', '%Y-%m-%d')
+    
+    col1 = get_specific_multi_date_sequence([SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY], sdate1, fdate1)
+    col2 = get_specific_multi_date_sequence([SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY], sdate2, fdate2)
+    col3 = get_specific_multi_date_sequence([SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY], sdate3, fdate3)
+    cols = [col1, col2, col3]
+    
+    collections = []
+    
+    for col in cols:
+        # Can't use a set because sets are unordered.
+        months = []
+        for date in col:
+            month = date.strftime('%B')
+            if month not in months:
+                months.append(month)
+            if len(months) == 4:
+                break
+
+        # Pad the months to get calendars
+        calendars = {month:[] for month in months}
+        for date in col:
+            month = date.strftime('%B')
+            if month not in calendars:
+                break
+
+            if len(calendars[month]) == 0:
+                day_of_week = int(date.strftime('%w'))
+                for pad in range(day_of_week):
+                    calendars[month].append('')
+            calendars[month].append(date.strftime('%d'))
+            
+        # Convert the calendars into lists of weeks for the template to render on.
+        weeks = {month:[] for month in months}
+        for month in calendars:
+            dow = 0
+            week = []
+            for date in calendars[month]:
+                week.append(date)
+                dow += 1
+                if dow == 7:
+                    dow = 0
+                    weeks[month].append(week)
+                    week = []
+            if dow != 0:
+                # If a month only has 1 week in it, we need to pad the end just to make sure the widths all line up.
+                while dow < 7:
+                    week.append('')
+                    dow += 1
+                weeks[month].append(week)
+        
+        collections.append({'months':months,'weeks':weeks})
+    return render_template('pixels_annual.html',collections=collections,emotions=emotions)
+
+
 # Quarter Pages
 @app.route('/quarter_goals')
 def quarter_goals():
     subtitle = 'Season of Nothing New'
     goals = [goal.replace('\n','') for goal in '''
-* Clear Everything off of Habitica Todo List
-* Clean and Organize Understairs Shelves
-* Freeze Credit
-* Use or Dispose of Sassafrass Tea
+* Reread Dreaming In code
+* Habitica Weeklies do damage
+* Habitica rewards in HA
+* Auto receipts server running
 '''.split('* ')[1:]]
     return render_template('goals.html',title=season,goals=goals,subtitle=subtitle)
 
@@ -77,13 +186,12 @@ def daily_planner():
             temp_month += day
             dc += 1
         days.append(dc)
-    activities = ['Screwtape', 'Dishes','Exercise','Update Journal']
+    activities = ['Isaiah', 'Dishes','Exercise','Update Journal']
     return render_template('daily_planner.html',season=season, months=months, days=days, activities=activities)
 
 @app.route('/weekly_planner')
 def weekly_planner():
     activities = '''
-* Catchup Task
 * Read News Letter
 * Lucy Time!
 * Games with Ben
@@ -99,50 +207,7 @@ def weekly_planner():
 @app.route('/monthly_recap')
 def monthly_recap():
     return render_template('icon_list_sections.html',title='Monthly Recap',rows = 7, img='notebook.png',height='12',
-                           sections=['January','February','March'])
-
-@app.route('/pixels')
-def pixels():
-    emotions = ['Happy','Productive','Fun','Relaxed','Tired','Excited','Sad','Anxious']
-    dates = get_multi_date_sequence([SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY])
-    
-    # Can't use a set because sets are unordered.
-    months = []
-    for date in dates:
-        month = date.strftime('%B')
-        if month not in months:
-            months.append(month)
-
-    # Pad the months to get calendars
-    calendars = {month:[] for month in months}
-    for date in dates:
-        month = date.strftime('%B')
-        if len(calendars[month]) == 0:
-            day_of_week = int(date.strftime('%w'))
-            for pad in range(day_of_week):
-                calendars[month].append('')
-        calendars[month].append(date.strftime('%d'))
-        
-    # Convert the calendars into lists of weeks for the template to render on.
-    weeks = {month:[] for month in months}
-    for month in calendars:
-        dow = 0
-        week = []
-        for date in calendars[month]:
-            week.append(date)
-            dow += 1
-            if dow == 7:
-                dow = 0
-                weeks[month].append(week)
-                week = []
-        if dow != 0:
-            # If a month only has 1 week in it, we need to pad the end just to make sure the widths all line up.
-            while dow < 7:
-                week.append('')
-                dow += 1
-            weeks[month].append(week)
-    
-    return render_template('pixels.html',months=months,weeks=weeks,season=season,emotions=emotions)
+                           sections=['February','March'])
 
 @app.route('/celebrations')
 def celebrations():
