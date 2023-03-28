@@ -159,7 +159,7 @@ def annual_pixels():
     return render_template('pixels_annual.html',collections=collections,emotions=emotions)
 
 
-# Quarter Pages
+# Quarter Pages - Recurring
 @app.route('/quarter_goals')
 def quarter_goals():
     subtitle = 'Season of Nothing New'
@@ -168,6 +168,7 @@ def quarter_goals():
 * Habitica Weeklies do damage
 * Habitica rewards in HA
 * Auto receipts server running
+* Plant a lovely garden!
 '''.split('* ')[1:]]
     return render_template('goals.html',title=season,goals=goals,subtitle=subtitle)
 
@@ -221,97 +222,26 @@ def hospitality():
 def couples_bible_study():
     return render_template('weekly.html',weeks=get_date_sequence(SATURDAY), title='Couple\'s Bible Study')
 
-@app.route('/religionbook')
-def religionbook():
-    return render_template('icon_list.html',title='The Screwtape Letters',rows=31,img='book.png',height='15',background='screwtape.jpeg')
-
-
-@app.route('/dragon')
-def dragon():
-    sections = [['Chapter 4',[('Pages',279)]],['Chapter 5',[('Pages',343)]],['Chapter 6',[('Pages',389)]],['Chapter 7',[('Pages',463)]],['Chapter 8',[('Pages',513)]],['Chapter 9',[('Pages',585)]],['Chapter 10',[('Pages',723)]],['Chapter 11',[('Pages',733)]],['Chapter 12',[('Pages',745)]]]
-    return render_template('bars.html',title='Dragon Book',sections=sections)
-
 @app.route('/house_projects')
 def house_projects():
     return render_template('icon_list.html',title='House Projects',rows=10,img='checkedbox.png',height='60', background='handyman.png')
-
-@app.route('/movies')
-def movies():
-    return render_template('weekly.html',weeks=get_date_sequence(SUNDAY), title='Movies', background='popcorn.png')
 
 @app.route('/lucy_time')
 def lucy_time():
     return render_template('weekly.html',weeks=get_date_sequence(TUESDAY), title='Lucy Time', background='dalle - snow playing.png')
 
-@app.route('/sensors')
-def sensors():
-    return render_template('icon_list.html',title='Sensor Projects',rows=24,img='sensor.png',height='15',background='sensor.png')
+# Seasonal
 
-@app.route('/boardgames')
-def boardgames():
-    entry = {'title': '__________________________', 'image_url':'http://localhost:5000/static/d20.png', 'extra':'☆☆☆☆☆'}
-    items = [entry for i in range(6)]
-    col_num = 2
-    rows = [items[i:i+col_num] for i in range(0, len(items), col_num)]
-    return render_template('item_grid.html', title='New Boardgames', rows=rows)
 
-@app.route('/seedlings')
-def seedlings():
-    entry = {'title': 'Plant:__________________', 'image_url':'http://localhost:5000/static/seedling.jpg', 'extra':'Prep Time:_____________'}
-    items = [entry for i in range(12)]
-    col_num = 3
-    rows = [items[i:i+col_num] for i in range(0, len(items), col_num)]
-    return render_template('item_grid.html', title='Seedling plantings', rows=rows)
-    
-@app.route('/computing')
-def computing():
-    items = [
-        {'title': 'Migrate off of gmail', 'image_url':'https://clipartcraft.com/images/gmail-logo-transparent-8.png'},
-        {'title': 'Build out backups', 'image_url':'http://localhost:5000/static/nas.svg'},
-        {'title': 'Budget Automations: Ace', 'image_url':'https://thehardwareconnection.com/wp-content/uploads/2020/06/Ace-logo.jpg'},
-        {'title': 'Budget Automations: Hyvee', 'image_url':'https://shelbyreport.nyc3.cdn.digitaloceanspaces.com/wp-content/uploads/2019/06/HY-VEE.png'},
-        {'title': 'Recreate Personal Website', 'image_url':'http://localhost:5000/static/www.png'},
-        {'title': 'Improve Bullet Journal Software', 'image_url':'http://localhost:5000/static/notebook.png'}
-    ]
-    col_num = 2
-    rows = [items[i:i+col_num] for i in range(0, len(items), col_num)]
-    return render_template('item_grid.html', title='Computing', rows=rows)
+# Exercise
 
-@app.route('/electronics')
-def electronics():
-    items = [
-        {'title': 'Re-Do the Ther-Mom-eter', 'image_url':'https://clipartcraft.com/images/thermometer-clipart-transparent-background-2.png'},
-        {'title': 'Cases for Distributed Nodes', 'image_url':'https://media.istockphoto.com/vectors/adapter-vector-id1245795116?k=6&m=1245795116&s=170667a&w=0&h=Wv1VYYM2ulWzjfHg5GkpVJJtdlYsihp8F4sBf9ZHq9g='},
-        {'title': 'Finish Computer', 'image_url':'https://images.cdn4.stockunlimited.net/clipart/computer-cabinet_1614954.jpg'},
-        {'title': 'Decide on 433mhz', 'image_url':'http://localhost:5000/static/Radio Tower.png'},
-        {'title': 'Batter+Solar Project', 'image_url':'http://localhost:5000/static/battery.png'},
-        {'title': 'Finish Thor', 'image_url':'http://localhost:5000/static/current_warning.png', 'extra':'Draw power from within!'}
-    ]
-    col_num = 2
-    rows = [items[i:i+col_num] for i in range(0, len(items), col_num)]
-    return render_template('item_grid.html', title='Electronics', rows=rows)
-    
-@app.route('/Preping')
-def Preping():
-    items = [
-        {'title': 'Print and Sign Wills', 'image_url':'https://media.istockphoto.com/vectors/signed-last-will-rgb-color-icon-document-with-stamp-notarized-and-vector-id1225537357?k=6&m=1225537357&s=612x612&w=0&h=j-SKPHODecbNo_LT5cB5qiczgRFENKO5ID7cVswRM28='},
-        {'title': 'Compile Retirement Info', 'image_url':'https://media.istockphoto.com/illustrations/flat-round-icon-illustration-id517173627?k=6&m=517173627&s=612x612&w=0&h=1Xlb8G7mX-VeqO6D-U4iNSdu6Tob4P5KEVjKNLDDy4E='},
-        {'title': 'Move funds out of SDRS-SRP', 'image_url':'https://media.istockphoto.com/vectors/map-of-the-us-state-of-south-dakota-vector-id1189596183?k=6&m=1189596183&s=612x612&w=0&h=3HU4fCjjvBgVcwvS6_NJjNc1b3yfarENESTUKNLfy0g='},
-        {'title': 'Life Insurance Beneficiaries', 'image_url':'https://media.istockphoto.com/illustrations/life-insurance-stamp-illustration-id468291652?k=6&m=468291652&s=612x612&w=0&h=uLx9qVj1BVDIRA0EGaCkbVh5lqPijKVAVRVLwH32PcM='},
-        {'title': 'ESOP Beneficiaries', 'image_url':'http://localhost:5000/static/esop.jpg'},
-        {'title': 'Update Info in Firesafe', 'image_url':'https://etc.usf.edu/clipart/19100/19122/safe_19122_md.gif'}
-    ]
-    col_num = 2
-    rows = [items[i:i+col_num] for i in range(0, len(items), col_num)]
-    return render_template('item_grid.html', title='Preping', rows=rows)
-
-@app.route('/biking')
-def biking():
+@app.route('/running')
+def running():
     dates = get_multi_date_sequence([TUESDAY,FRIDAY])
     #dates = get_date_sequence(TUESDAY)
     units = ['BPM','Time']
     unit_steps = [range(120,200,4),range(20,40)]
-    return render_template('graph.html',dates=dates,title='Biking',units=units,unit_steps=unit_steps)
+    return render_template('graph.html',dates=dates,title='Running',units=units,unit_steps=unit_steps)
 
 @app.route('/arms')
 def arms():
@@ -344,10 +274,6 @@ def legs():
         item_units.append(units)
     return render_template('stacked_graph.html',dates=dates,title='Leg Day!',items=items,
         item_units=item_units, steps=steps)
-
-@app.route('/handball')
-def handball():
-    return render_template('weekly.html',weeks=get_date_sequence(THURSDAY), title='Handball', background='handball.png')
 
 @app.route('/notes')
 def notes():
