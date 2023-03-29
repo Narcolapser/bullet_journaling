@@ -231,7 +231,29 @@ def lucy_time():
     return render_template('weekly.html',weeks=get_date_sequence(TUESDAY), title='Lucy Time', background='dalle - snow playing.png')
 
 # Seasonal
-
+@app.route('/bbqandbonfire')
+def bbqandbonfire():
+    return render_template('icon_list.html',title='BBQ and Bonfire',rows=8,img='bonfire.png',height='80', background='bonfire.png')
+    
+@app.route('/garden_plan')
+def garden_plan():
+    return render_template('blank.html',title='Garden Plan',caption='A drawing of our garden plan')
+    
+@app.route('/garden_pictures')
+def garden_pictures():
+    return render_template('blank.html',title='Garden Before and After',caption='Pictures of our garden at the start and end of the season.')
+    
+@app.route('/garden_hours')
+def garden_hours():
+    return render_template('blank.html',title='Hours Gardening',caption='Each leaf represents one hours work.', background='static/tree-no-leaves-drawing.png')
+    
+@app.route('/garden_table')
+def garden_table():
+    title = 'Plantings'
+    columns = [('Plant', '60%'), ('Planted', '25%'), ('Number', '15%')]
+    rows = 20
+    height = 25
+    return render_template('table.html', title=title, columns=columns, rows=rows, height=height)
 
 # Exercise
 
@@ -262,9 +284,9 @@ def arms():
 @app.route('/legs')
 def legs():
     dates = get_date_sequence(WEDNESDAY)
-    items = ['90° Toe Taps','Frappes','Knee Pushes','Passe','Cross Crunches']
+    items = ['90° Toe Taps','Degage','Planking','Shoulder Taps','Cross Crunches']
     steps = 5
-    item_bounds = [[70,150],[45,90],[70,150],[30,90],[70,150]]
+    item_bounds = [[150,250],[45,90],[60,120],[30,90],[120,210]]
     item_intervals = [int((bound[1]-bound[0])/steps) for bound in item_bounds]
     item_units = []
     for i,bounds in enumerate(item_bounds):
