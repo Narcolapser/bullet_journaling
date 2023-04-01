@@ -120,30 +120,45 @@ def compile_journal(directory, pad_path=None, folio_size=8, starting_page_num=1)
     index.write(open('out.pdf','wb'))
 
 
-pages = [('quarter_goals',0,'portrait'),
-         ('daily_planner',1,'landscape'),
-         ('weekly_planner', 2,'landscape'),
-         ('monthly_recap', 3,'portrait'),
-         ('pixels', 4,'portrait'),
-         ('celebrations', 5,'portrait'),
-         ('hospitality', 6,'portrait'),
-         ('lucy_time', 7,'portrait'),
-         ('couples_bible_study', 8,'portrait'),
-         ('religionbook', 9,'portrait'),
-         ('movies', 10,'portrait'),
-         ('boardgames', 11, 'portrait'),
-         ('dragon', 12,'portrait'),
-         ('seedlings', 13,'portrait'),
-         ('house_projects', 14, 'portrait'),
-         ('computing', 15, 'portrait'),
-         ('electronics', 16, 'portrait'),
-         ('Preping', 17, 'portrait'),
-         ('biking', 18,  'landscape'),
-         ('handball', 19, 'portrait'),
-         ('arms', 20, 'portrait'),
-         ('legs', 21, 'portrait'),
-         ('notes', 22,'portrait'),
-         ('notes', 23,'portrait'),]
+pages = [('title_page', 'portrait'),
+         ('annual_goals', 'portrait'),
+         ('themes_page', 'portrait'),
+         ('body', 'portrait'),
+         ('new_games', 'portrait'),
+         ('books', 'portrait'),
+         ('events', 'portrait'),
+         ('annual_pixels', 'portrait'),
+
+
+         ('quarter_goals', 'portrait'),
+         ('daily_planner', 'landscape'),
+         ('weekly_planner', 'landscape'),
+         ('monthly_recap', 'portrait'),
+         ('celebrations', 'portrait'),
+         ('hospitality', 'portrait'),
+         ('lucy_time', 'portrait'),
+         ('couples_bible_study', 'portrait'),
+         ('house_projects', 'portrait'),
+
+         # Seasonal pages
+         # bbq, garden plan, garden plantings, garden time, garden scrapbook
+         ('bbqandbonfire','portrait'),
+         ('garden_plan','portrait'),
+         ('garden_table','portrait'),
+         ('garden_hours','portrait'),
+         ('garden_pictures','portrait'),
+
+         ('ultimate_frisbee', 'portrait'),
+         ('running', 'landscape'),
+         ('arms', 'portrait'),
+         ('legs', 'portrait')
+]
+
+while len(pages)%4 != 0:
+    pages.append(('notes', 'portrait'))
+
+pages = [(page[0],i,page[1]) for i,page in enumerate(pages)]
+
 
 def print_journal(pages):
     for page in pages:
@@ -154,5 +169,5 @@ def print_journal(pages):
 
 if __name__ == '__main__':
     print_journal(pages)
-    compile_journal('./', starting_page_num=49)
+    compile_journal('./', starting_page_num=1)
 

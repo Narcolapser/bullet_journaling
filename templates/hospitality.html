@@ -1,36 +1,19 @@
-<html>
-    <style>
-    td {border: 1px solid lightgray;
-        width: 33%;
-        vertical-align: top;}
-    </style>
-    <center><h1>Friends and Family</h1></center>
-    <table style="border-collapse:collapse; width:100%">
-        <tr style="border: 1px solid lightgray; height:150px">
-            <td></td>
-            <td><center>Gigi</center></td>
-            <td></td>
+<table style="width:100%; border-collapse:collapse">
+    <tr style="height: auto;">
+        <th colspan="{{max_cells}}" style="text-align:center; font-size:24px;">{{title}}</th>
+    </tr>
+    {% for row in rows %}
+        <tr style="height:50px;">
+            <td colspan="{{max_cells}}" style="border-top: 1px solid black;">&nbsp;</td>
         </tr>
-        <tr style="border: 1px solid lightgray; height:150px">
-            <td></td>
-            <td><center>Call Brady</center></td>
-            <td></td>
+        <tr style="height: auto;">
+            <th colspan="{{max_cells}}" style="text-align:center;">{{row[0]}}</th>
         </tr>
-        <tr style="border: 1px solid lightgray; height:150px">
-            <td></td>
-            <td><center>Call Nathan</center></td>
-            <td></td>
+        <tr style="height:150px;">
+            {% for i in range(0, row[1]) %}
+                <td style="border: 1px solid black;"></td>
+            {% endfor %}
         </tr>
-    </table>
-    <table style="border-collapse:collapse; width:100%">
-        <tr style="border: 1px solid lightgray; height:150px">
-            <td style="width: 100%"><center></center></td>
-            <td style="width: 100%"><center></center></td>
-            <td style="width: 100%"><center></center></td>
-            <td style="width: 100%"><center>Sports Exercise!</center></td>
-            <td style="width: 100%"><center></center></td>
-            <td style="width: 100%"><center></center></td>
-            <td style="width: 100%"><center></center></td>
-        </tr>
-    </table>
-</html>
+    {% endfor %}
+</table>
+

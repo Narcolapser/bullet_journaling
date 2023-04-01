@@ -34,7 +34,7 @@ def get_specific_multi_date_sequence(days_of_week,start,end):
     return dates
 
 def get_multi_date_sequence(days_of_week):
-    return get_specific_multi_date_sequence(sdate,fdate)
+    return get_specific_multi_date_sequence(days_of_week,sdate,fdate)
 
 def get_date_sequence(dow):
     date = sdate + delta(days=dow)
@@ -208,7 +208,7 @@ def weekly_planner():
 @app.route('/monthly_recap')
 def monthly_recap():
     return render_template('icon_list_sections.html',title='Monthly Recap',rows = 7, img='notebook.png',height='12',
-                           sections=['February','March'])
+                           sections=['April','May'])
 
 @app.route('/celebrations')
 def celebrations():
@@ -216,7 +216,14 @@ def celebrations():
 
 @app.route('/hospitality')
 def hospitality():
-    return render_template('hospitality.html')
+    rows = [
+        ("Gigi Time", 2),
+        ("Call Brady", 2),
+        ("Call Nathan", 2),
+    ]
+    title = "Friends and Family"
+    max_cells = max([row[1] for row in rows])
+    return render_template('hospitality.html', rows=rows, title=title, max_cells=max_cells)
 
 @app.route('/couples_bible_study')
 def couples_bible_study():
@@ -228,7 +235,7 @@ def house_projects():
 
 @app.route('/lucy_time')
 def lucy_time():
-    return render_template('weekly.html',weeks=get_date_sequence(TUESDAY), title='Lucy Time', background='dalle - snow playing.png')
+    return render_template('weekly.html',weeks=get_date_sequence(TUESDAY), title='Lucy Time', background='dalle - dad and daughter building things together.png')
 
 # Seasonal
 @app.route('/bbqandbonfire')
@@ -251,11 +258,14 @@ def garden_hours():
 def garden_table():
     title = 'Plantings'
     columns = [('Plant', '60%'), ('Planted', '25%'), ('Number', '15%')]
-    rows = 20
-    height = 25
+    rows = 35
+    height = 35
     return render_template('table.html', title=title, columns=columns, rows=rows, height=height)
 
 # Exercise
+@app.route('/ultimate_frisbee')
+def ultimate_frisbee():
+    return render_template('weekly.html',weeks=get_date_sequence(SUNDAY), title='Ultimate Frisbee', background='ultimate frisbee.png')
 
 @app.route('/running')
 def running():
@@ -270,7 +280,7 @@ def arms():
     dates = get_date_sequence(MONDAY)
     items = ['Chest Press','Angel','Bicep Curl','Tricep Curl','Bent Over Row']
     steps = 5
-    item_bounds = [[10,45],[10,45],[10,45],[10,45],[10,45]]
+    item_bounds = [[20,60],[10,45],[10,45],[10,45],[10,45]]
     item_intervals = [int((bound[1]-bound[0])/steps) for bound in item_bounds]
     item_units = []
     for i,bounds in enumerate(item_bounds):
@@ -284,9 +294,9 @@ def arms():
 @app.route('/legs')
 def legs():
     dates = get_date_sequence(WEDNESDAY)
-    items = ['90° Toe Taps','Degage','Planking','Shoulder Taps','Cross Crunches']
+    items = ['Planking','90° Toe Taps','Shoulder Taps','Degage','Cross Crunches']
     steps = 5
-    item_bounds = [[150,250],[45,90],[60,120],[30,90],[120,210]]
+    item_bounds = [[60,120],[150,250],[30,90],[30,90],[120,210]]
     item_intervals = [int((bound[1]-bound[0])/steps) for bound in item_bounds]
     item_units = []
     for i,bounds in enumerate(item_bounds):
