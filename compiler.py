@@ -65,7 +65,8 @@ def build_folio(pages, padding=None, starting_page_number=None):
 
     if not padding:
         # If no padding page was provided, create a blank page to pad with.
-        padding = ('blank', PageObject.createBlankPage(None, 8.5*72, 11*72), 'landscape')
+        #padding = ('blank', PageObject.createBlankPage(None, 8.5*72, 11*72), 'landscape')
+        padding = PageObject.createBlankPage(None, 8.5*72, 11*72)
 
     # pad out the folio till it is 4, 8, or 12 pages long.
     while len(pages) not in collation_patterns and len(pages) <= 12:
@@ -80,6 +81,7 @@ def build_folio(pages, padding=None, starting_page_number=None):
     for n in range(int(len(collated)/2)):
         page1 = collated[n*2+0]
         # if the width is greater than the height, the document is in landscape and will need to be rotated.
+        print(page1)
         rot1 = page1['/MediaBox'][2] > page1['/MediaBox'][3]
         
         page2 = collated[n*2+1]
@@ -113,6 +115,7 @@ def compile_journal(directory, pad_path=None, folio_size=8, starting_page_num=1)
     joined_folios = []
     for i,folio in enumerate(folios):
         joined_folios.append(build_folio(folio,None,i*len(folio)+starting_page_num))
+        print(f'finished folio {i}')
     index = PdfFileWriter()
     for folio in joined_folios:
         for page in folio:
@@ -120,7 +123,8 @@ def compile_journal(directory, pad_path=None, folio_size=8, starting_page_num=1)
     index.write(open('out.pdf','wb'))
 
 
-pages = [('title_page', 'portrait'),
+pages = [
+         ('title_page', 'portrait'),
          ('annual_goals', 'portrait'),
          ('themes_page', 'portrait'),
          ('body', 'portrait'),
@@ -168,6 +172,6 @@ def print_journal(pages):
         outs = HTML(string=r.text).write_pdf('./{1:0>2}_{0}.pdf'.format(page[0],page[1]),stylesheets=[CSS(string='@page {size: ' + page[2] + '}')])
 
 if __name__ == '__main__':
-    print_journal(pages)
-    compile_journal('./', starting_page_num=1)
+#    print_journal(pages)
+    compile_journal('./', starting_page_num=73)
 

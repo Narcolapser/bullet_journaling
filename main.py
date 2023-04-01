@@ -176,7 +176,7 @@ def quarter_goals():
 def daily_planner():
     # We later strip off the date and use just the month, so we just need to know that we got to the next month with
     # these sequence of dates not that we got to the first of said month. 
-    months = [sdate+delta(days=0),sdate+delta(days=31),sdate+delta(days=62)]
+    months = [sdate+delta(days=0),sdate+delta(days=31)]#,sdate+delta(days=62)]
     ms = '%Y-%m'
     days = []
     day = delta(days=1)

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        table-layout: fixed;
+      }
+      
+      th {
+        padding: 8px;
+        text-align: center;
+        vertical-align: middle;
+        font-weight: bold;
+        background-color: #f2f2f2;
+      }
+      
+      td {
+        text-align: center;
+        vertical-align: middle;
+        height: {{height}}px;
+        border: 1px solid #ddd;
+      }
+      
+      th:not(:first-child), td:not(:first-child) {
+        border-left: 1px solid #ddd;
+      }
+      
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      
+      h1 {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      
+      {% for column in columns %}
+          th:nth-child({{loop.index}}) {
+            width: {{column[1]}};
+          }
+      {% endfor %}
+    </style>
+  </head>
+  <body>
+    <h1>{{ title }}</h1>
+    <table>
+      <thead>
+        <tr>
+          {% for column in columns %}
+          <th style="width: {{ column[1] }}%;">{{ column[0] }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in range(rows) %}
+        <tr style="height: {{height}}px;">
+          {% for column in columns %}
+          <td></td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
+
