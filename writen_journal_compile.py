@@ -21,21 +21,19 @@ for month in months:
         else:
             print(f)
 
-content = '###'
+content = '##'
 files.sort()
 
 for f in files:
 #    print(f)
     content += open(f).read() + '\n'
 
-content = content.replace('\n\n','\n')
+while '\n\n' in content:
+    content = content.replace('\n\n','\n')
 
-content = content.replace('\n# ','\n#### ')
-
+content = content.replace('\n# ','\n### ')
 content = content.replace("\n## Things I'm thankful for","\n\nThings I'm thankful for\n\n")
-
 content = content.replace("\n## Thing I love about Megan","\n\nThing I love about Megan: ")
-
 content = content.replace("\n## Entry","\n\nEntry\n")
 
 open('journal.md','w').write(content)
@@ -49,10 +47,13 @@ with open('journal.md', 'r') as f:
 html = markdown.markdown(md_content)
 
 css = """
-p {
-  text-indent: 1em;
-  margin-bottom: 0px;
-}"""
+<style>
+.text-indent {
+  text-indent: 2em;
+  font-size: 18px;
+}
+</style>
+"""
 
 # Wrap paragraphs in a <div> element and apply CSS rule
 ## Attempt to tab in the paragraphs
@@ -60,24 +61,34 @@ lines = html.split('\n')
 out_lines = []
 in_entry = False
 for line in lines:
-    if line == 'Entry':
+    if line == '<p>Entry</p>':
         in_entry = True
-        out_lines.append(line)
+        #out_lines.append(line)
         continue
         
-    elif line[0:4] == '####':
+    elif line[0:4] == '<h3>':
         in_entry = False
         
     if in_entry == False:
         l2 = line
     else:
-        l2 = '' + line
+        # The entry section starts with a single paragraph tag. And ends with a closing paragraph tag. But the number of
+        # lines inside it can vary so we don't know if this line has a p tag or not.
+#        if '<p>' not in line:
+#            line = '<p>' + line
+#        if '</p>' not in line:
+#            line = line + '</p>'
+# This approach made to much space between the lines.
+        # Lets try wrapping the line in a div, which I think creates a line break. 
+        line = f'<div class="text-indent">{line.replace("<p>","").replace("</p>","")}</div>'
+        l2 = line
     out_lines.append(l2)
+html = '\n'.join(out_lines)
 
 #content = '\n'.join(out_lines)
-html = html.replace('<p>', '<div class="text-indent"><p>')
-html = html.replace('</p>', '</p></div>')
-#css = '<style>.text-indent p { text-indent: 1em; }</style>'
+#html = html.replace('<p>', '<div class="text-indent"><p>')
+#html = html.replace('</p>', '</p></div>')
+#css = '<style>.text-indent div { text-indent: 1em; }</style>'
 html = css + html
 
 open('journal.html','w').write(html)
@@ -91,6 +102,18 @@ options = {
     'margin-bottom': '0.55in',
     'margin-left': '0.5in'
 }
+
+# First clear the existing pdfs:
+# Set the directory to the current directory
+dir_path = os.getcwd()
+
+# Get a list of all files in the directory
+files = os.listdir(dir_path)
+
+# Loop over the files and delete any that end in '.pdf'
+for file in files:
+    if file.endswith('.pdf'):
+        os.remove(os.path.join(dir_path, file))
 
 # Convert the HTML to PDF
 pdfkit.from_string(html, 'journal.pdf', options=options)
