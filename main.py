@@ -6,13 +6,13 @@ from datetime import datetime, timedelta as delta
 app = Flask(__name__)
 
 year = '2023'
-season = f'Spring {year}'
+season = f'Summer {year}'
 
 # The first sunday of the quarter
-sdate = datetime.strptime('2023-04-02', '%Y-%m-%d')
+sdate = datetime.strptime('2023-06-04', '%Y-%m-%d')
 
 # The last saturday of the quarter
-fdate = datetime.strptime('2023-05-27', '%Y-%m-%d')
+fdate = datetime.strptime('2023-08-26', '%Y-%m-%d')
 
 
 SUNDAY = 0
@@ -162,13 +162,14 @@ def annual_pixels():
 # Quarter Pages - Recurring
 @app.route('/quarter_goals')
 def quarter_goals():
-    subtitle = 'Season of Nothing New'
+    subtitle = 'Season of Unreal Engine'
     goals = [goal.replace('\n','') for goal in '''
-* Reread Dreaming In code
-* Habitica Weeklies do damage
-* Habitica rewards in HA
-* Auto receipts server running
-* Plant a lovely garden!
+* Setup seating area in garden
+* Register with Nintendo as a developer
+* Learn to use my sextant
+* Get 3D printer area organized
+* Hide Korok seeds around Urbosa
+* Wax Urbosa (and mom's car)
 '''.split('* ')[1:]]
     return render_template('goals.html',title=season,goals=goals,subtitle=subtitle)
 
@@ -176,10 +177,11 @@ def quarter_goals():
 def daily_planner():
     # We later strip off the date and use just the month, so we just need to know that we got to the next month with
     # these sequence of dates not that we got to the first of said month. 
-    months = [sdate+delta(days=0),sdate+delta(days=31)]#,sdate+delta(days=62)]
+    months = [sdate+delta(days=0),sdate+delta(days=31),sdate+delta(days=62)]
     ms = '%Y-%m'
     days = []
     day = delta(days=1)
+    print(months)
     for month in months:
         temp_month = datetime.strptime(month.strftime(ms),ms)
         dc = 0
@@ -187,7 +189,7 @@ def daily_planner():
             temp_month += day
             dc += 1
         days.append(dc)
-    activities = ['Isaiah', 'Dishes','Exercise','Update Journal']
+    activities = ['Healing Church', 'Dishes','Exercise','Update Journal']
     return render_template('daily_planner.html',season=season, months=months, days=days, activities=activities)
 
 @app.route('/weekly_planner')
@@ -208,7 +210,7 @@ def weekly_planner():
 @app.route('/monthly_recap')
 def monthly_recap():
     return render_template('icon_list_sections.html',title='Monthly Recap',rows = 7, img='notebook.png',height='12',
-                           sections=['April','May'])
+                           sections=['June','July','August'])
 
 @app.route('/celebrations')
 def celebrations():
@@ -217,9 +219,9 @@ def celebrations():
 @app.route('/hospitality')
 def hospitality():
     rows = [
-        ("Gigi Time", 2),
-        ("Call Brady", 2),
-        ("Call Nathan", 2),
+        ("Gigi Time", 3),
+        ("Call Brady", 3),
+        ("Call Nathan", 3),
     ]
     title = "Friends and Family"
     max_cells = max([row[1] for row in rows])
@@ -235,49 +237,41 @@ def house_projects():
 
 @app.route('/lucy_time')
 def lucy_time():
-    return render_template('weekly.html',weeks=get_date_sequence(TUESDAY), title='Lucy Time', background='dalle - dad and daughter building things together.png')
+    return render_template('weekly.html',weeks=get_date_sequence(TUESDAY), title='Lucy Time', background='dalle - dad and daughter playing in the pool.png')
+    
+@app.route('/unreal')
+def unreal():
+    return render_template('icon_list.html',title='Learning Unreal Engine 5',rows=12,img='unreal.png',height='40', background='unreal.png')
 
 # Seasonal
 @app.route('/bbqandbonfire')
 def bbqandbonfire():
     return render_template('icon_list.html',title='BBQ and Bonfire',rows=8,img='bonfire.png',height='80', background='bonfire.png')
     
-@app.route('/garden_plan')
-def garden_plan():
-    return render_template('blank.html',title='Garden Plan',caption='A drawing of our garden plan')
-    
-@app.route('/garden_pictures')
-def garden_pictures():
-    return render_template('blank.html',title='Garden Before and After',caption='Pictures of our garden at the start and end of the season.')
-    
 @app.route('/garden_hours')
 def garden_hours():
     return render_template('blank.html',title='Hours Gardening',caption='Each leaf represents one hours work.', background='static/tree-no-leaves-drawing.png')
-    
-@app.route('/garden_table')
-def garden_table():
-    title = 'Plantings'
-    columns = [('Plant', '60%'), ('Planted', '25%'), ('Number', '15%')]
-    rows = 35
-    height = 35
-    return render_template('table.html', title=title, columns=columns, rows=rows, height=height)
 
 # Exercise
 @app.route('/ultimate_frisbee')
 def ultimate_frisbee():
-    return render_template('weekly.html',weeks=get_date_sequence(SUNDAY), title='Ultimate Frisbee', background='ultimate frisbee.png')
+    return render_template('weekly.html',weeks=get_multi_date_sequence([SUNDAY]), title='Ultimate Frisbee Sundays', background='ultimate frisbee.png')
+    
+@app.route('/ultimate_frisbee2')
+def ultimate_frisbee2():
+    return render_template('weekly.html',weeks=get_multi_date_sequence([THURSDAY]), title='Ultimate Frisbee Thursdays', background='ultimate frisbee.png')
 
-@app.route('/running')
-def running():
-    dates = get_multi_date_sequence([TUESDAY,FRIDAY])
+@app.route('/swimming')
+def swimming():
+    dates = get_multi_date_sequence([MONDAY,WEDNESDAY])
     #dates = get_date_sequence(TUESDAY)
-    units = ['BPM','Time']
+    units = ['BPM','Laps']
     unit_steps = [range(120,200,4),range(20,40)]
-    return render_template('graph.html',dates=dates,title='Running',units=units,unit_steps=unit_steps)
+    return render_template('graph.html',dates=dates,title='Lap Swimming',units=units,unit_steps=unit_steps)
 
 @app.route('/arms')
 def arms():
-    dates = get_date_sequence(MONDAY)
+    dates = get_date_sequence(FRIDAY)
     items = ['Chest Press','Angel','Bicep Curl','Tricep Curl','Bent Over Row']
     steps = 5
     item_bounds = [[20,60],[10,45],[10,45],[10,45],[10,45]]
@@ -293,7 +287,7 @@ def arms():
 
 @app.route('/legs')
 def legs():
-    dates = get_date_sequence(WEDNESDAY)
+    dates = get_date_sequence(TUESDAY)
     items = ['Planking','90° Toe Taps','Shoulder Taps','Degage','Cross Crunches']
     steps = 5
     item_bounds = [[60,120],[150,250],[30,90],[30,90],[120,210]]

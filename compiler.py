@@ -124,38 +124,31 @@ def compile_journal(directory, pad_path=None, folio_size=8, starting_page_num=1)
 
 
 pages = [
-         ('title_page', 'portrait'),
-         ('annual_goals', 'portrait'),
-         ('themes_page', 'portrait'),
-         ('body', 'portrait'),
-         ('new_games', 'portrait'),
-         ('books', 'portrait'),
-         ('events', 'portrait'),
-         ('annual_pixels', 'portrait'),
-
-
          ('quarter_goals', 'portrait'),
+         
          ('daily_planner', 'landscape'),
          ('weekly_planner', 'landscape'),
+         
          ('monthly_recap', 'portrait'),
          ('celebrations', 'portrait'),
+         
          ('hospitality', 'portrait'),
          ('lucy_time', 'portrait'),
+         
          ('couples_bible_study', 'portrait'),
          ('house_projects', 'portrait'),
 
          # Seasonal pages
          # bbq, garden plan, garden plantings, garden time, garden scrapbook
+         ('unreal','portrait'),
          ('bbqandbonfire','portrait'),
-         ('garden_plan','portrait'),
-         ('garden_table','portrait'),
-         ('garden_hours','portrait'),
-         ('garden_pictures','portrait'),
-
+         
          ('ultimate_frisbee', 'portrait'),
-         ('running', 'landscape'),
-         ('arms', 'portrait'),
-         ('legs', 'portrait')
+         ('ultimate_frisbee2', 'portrait'),
+         
+         ('garden_hours','portrait'),
+         ('swimming', 'landscape'),
+
 ]
 
 while len(pages)%4 != 0:
@@ -172,6 +165,6 @@ def print_journal(pages):
         outs = HTML(string=r.text).write_pdf('./{1:0>2}_{0}.pdf'.format(page[0],page[1]),stylesheets=[CSS(string='@page {size: ' + page[2] + '}')])
 
 if __name__ == '__main__':
-#    print_journal(pages)
-    compile_journal('./', starting_page_num=73)
+    print_journal(pages)
+    compile_journal('./', starting_page_num=29)
 
