@@ -6,13 +6,13 @@ from datetime import datetime, timedelta as delta
 app = Flask(__name__)
 
 year = '2023'
-season = f'Summer {year}'
+season = f'Fall {year}'
 
 # The first sunday of the quarter
-sdate = datetime.strptime('2023-06-04', '%Y-%m-%d')
+sdate = datetime.strptime('2023-09-03', '%Y-%m-%d')
 
 # The last saturday of the quarter
-fdate = datetime.strptime('2023-08-26', '%Y-%m-%d')
+fdate = datetime.strptime('2023-12-30', '%Y-%m-%d')
 
 
 SUNDAY = 0
@@ -22,6 +22,8 @@ WEDNESDAY = 3
 THURSDAY = 4
 FRIDAY = 5
 SATURDAY = 6
+FULL_WEEK = [SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY]
+
 
 def get_specific_multi_date_sequence(days_of_week,start,end):
     dow_list = [start + delta(days=dow) for dow in days_of_week]
@@ -29,6 +31,8 @@ def get_specific_multi_date_sequence(days_of_week,start,end):
     dates = []
     while dow_list[0] <= end:
         for i,date in enumerate(dow_list):
+            if date > end:
+                break
             dates.append(date)
             dow_list[i] = date + week_delta
     return dates
@@ -50,7 +54,10 @@ def root():
     pages = []
     for rule in app.url_map.iter_rules():
         if "GET" in rule.methods:
+            if rule.endpoint in ['root','static']:
+                continue
             pages.append(rule.endpoint)
+    pages.sort()
     return render_template('index.html',pages=pages)
 
 
@@ -106,9 +113,9 @@ def annual_pixels():
     fdate2 = datetime.strptime('2023-11-30', '%Y-%m-%d')
     fdate3 = datetime.strptime('2024-03-31', '%Y-%m-%d')
     
-    col1 = get_specific_multi_date_sequence([SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY], sdate1, fdate1)
-    col2 = get_specific_multi_date_sequence([SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY], sdate2, fdate2)
-    col3 = get_specific_multi_date_sequence([SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY], sdate3, fdate3)
+    col1 = get_specific_multi_date_sequence(FULL_WEEK, sdate1, fdate1)
+    col2 = get_specific_multi_date_sequence(FULL_WEEK, sdate2, fdate2)
+    col3 = get_specific_multi_date_sequence(FULL_WEEK, sdate3, fdate3)
     cols = [col1, col2, col3]
     
     collections = []
@@ -162,14 +169,21 @@ def annual_pixels():
 # Quarter Pages - Recurring
 @app.route('/quarter_goals')
 def quarter_goals():
-    subtitle = 'Season of Unreal Engine'
+    subtitle = 'Season of Refinement\n(and holidays)'
     goals = [goal.replace('\n','') for goal in '''
-* Setup seating area in garden
-* Register with Nintendo as a developer
-* Learn to use my sextant
-* Get 3D printer area organized
-* Hide Korok seeds around Urbosa
-* Wax Urbosa (and mom's car)
+* Refine mounting for servers
+* Refine personal website
+* Refine computer case
+* Refine RPi case for printer
+* Refine Backups
+* Refine Habitica integrations
+* Refine Bullet Journal Software
+* Refine Lighting Controller
+* Refine SDR scanner script
+* Empty TrunkTrunk
+* Repair Rokenbok toys
+* Participate in NaNoWriMo
+* Participate in Advent of Code
 '''.split('* ')[1:]]
     return render_template('goals.html',title=season,goals=goals,subtitle=subtitle)
 
@@ -177,7 +191,7 @@ def quarter_goals():
 def daily_planner():
     # We later strip off the date and use just the month, so we just need to know that we got to the next month with
     # these sequence of dates not that we got to the first of said month. 
-    months = [sdate+delta(days=0),sdate+delta(days=31),sdate+delta(days=62)]
+    months = [sdate+delta(days=0),sdate+delta(days=31),sdate+delta(days=62),sdate+delta(days=93)]
     ms = '%Y-%m'
     days = []
     day = delta(days=1)
@@ -189,7 +203,7 @@ def daily_planner():
             temp_month += day
             dc += 1
         days.append(dc)
-    activities = ['Healing Church', 'Dishes','Exercise','Update Journal']
+    activities = ['C.S. Lewis Miracles', 'Dishes','Exercise','Update Journal']
     return render_template('daily_planner.html',season=season, months=months, days=days, activities=activities)
 
 @app.route('/weekly_planner')
@@ -209,8 +223,8 @@ def weekly_planner():
 
 @app.route('/monthly_recap')
 def monthly_recap():
-    return render_template('icon_list_sections.html',title='Monthly Recap',rows = 7, img='notebook.png',height='12',
-                           sections=['June','July','August'])
+    return render_template('icon_list_sections.html',title='Monthly Recap',rows = 7, img='notebook.png',height='8',
+                           sections=['September','October','November','December'])
 
 @app.route('/celebrations')
 def celebrations():
@@ -219,9 +233,9 @@ def celebrations():
 @app.route('/hospitality')
 def hospitality():
     rows = [
-        ("Gigi Time", 3),
-        ("Call Brady", 3),
-        ("Call Nathan", 3),
+        ("Gigi Time", 4),
+        ("Call Brady", 4),
+        ("Call Nathan", 4),
     ]
     title = "Friends and Family"
     max_cells = max([row[1] for row in rows])
@@ -237,7 +251,7 @@ def house_projects():
 
 @app.route('/lucy_time')
 def lucy_time():
-    return render_template('weekly.html',weeks=get_date_sequence(TUESDAY), title='Lucy Time', background='dalle - dad and daughter playing in the pool.png')
+    return render_template('weekly.html',weeks=get_date_sequence(TUESDAY), title='Lucy Time', background='playground.png')
     
 @app.route('/unreal')
 def unreal():
@@ -246,20 +260,46 @@ def unreal():
 # Seasonal
 @app.route('/bbqandbonfire')
 def bbqandbonfire():
-    return render_template('icon_list.html',title='BBQ and Bonfire',rows=8,img='bonfire.png',height='80', background='bonfire.png')
+    return render_template('icon_list.html',title='BBQ and Bonfire',rows=12,img='bonfire.png',height='60', background='bonfire.png')
     
 @app.route('/garden_hours')
 def garden_hours():
-    return render_template('blank.html',title='Hours Gardening',caption='Each leaf represents one hours work.', background='static/tree-no-leaves-drawing.png')
+    return render_template('blank.html',title='Hours Gardening',caption='Each leaf represents one hours work. <br/>Apples represent pounds of produce.', background='static/tree-no-leaves-drawing.png')
+
+@app.route('/nano')
+def nano():
+    start = datetime.strptime('2023-11-01', '%Y-%m-%d')
+    end = datetime.strptime('2023-11-30', '%Y-%m-%d')
+    days = FULL_WEEK
+    dates = get_specific_multi_date_sequence(days,start,end)
+
+    units = ['Words']
+    unit_steps = [range(0,5000,250)]
+    return render_template('graph.html',dates=dates,title='Lap Swimming',units=units,unit_steps=unit_steps)
+
+@app.route('/advent_of_code')
+def advent_of_code():
+    start = datetime.strptime('2023-12-01', '%Y-%m-%d')
+    end = datetime.strptime('2023-12-25', '%Y-%m-%d')
+    days = FULL_WEEK
+    dates = get_specific_multi_date_sequence(days,start,end)
+
+    units = ['Minutes']
+    unit_steps = [range(6,126,6)]
+    return render_template('graph.html',dates=dates,title='Lap Swimming',units=units,unit_steps=unit_steps)
+
+@app.route('/dnd')
+def dnd():
+    return render_template('icon_list.html',title='Dungeons and Dragons Campaign',rows=12,img='d20.png',height='60')
 
 # Exercise
 @app.route('/ultimate_frisbee')
 def ultimate_frisbee():
-    return render_template('weekly.html',weeks=get_multi_date_sequence([SUNDAY]), title='Ultimate Frisbee Sundays', background='ultimate frisbee.png')
+    return render_template('weekly.html',weeks=get_multi_date_sequence([SUNDAY]), title='Vermillion Friends Exercise Sundays', background='ultimate frisbee.png')
     
 @app.route('/ultimate_frisbee2')
 def ultimate_frisbee2():
-    return render_template('weekly.html',weeks=get_multi_date_sequence([THURSDAY]), title='Ultimate Frisbee Thursdays', background='ultimate frisbee.png')
+    return render_template('weekly.html',weeks=get_multi_date_sequence([THURSDAY]), title='Vermillion Friends Exercise Thursdays', background='ultimate frisbee.png')
 
 @app.route('/swimming')
 def swimming():
@@ -268,6 +308,19 @@ def swimming():
     units = ['BPM','Laps']
     unit_steps = [range(120,200,4),range(20,40)]
     return render_template('graph.html',dates=dates,title='Lap Swimming',units=units,unit_steps=unit_steps)
+
+@app.route('/running')
+def running():
+    dates = get_multi_date_sequence([MONDAY,WEDNESDAY])
+    #dates = get_date_sequence(TUESDAY)
+    units = ['BPM','Mi','Time']
+    unit_steps = [range(120,200,4),[i/10.0 for i in range(20,40,1)], range(20,40,1)]
+    return render_template('graph.html',dates=dates,title='Running',units=units,unit_steps=unit_steps)
+
+@app.route('/discgolf')
+def discgolf():
+    dates = get_multi_date_sequence([FRIDAY])
+    return render_template('disc.html',dates=dates)
 
 @app.route('/arms')
 def arms():
@@ -283,6 +336,22 @@ def arms():
             units.append(bounds[1] - item_intervals[i] * (j+1))
         item_units.append(units)
     return render_template('stacked_graph.html',dates=dates,title='Weight Lifting: Arms',items=items,
+        item_units=item_units, steps=steps)
+
+@app.route('/core')
+def core():
+    dates = get_date_sequence(TUESDAY)
+    items = ['Planking','Shoulder Taps','90° Toe Taps','Glute Bridge','Cross Crunches']
+    steps = 5
+    item_bounds = [[60,120],[30,90],[150,250],[30,90],[120,210]]
+    item_intervals = [int((bound[1]-bound[0])/steps) for bound in item_bounds]
+    item_units = []
+    for i,bounds in enumerate(item_bounds):
+        units = [bounds[1]]
+        for j in range(steps-1):
+            units.append(bounds[1] - item_intervals[i] * (j+1))
+        item_units.append(units)
+    return render_template('stacked_graph.html',dates=dates,title='Leg Day!',items=items,
         item_units=item_units, steps=steps)
 
 @app.route('/legs')

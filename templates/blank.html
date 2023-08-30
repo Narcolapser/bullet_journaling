@@ -32,6 +32,10 @@
 <body>
     <img class="bg_image" src="http://localhost:5000/static/backgrounds/{{background}}"/>
     <h1>{{title}}</h1>
-    <p>{{caption}}</p>
+    <p>
+        {% autoescape false %}
+        {{caption}}
+        {% endautoescape %}
+     </p>
 </body>
 </html>
