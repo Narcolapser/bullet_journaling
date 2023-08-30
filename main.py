@@ -223,7 +223,7 @@ def weekly_planner():
 
 @app.route('/monthly_recap')
 def monthly_recap():
-    return render_template('icon_list_sections.html',title='Monthly Recap',rows = 7, img='notebook.png',height='8',
+    return render_template('icon_list_sections.html',title='Monthly Recap',rows = 4, img='notebook.png',height='8',
                            sections=['September','October','November','December'])
 
 @app.route('/celebrations')
@@ -247,7 +247,7 @@ def couples_bible_study():
 
 @app.route('/house_projects')
 def house_projects():
-    return render_template('icon_list.html',title='House Projects',rows=10,img='checkedbox.png',height='60', background='handyman.png')
+    return render_template('icon_list.html',title='House Projects',rows=11,img='checkedbox.png',height='60', background='handyman.png')
 
 @app.route('/lucy_time')
 def lucy_time():
@@ -260,7 +260,7 @@ def unreal():
 # Seasonal
 @app.route('/bbqandbonfire')
 def bbqandbonfire():
-    return render_template('icon_list.html',title='BBQ and Bonfire',rows=12,img='bonfire.png',height='60', background='bonfire.png')
+    return render_template('icon_list.html',title='BBQ and Bonfire',rows=11,img='bonfire.png',height='60', background='bonfire.png')
     
 @app.route('/garden_hours')
 def garden_hours():
@@ -275,7 +275,7 @@ def nano():
 
     units = ['Words']
     unit_steps = [range(0,5000,250)]
-    return render_template('graph.html',dates=dates,title='Lap Swimming',units=units,unit_steps=unit_steps)
+    return render_template('graph.html',dates=dates,title='NaNoWriMo',units=units,unit_steps=unit_steps)
 
 @app.route('/advent_of_code')
 def advent_of_code():
@@ -286,11 +286,11 @@ def advent_of_code():
 
     units = ['Minutes']
     unit_steps = [range(6,126,6)]
-    return render_template('graph.html',dates=dates,title='Lap Swimming',units=units,unit_steps=unit_steps)
+    return render_template('graph.html',dates=dates,title='Advent of Code',units=units,unit_steps=unit_steps)
 
 @app.route('/dnd')
 def dnd():
-    return render_template('icon_list.html',title='Dungeons and Dragons Campaign',rows=12,img='d20.png',height='60')
+    return render_template('icon_list.html',title='Dungeons and Dragons Campaign',rows=16,img='d20.png',height='40')
 
 # Exercise
 @app.route('/ultimate_frisbee')
@@ -351,7 +351,7 @@ def core():
         for j in range(steps-1):
             units.append(bounds[1] - item_intervals[i] * (j+1))
         item_units.append(units)
-    return render_template('stacked_graph.html',dates=dates,title='Leg Day!',items=items,
+    return render_template('stacked_graph.html',dates=dates,title='Core workout',items=items,
         item_units=item_units, steps=steps)
 
 @app.route('/legs')

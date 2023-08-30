@@ -139,22 +139,29 @@ pages = [
          ('house_projects', 'portrait'),
 
          # Seasonal pages
-         # bbq, garden plan, garden plantings, garden time, garden scrapbook
-         ('unreal','portrait'),
          ('bbqandbonfire','portrait'),
+         ('garden_hours','portrait'),
+         
+         ('nano','landscape'),
+         ('advent_of_code','landscape'),
+
+         ('dnd',),
+         
+         # exercises
+         ('discgolf','portrait'),
          
          ('ultimate_frisbee', 'portrait'),
          ('ultimate_frisbee2', 'portrait'),
          
-         ('garden_hours','portrait'),
-         ('swimming', 'landscape'),
+         ('running', 'landscape'),
+         ('core',),
 
 ]
 
 while len(pages)%4 != 0:
     pages.append(('notes', 'portrait'))
 
-pages = [(page[0],i,page[1]) for i,page in enumerate(pages)]
+pages = [(page[0],i,page[1] if len(page) > 1 else 'portrait') for i,page in enumerate(pages)]
 
 
 def print_journal(pages):
@@ -166,5 +173,5 @@ def print_journal(pages):
 
 if __name__ == '__main__':
     print_journal(pages)
-    compile_journal('./', starting_page_num=29)
+    compile_journal('./', starting_page_num=45)
 
