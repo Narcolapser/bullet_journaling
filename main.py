@@ -5,14 +5,14 @@ from datetime import datetime, timedelta as delta
 
 app = Flask(__name__)
 
-year = '2023'
-season = f'Fall {year}'
+year = '2024'
+season = f'Winter {year}'
 
 # The first sunday of the quarter
-sdate = datetime.strptime('2023-09-03', '%Y-%m-%d')
+sdate = datetime.strptime('2024-01-07', '%Y-%m-%d')
 
 # The last saturday of the quarter
-fdate = datetime.strptime('2023-12-30', '%Y-%m-%d')
+fdate = datetime.strptime('2024-03-30', '%Y-%m-%d')
 
 
 SUNDAY = 0
@@ -169,21 +169,15 @@ def annual_pixels():
 # Quarter Pages - Recurring
 @app.route('/quarter_goals')
 def quarter_goals():
-    subtitle = 'Season of Refinement\n(and holidays)'
+    subtitle = 'Season of Exodus'
     goals = [goal.replace('\n','') for goal in '''
-* Refine mounting for servers
-* Refine personal website
-* Refine computer case
-* Refine RPi case for printer
-* Refine Backups
-* Refine Habitica integrations
-* Refine Bullet Journal Software
-* Refine Lighting Controller
-* Refine SDR scanner script
-* Empty TrunkTrunk
-* Repair Rokenbok toys
-* Participate in NaNoWriMo
-* Participate in Advent of Code
+* Learn to use my Sextant
+* Winter Camp
+* Organize Bulk Spice Storage
+* Develop Compost Plan
+* Develop Garden Plan for next year
+* Design a processor in Cedar Logic
+* Flash Dreame to custom firmware
 '''.split('* ')[1:]]
     return render_template('goals.html',title=season,goals=goals,subtitle=subtitle)
 
@@ -191,7 +185,7 @@ def quarter_goals():
 def daily_planner():
     # We later strip off the date and use just the month, so we just need to know that we got to the next month with
     # these sequence of dates not that we got to the first of said month. 
-    months = [sdate+delta(days=0),sdate+delta(days=31),sdate+delta(days=62),sdate+delta(days=93)]
+    months = [sdate+delta(days=0),sdate+delta(days=31),sdate+delta(days=62)]
     ms = '%Y-%m'
     days = []
     day = delta(days=1)
@@ -203,7 +197,7 @@ def daily_planner():
             temp_month += day
             dc += 1
         days.append(dc)
-    activities = ['C.S. Lewis Miracles', 'Dishes','Exercise','Update Journal']
+    activities = ['Exodus', 'Dishes','Exercise','Update Journal']
     return render_template('daily_planner.html',season=season, months=months, days=days, activities=activities)
 
 @app.route('/weekly_planner')
@@ -224,7 +218,7 @@ def weekly_planner():
 @app.route('/monthly_recap')
 def monthly_recap():
     return render_template('icon_list_sections.html',title='Monthly Recap',rows = 4, img='notebook.png',height='8',
-                           sections=['September','October','November','December'])
+                           sections=['January','February','March'])
 
 @app.route('/celebrations')
 def celebrations():
@@ -233,9 +227,10 @@ def celebrations():
 @app.route('/hospitality')
 def hospitality():
     rows = [
-        ("Gigi Time", 4),
-        ("Call Brady", 4),
-        ("Call Nathan", 4),
+        ("Gigi Time", 3),
+        ("Call Brady", 3),
+        ("Call Nathan", 3),
+        ("Date Night", 3),
     ]
     title = "Friends and Family"
     max_cells = max([row[1] for row in rows])
