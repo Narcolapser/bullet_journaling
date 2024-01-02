@@ -124,33 +124,33 @@ def compile_journal(directory, pad_path=None, folio_size=8, starting_page_num=1)
 
 
 pages = [
-         ('quarter_goals', 'portrait'),
-         
-         ('daily_planner', 'landscape'),
-         ('weekly_planner', 'landscape'),
-         
-         ('monthly_recap', 'portrait'),
-         ('celebrations', 'portrait'),
-         
-         ('hospitality', 'portrait'),
-         ('lucy_time', 'portrait'),
-         
-         ('couples_bible_study', 'portrait'),
-         ('house_projects', 'portrait'),
+#         ('quarter_goals', 'portrait'),
+#         
+#         ('daily_planner', 'landscape'),
+#         ('weekly_planner', 'landscape'),
+#         
+#         ('monthly_recap', 'portrait'),
+#         ('celebrations', 'portrait'),
+#         
+#         ('hospitality', 'portrait'),
+#         ('lucy_time', 'portrait'),
+#         
+#         ('couples_bible_study', 'portrait'),
+#         ('house_projects', 'portrait'),
 
-         # Seasonal pages
-         ('bbqandbonfire','portrait'),
-         ('garden_hours','portrait'),
-         
-         ('nano','landscape'),
-         ('advent_of_code','landscape'),
+#         # Seasonal pages
+#         ('bbqandbonfire','portrait'),
+#         ('garden_hours','portrait'),
+#         
+#         ('nano','landscape'),
+#         ('advent_of_code','landscape'),
 
-         ('dnd',),
-         
-         # exercises
-         ('discgolf','portrait'),
-         
-         ('ultimate_frisbee', 'portrait'),
+#         ('dnd',),
+#         
+#         # exercises
+#         ('discgolf','portrait'),
+#         
+#         ('ultimate_frisbee', 'portrait'),
          ('ultimate_frisbee2', 'portrait'),
          
          ('running', 'landscape'),
@@ -173,5 +173,5 @@ def print_journal(pages):
 
 if __name__ == '__main__':
     print_journal(pages)
-    compile_journal('./', starting_page_num=45)
+    compile_journal('./', starting_page_num=61)
 
