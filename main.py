@@ -98,7 +98,7 @@ def daily_planner():
 @app.route('/weekly_planner')
 def weekly_planner():
     activities = '''
-* Fraternity Meeting
+* Exodus Fraternity Meeting
 * Read News Letter
 * Lucy Time!
 * Games with Ben
@@ -147,7 +147,7 @@ def lucy_time():
 # Seasonal
 @app.route('/sunday_night_family_time')
 def sunday_night_family_time():
-    return render_template('weekly.html',weeks=get_date_sequence(TUESDAY),title='Family Activity',background='pegs and a die.jpg')
+    return render_template('weekly.html',weeks=get_date_sequence(SUNDAY),title='Family Activity',background='pegs and a die.jpg')
     
 @app.route('/dnd')
 def dnd():

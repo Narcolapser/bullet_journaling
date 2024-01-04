@@ -28,8 +28,8 @@ tmp_file = '/tmp/rotpdf.pdf'
 
 def merge_to_page(page1, page2):
     outs = PageObject.createBlankPage(None, 17*72, 11*72)
-    outs.mergeScaledTranslatedPage(p1, 1, 0, 0)
-    outs.mergeScaledTranslatedPage(p2, 1, 8.5*72, 0)
+    outs.mergeScaledTranslatedPage(page1, 1, 0, 0)
+    outs.mergeScaledTranslatedPage(page2, 1, 8.5*72, 0)
     outs.scaleTo(11*72,8.5*72)
     outs.rotateCounterClockwise(90)
     return outs
@@ -124,38 +124,29 @@ def compile_journal(directory, pad_path=None, folio_size=8, starting_page_num=1)
 
 
 pages = [
-#         ('quarter_goals', 'portrait'),
-#         
-#         ('daily_planner', 'landscape'),
-#         ('weekly_planner', 'landscape'),
-#         
-#         ('monthly_recap', 'portrait'),
-#         ('celebrations', 'portrait'),
-#         
-#         ('hospitality', 'portrait'),
-#         ('lucy_time', 'portrait'),
-#         
-#         ('couples_bible_study', 'portrait'),
-#         ('house_projects', 'portrait'),
+         ('quarter_goals', 'portrait'),
 
-#         # Seasonal pages
-#         ('bbqandbonfire','portrait'),
-#         ('garden_hours','portrait'),
-#         
-#         ('nano','landscape'),
-#         ('advent_of_code','landscape'),
+         ('daily_planner', 'landscape'),
+         ('weekly_planner', 'landscape'),
 
-#         ('dnd',),
-#         
-#         # exercises
-#         ('discgolf','portrait'),
-#         
-#         ('ultimate_frisbee', 'portrait'),
-         ('ultimate_frisbee2', 'portrait'),
-         
-         ('running', 'landscape'),
-         ('core',),
+         ('monthly_recap', 'portrait'),
+         ('celebrations', 'portrait'),
 
+         ('hospitality', 'portrait'),
+         ('lucy_time', 'portrait'),
+
+         ('couples_bible_study', 'portrait'),
+         ('house_projects', 'portrait'),
+
+         # Seasonal pages
+         ('sunday_night_family_time','portrait'),
+         ('dnd','portrait'),
+
+         # exercises
+         ('arms','portrait'),
+         ('core', 'portrait'),
+
+         ('biking','landscape'),
 ]
 
 while len(pages)%4 != 0:
