@@ -164,5 +164,5 @@ def print_journal(pages):
 
 if __name__ == '__main__':
     print_journal(pages)
-    compile_journal('./', starting_page_num=61)
+    compile_journal('./', starting_page_num=65)
 
