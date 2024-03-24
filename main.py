@@ -3,17 +3,19 @@ import json
 from flask import Flask, render_template, request, send_file
 from datetime import datetime, timedelta as delta
 
+from pages.util import SATURDAY
+from pages.exercises import get_core, get_running
+
 app = Flask(__name__)
 
 year = '2024'
-season = f'Winter {year}'
+season = f'Spring {year}'
 
 # The first sunday of the quarter
-sdate = datetime.strptime('2024-01-07', '%Y-%m-%d')
+sdate = datetime.strptime('2024-04-01', '%Y-%m-%d')
 
 # The last saturday of the quarter
-fdate = datetime.strptime('2024-03-30', '%Y-%m-%d')
-
+fdate = datetime.strptime('2024-05-31', '%Y-%m-%d')
 
 SUNDAY = 0
 MONDAY = 1
@@ -92,13 +94,12 @@ def daily_planner():
             temp_month += day
             dc += 1
         days.append(dc)
-    activities = ['Exodus', 'Dishes','Exercise','Update Journal']
+    activities = ['Quiet Hour', 'Dishes','Exercise','Walk Garden','Update Journal']
     return render_template('daily_planner.html',season=season, months=months, days=days, activities=activities)
 
 @app.route('/weekly_planner')
 def weekly_planner():
     activities = '''
-* Exodus Fraternity Meeting
 * Read News Letter
 * Lucy Time!
 * Games with Ben
@@ -120,17 +121,6 @@ def monthly_recap():
 def celebrations():
     return render_template('icon_list.html',title='Celebrations!',rows=21,img='tada.png',height='20')
 
-@app.route('/hospitality')
-def hospitality():
-    rows = [
-        ("Gigi Time", 3),
-        ("Call Brady", 3),
-        ("Call Nathan", 3),
-        ("Date Night", 3),
-    ]
-    title = "Friends and Family"
-    max_cells = max([row[1] for row in rows])
-    return render_template('hospitality.html', rows=rows, title=title, max_cells=max_cells)
 
 @app.route('/couples_bible_study')
 def couples_bible_study():
@@ -154,44 +144,8 @@ def dnd():
     return render_template('icon_list.html',title='Dungeons and Dragons Campaign',rows=10,img='d20.png',height='40')
 
 # Exercise
-@app.route('/biking')
-def biking():
-    dates = get_multi_date_sequence([MONDAY,WEDNESDAY])
-    units = ['BPM','Time']
-    unit_steps = [range(130,170,2), range(30,50,1)]
-    return render_template('graph.html',dates=dates,title='Exercise Bike',units=units,unit_steps=unit_steps)
-
-@app.route('/arms')
-def arms():
-    dates = get_date_sequence(FRIDAY)
-    items = ['Chest Press','Angel','Bicep Curl','Tricep Curl','Bent Over Row']
-    steps = 5
-    item_bounds = [[40,90],[24,75],[20,60],[20,60],[20,60]]
-    item_intervals = [int((bound[1]-bound[0])/steps) for bound in item_bounds]
-    item_units = []
-    for i,bounds in enumerate(item_bounds):
-        units = [bounds[1]]
-        for j in range(steps-1):
-            units.append(bounds[1] - item_intervals[i] * (j+1))
-        item_units.append(units)
-    return render_template('stacked_graph.html',dates=dates,title='Weight Lifting: Arms',items=items,
-        item_units=item_units, steps=steps)
-
-@app.route('/core')
-def core():
-    dates = get_date_sequence(TUESDAY)
-    items = ['Planking','90° Toe Taps','Shoulder Taps','Russian Twist','Cross Crunches']
-    steps = 5
-    item_bounds = [[100,180],[150,300],[60,120],[55,150],[150,300]]
-    item_intervals = [int((bound[1]-bound[0])/steps) for bound in item_bounds]
-    item_units = []
-    for i,bounds in enumerate(item_bounds):
-        units = [bounds[1]]
-        for j in range(steps-1):
-            units.append(bounds[1] - item_intervals[i] * (j+1))
-        item_units.append(units)
-    return render_template('stacked_graph.html',dates=dates,title='Core workout',items=items,
-        item_units=item_units, steps=steps)
+app.add_url_rule('/core','core',get_core(sdate,fdate))
+app.add_url_rule('/running','running',get_running(sdate,fdate))
 
 @app.route('/notes')
 def notes():

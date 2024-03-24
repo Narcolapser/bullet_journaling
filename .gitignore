@@ -1,3 +1,4 @@
 *.pdf
 *.swp
 venv
+*__pycache__*

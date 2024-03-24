@@ -75,3 +75,19 @@ def spring_goals():
     subtitle = 'Season of Enjoying'
     goals = ['Brew a root beer with ginger bug','Play 3 new video games (min 3 hours)','Have a guys night','Read "Bitcoin for the Befuddled"','Invest in some Cryptos','Design Bible Memorization scheme','Fix Lucy\'s car','Invite someone over','Beat Prentis in 30 throws','Draw twice a week']
     return render_template('goals.html',title=title,goals=goals,subtitle=subtitle)
+
+@app.route('/arms')
+def arms():
+    dates = get_date_sequence(FRIDAY)
+    items = ['Chest Press','Angel','Bicep Curl','Tricep Curl','Bent Over Row']
+    steps = 5
+    item_bounds = [[40,90],[24,75],[20,60],[20,60],[20,60]]
+    item_intervals = [int((bound[1]-bound[0])/steps) for bound in item_bounds]
+    item_units = []
+    for i,bounds in enumerate(item_bounds):
+        units = [bounds[1]]
+        for j in range(steps-1):
+            units.append(bounds[1] - item_intervals[i] * (j+1))
+        item_units.append(units)
+    return render_template('stacked_graph.html',dates=dates,title='Weight Lifting: Arms',items=items,
+        item_units=item_units, steps=steps)
