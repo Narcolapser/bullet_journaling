@@ -86,23 +86,15 @@ def monthly_recap():
     return render_template('icon_list_sections.html',title='Monthly Recap',rows = 7, img='notebook.png',height='8',
                            sections=['January','February','March'])
 
-@app.route('/celebrations')
-def celebrations():
-    return render_template('icon_list.html',title='Celebrations!',rows=21,img='tada.png',height='20')
+app.add_url_rule('/couples_bible_study','couples_bible_study',
+                 build_weekly(dates, 'Couples Bible Study',Day_Of_Week.SATURDAY,'../bible.png'))
 
+app.add_url_rule('/lucy_time','lucy_time',
+                 build_weekly(dates, 'Lucy Time',Day_Of_Week.TUESDAY,'dalle - snow playing.png'))
 
-@app.route('/couples_bible_study')
-def couples_bible_study():
-    return render_template('weekly.html',weeks=get_date_sequence(Day_Of_Week.SATURDAY), title='Couple\'s Bible Study', background='../bible.png')
+app.add_url_rule('/house_projects','house_projects',build_icon_list('House Projects',11,'handyman.png'))
+app.add_url_rule('/celebrations','celebrations',build_icon_list('Celebrations!',21,'tada.png'))
 
-@app.route('/house_projects')
-def house_projects():
-    return render_template('icon_list.html',title='House Projects',rows=11,img='checkedbox.png',height='60', background='handyman.png')
-
-@app.route('/lucy_time')
-def lucy_time():
-    return render_template('weekly.html',weeks=get_date_sequence(Day_Of_Week.TUESDAY), title='Lucy Time', background='dalle - snow playing.png')
-    
 # Seasonal
 app.add_url_rule('/family_game_night','family_game_night',
                  build_weekly(dates, 'Family Game Night!',Day_Of_Week.SUNDAY,'pegs and a die.jpg'))

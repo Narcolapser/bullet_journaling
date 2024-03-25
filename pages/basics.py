@@ -7,7 +7,8 @@ def build_icon_list(title:str, rows: int, background: str):
     def page():
         height_map = {
             21:'20',
-            10:'40'
+            10:'40',
+            11:'60'
         }
         return render_template('icon_list.html',title=title,rows=rows,img=background,height=height_map[rows])
     return page
