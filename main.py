@@ -5,19 +5,13 @@ from datetime import datetime, timedelta as delta
 
 from pages.util import Day_Of_Week, get_date_sequence, StartFinish
 from pages.exercises import build_core, build_running
-from pages.basics import build_notes, build_icon_list, build_weekly
+from pages.basics import build_notes, build_icon_list, build_weekly, build_daily_planner
 
 app = Flask(__name__)
 
 year = '2024'
 season = f'Spring {year}'
-
-# The first sunday of the quarter
-sdate = datetime.strptime('2024-04-01', '%Y-%m-%d')
-
-# The last saturday of the quarter
-fdate = datetime.strptime('2024-05-31', '%Y-%m-%d')
-dates = StartFinish(sdate, fdate)
+dates = StartFinish(datetime.strptime('2024-04-01', '%Y-%m-%d'), datetime.strptime('2024-05-31', '%Y-%m-%d'))
 
 @app.route('/')
 def root():
@@ -47,24 +41,8 @@ def quarter_goals():
 '''.split('* ')[1:]]
     return render_template('goals.html',title=season,goals=goals,subtitle=subtitle,why_theme=why_theme)
 
-@app.route('/daily_planner')
-def daily_planner():
-    # We later strip off the date and use just the month, so we just need to know that we got to the next month with
-    # these sequence of dates not that we got to the first of said month. 
-    months = [sdate+delta(days=0),sdate+delta(days=31),sdate+delta(days=62)]
-    ms = '%Y-%m'
-    days = []
-    day = delta(days=1)
-    print(months)
-    for month in months:
-        temp_month = datetime.strptime(month.strftime(ms),ms)
-        dc = 0
-        while temp_month.month == month.month:
-            temp_month += day
-            dc += 1
-        days.append(dc)
-    activities = ['Quiet Hour', 'Dishes','Exercise','Walk Garden','Update Journal']
-    return render_template('daily_planner.html',season=season, months=months, days=days, activities=activities)
+activities = ['Quiet Hour', 'Dishes','Exercise','Walk Garden','Update Journal']
+app.add_url_rule('/daily_planner','daily_planner',build_daily_planner(dates,activities,season,num_months=2))
 
 @app.route('/weekly_planner')
 def weekly_planner():
