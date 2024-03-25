@@ -3,8 +3,8 @@ import json
 from flask import Flask, render_template, request, send_file
 from datetime import datetime, timedelta as delta
 
-from pages.util import SATURDAY
-from pages.exercises import get_core, get_running
+from pages.util import Day_Of_Week, get_date_sequence, StartFinish
+from pages.exercises import build_core, build_running
 
 app = Flask(__name__)
 
@@ -16,40 +16,7 @@ sdate = datetime.strptime('2024-04-01', '%Y-%m-%d')
 
 # The last saturday of the quarter
 fdate = datetime.strptime('2024-05-31', '%Y-%m-%d')
-
-SUNDAY = 0
-MONDAY = 1
-TUESDAY = 2
-WEDNESDAY = 3
-THURSDAY = 4
-FRIDAY = 5
-SATURDAY = 6
-FULL_WEEK = [SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY]
-
-
-def get_specific_multi_date_sequence(days_of_week,start,end):
-    dow_list = [start + delta(days=dow) for dow in days_of_week]
-    week_delta = delta(days=7)
-    dates = []
-    while dow_list[0] <= end:
-        for i,date in enumerate(dow_list):
-            if date > end:
-                break
-            dates.append(date)
-            dow_list[i] = date + week_delta
-    return dates
-
-def get_multi_date_sequence(days_of_week):
-    return get_specific_multi_date_sequence(days_of_week,sdate,fdate)
-
-def get_date_sequence(dow):
-    date = sdate + delta(days=dow)
-    week_delta = delta(days=7)
-    dates = []
-    while date <= fdate:
-        dates.append(date)
-        date = date + week_delta
-    return dates
+dates = StartFinish(sdate, fdate)
 
 @app.route('/')
 def root():
@@ -109,7 +76,7 @@ def weekly_planner():
 * Clean Desks
 * Water Plants
 * Swap Batteries'''.split('* ')[1:]
-    dates = get_date_sequence(SUNDAY)
+    dates = get_date_sequence(Day_Of_Week.SUNDAY)
     return render_template('weekly_planner.html',season=season,activities=activities,weeks=dates)
 
 @app.route('/monthly_recap')
@@ -124,7 +91,7 @@ def celebrations():
 
 @app.route('/couples_bible_study')
 def couples_bible_study():
-    return render_template('weekly.html',weeks=get_date_sequence(SATURDAY), title='Couple\'s Bible Study', background='../bible.png')
+    return render_template('weekly.html',weeks=get_date_sequence(Day_Of_Week.SATURDAY), title='Couple\'s Bible Study', background='../bible.png')
 
 @app.route('/house_projects')
 def house_projects():
@@ -132,20 +99,20 @@ def house_projects():
 
 @app.route('/lucy_time')
 def lucy_time():
-    return render_template('weekly.html',weeks=get_date_sequence(TUESDAY), title='Lucy Time', background='dalle - snow playing.png')
+    return render_template('weekly.html',weeks=get_date_sequence(Day_Of_Week.TUESDAY), title='Lucy Time', background='dalle - snow playing.png')
     
 # Seasonal
 @app.route('/sunday_night_family_time')
 def sunday_night_family_time():
-    return render_template('weekly.html',weeks=get_date_sequence(SUNDAY),title='Family Activity',background='pegs and a die.jpg')
+    return render_template('weekly.html',weeks=get_date_sequence(Day_Of_Week.SUNDAY),title='Family Activity',background='pegs and a die.jpg')
     
 @app.route('/dnd')
 def dnd():
     return render_template('icon_list.html',title='Dungeons and Dragons Campaign',rows=10,img='d20.png',height='40')
 
 # Exercise
-app.add_url_rule('/core','core',get_core(sdate,fdate))
-app.add_url_rule('/running','running',get_running(sdate,fdate))
+app.add_url_rule('/core','core', build_core(dates, Day_Of_Week.TUESDAY))
+app.add_url_rule('/running','running', build_running(dates, [Day_Of_Week.MONDAY, Day_Of_Week.FRIDAY], miles=4.5, minutes=45))
 
 @app.route('/notes')
 def notes():
