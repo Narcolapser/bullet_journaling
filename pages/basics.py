@@ -3,6 +3,17 @@ from pages.util import StartFinish, get_multi_date_sequence, get_date_sequence, 
 from datetime import datetime, timedelta as delta
 from flask import render_template
 
+def build_goals(season, theme, why, goals:List[str]):
+    def quarter_goals():
+        return render_template('goals.html',title=season,goals=goals,subtitle=theme,why_theme=why)
+    return quarter_goals
+
+def build_weekly_planner(dates, season, activities):
+    def weekly_planner():
+        dates = get_date_sequence(Day_Of_Week.SUNDAY, dates)
+        return render_template('weekly_planner.html',season=season,activities=activities,weeks=dates)
+    return weekly_planner
+
 def build_daily_planner(dates, activities: List[str], season, num_months=3):
     def planner():
         # We later strip off the date and use just the month, so we just need to know that we got to the next month with

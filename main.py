@@ -5,12 +5,13 @@ from datetime import datetime, timedelta as delta
 
 from pages.util import Day_Of_Week, get_date_sequence, StartFinish
 from pages.exercises import build_core, build_running
-from pages.basics import build_notes, build_icon_list, build_weekly, build_daily_planner
+from pages.basics import build_goals, build_notes, build_icon_list, build_weekly, build_daily_planner, build_weekly_planner
 
 app = Flask(__name__)
 
 year = '2024'
 season = f'Spring {year}'
+theme = 'Season of Gardening 2'
 dates = StartFinish(datetime.strptime('2024-04-01', '%Y-%m-%d'), datetime.strptime('2024-05-31', '%Y-%m-%d'))
 
 @app.route('/')
@@ -26,27 +27,26 @@ def root():
 
 
 # Quarter Pages - Recurring
-@app.route('/quarter_goals')
-def quarter_goals():
-    subtitle = 'Season of Exodus'
-    why_theme = 'The dominant feature of this quarter is the Exodus 90 challenge. It represents the majority the guidance for what I will be doing, or not doing, this quarter. Why I am doing this is to provide myself with an opportunity to grow in spirit with Christ. I wish to draw near to God and learn how to pray. Doing this challenge with the other men of my group I hope will encourage this growth. The goals below are ancillary to the theme, things to spend my time on productively while I am in this period of fasting.'
-    goals = [goal.replace('\n','') for goal in '''
-* Learn to use my Sextant
-* Winter Camp
-* Organize Bulk Spice Storage
-* Develop Compost Plan
-* Develop Garden Plan for next year
-* Design a processor in Cedar Logic
-* Flash Dreame to custom firmware
+why = 'We want to continue to grow our garden'
+goals = [goal.replace('\n','') for goal in '''
+* Learn to make french bread
+* Start reading Celebration of discipline
+* Cultivate a sour dough starter from wild yeast <- Make a page
+* Build a water feature into our garden <- Could this be a page?
+* Finish Seed to Table course <- Make a page
+* Develop a "Health Cookie" <- Make a page
+* Develop kid friendly DnD game
+* Establish Garden for this season
+* Put 2022 Journal in a cover
+* Bind 2023 Journal pages
+* Put 2023 Journal in cover
 '''.split('* ')[1:]]
-    return render_template('goals.html',title=season,goals=goals,subtitle=subtitle,why_theme=why_theme)
+app.add_url_rule('/quarter_goals','quarter_goals',build_goals(season, theme, why, goals))
 
 activities = ['Quiet Hour', 'Dishes','Exercise','Walk Garden','Update Journal']
 app.add_url_rule('/daily_planner','daily_planner',build_daily_planner(dates,activities,season,num_months=2))
 
-@app.route('/weekly_planner')
-def weekly_planner():
-    activities = '''
+weekly_activities = '''
 * Read News Letter
 * Lucy Time!
 * Games with Ben
@@ -55,9 +55,9 @@ def weekly_planner():
 * Clean Garage
 * Clean Desks
 * Water Plants
-* Swap Batteries'''.split('* ')[1:]
-    dates = get_date_sequence(Day_Of_Week.SUNDAY)
-    return render_template('weekly_planner.html',season=season,activities=activities,weeks=dates)
+* Swap Batteries
+'''.split('* ')[1:]
+app.add_url_rule('/weekly_planner','weekly_planner',build_weekly_planner(dates, season, weekly_activities))
 
 @app.route('/monthly_recap')
 def monthly_recap():
