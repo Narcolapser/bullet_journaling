@@ -5,6 +5,7 @@ from datetime import datetime, timedelta as delta
 
 from pages.util import Day_Of_Week, get_date_sequence, StartFinish
 from pages.exercises import build_core, build_running
+from pages.basics import build_notes, build_icon_list, build_weekly
 
 app = Flask(__name__)
 
@@ -28,6 +29,7 @@ def root():
             pages.append(rule.endpoint)
     pages.sort()
     return render_template('index.html',pages=pages)
+
 
 # Quarter Pages - Recurring
 @app.route('/quarter_goals')
@@ -102,21 +104,18 @@ def lucy_time():
     return render_template('weekly.html',weeks=get_date_sequence(Day_Of_Week.TUESDAY), title='Lucy Time', background='dalle - snow playing.png')
     
 # Seasonal
-@app.route('/sunday_night_family_time')
-def sunday_night_family_time():
-    return render_template('weekly.html',weeks=get_date_sequence(Day_Of_Week.SUNDAY),title='Family Activity',background='pegs and a die.jpg')
-    
-@app.route('/dnd')
-def dnd():
-    return render_template('icon_list.html',title='Dungeons and Dragons Campaign',rows=10,img='d20.png',height='40')
+app.add_url_rule('/family_game_night','family_game_night',
+                 build_weekly(dates, 'Family Game Night!',Day_Of_Week.SUNDAY,'pegs and a die.jpg'))
+app.add_url_rule('/dnd','dnd',build_icon_list('Dungeons and Dragons Campaign',10,'d20.png'))
 
 # Exercise
 app.add_url_rule('/core','core', build_core(dates, Day_Of_Week.TUESDAY))
 app.add_url_rule('/running','running', build_running(dates, [Day_Of_Week.MONDAY, Day_Of_Week.FRIDAY], miles=4.5, minutes=45))
 
-@app.route('/notes')
-def notes():
-    return render_template('icon_list.html',title='Notes',rows=21,img='notebook.png',height='20')
+# Lastly the filler.
+app.add_url_rule('/notes','notes', build_notes())
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port = 5000)

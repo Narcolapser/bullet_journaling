@@ -3,6 +3,8 @@ from pages.util import StartFinish, get_multi_date_sequence, get_date_sequence, 
 from datetime import timedelta as delta
 
 from flask import render_template
+
+
 def get_biking(sdate,fdate):
     def biking():
         dates = get_multi_date_sequence([Day_Of_Week.MONDAY,Day_Of_Week.WEDNESDAY],sdate,fdate)
