@@ -10,8 +10,8 @@ def build_goals(season, theme, why, goals:List[str]):
 
 def build_weekly_planner(dates, season, activities):
     def weekly_planner():
-        dates = get_date_sequence(Day_Of_Week.SUNDAY, dates)
-        return render_template('weekly_planner.html',season=season,activities=activities,weeks=dates)
+        date_sequence = get_date_sequence(Day_Of_Week.SUNDAY, dates)
+        return render_template('weekly_planner.html',season=season,activities=activities,weeks=date_sequence)
     return weekly_planner
 
 def build_daily_planner(dates, activities: List[str], season, num_months=3):

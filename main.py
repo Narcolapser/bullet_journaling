@@ -1,5 +1,9 @@
-import requests
-import json
+from yaml import load
+try:
+    from yaml import CLoader as Loader, CDumper as Dumper
+except ImportError:
+    from yaml import Loader, Dumper
+
 from flask import Flask, render_template, request, send_file
 from datetime import datetime, timedelta as delta
 
@@ -9,9 +13,11 @@ from pages.basics import build_goals, build_notes, build_icon_list, build_weekly
 
 app = Flask(__name__)
 
+quarterly = load(open('./notes/2024/1 spring/quarter.yaml'),Loader=Loader)
+
 year = '2024'
 season = f'Spring {year}'
-theme = 'Season of Gardening 2'
+theme = quarterly['theme']
 dates = StartFinish(datetime.strptime('2024-04-01', '%Y-%m-%d'), datetime.strptime('2024-05-31', '%Y-%m-%d'))
 
 @app.route('/')
@@ -27,36 +33,14 @@ def root():
 
 
 # Quarter Pages - Recurring
-why = 'We want to continue to grow our garden'
-goals = [goal.replace('\n','') for goal in '''
-* Learn to make french bread
-* Start reading Celebration of discipline
-* Cultivate a sour dough starter from wild yeast <- Make a page
-* Build a water feature into our garden <- Could this be a page?
-* Finish Seed to Table course <- Make a page
-* Develop a "Health Cookie" <- Make a page
-* Develop kid friendly DnD game
-* Establish Garden for this season
-* Put 2022 Journal in a cover
-* Bind 2023 Journal pages
-* Put 2023 Journal in cover
-'''.split('* ')[1:]]
+why = quarterly['why']
+goals = quarterly['goals']
 app.add_url_rule('/quarter_goals','quarter_goals',build_goals(season, theme, why, goals))
 
-activities = ['Quiet Hour', 'Dishes','Exercise','Walk Garden','Update Journal']
+activities = quarterly['daily']
 app.add_url_rule('/daily_planner','daily_planner',build_daily_planner(dates,activities,season,num_months=2))
 
-weekly_activities = '''
-* Read News Letter
-* Lucy Time!
-* Games with Ben
-* Couples Bible study
-* Chore
-* Clean Garage
-* Clean Desks
-* Water Plants
-* Swap Batteries
-'''.split('* ')[1:]
+weekly_activities = quarterly['weekly']
 app.add_url_rule('/weekly_planner','weekly_planner',build_weekly_planner(dates, season, weekly_activities))
 
 @app.route('/monthly_recap')

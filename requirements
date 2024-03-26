@@ -5,3 +5,4 @@ pypdf3
 fpdf
 pdfkit
 wkhtmltopdf
+pyyaml
