@@ -1,24 +1,35 @@
 from yaml import load
 try:
-    from yaml import CLoader as Loader, CDumper as Dumper
+    from yaml import CLoader as Loader
 except ImportError:
-    from yaml import Loader, Dumper
+    from yaml import Loader
 
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template
 from datetime import datetime, timedelta as delta
 
-from pages.util import Day_Of_Week, get_date_sequence, StartFinish
+from pages.util import Day_Of_Week, StartFinish
 from pages.exercises import build_core, build_running
-from pages.basics import build_goals, build_notes, build_icon_list, build_weekly, build_daily_planner, build_weekly_planner, build_sectional_icon_list
+from pages.basics import build_goals, build_notes, build_icon_list, build_weekly, build_daily_planner, build_weekly_planner, build_monthly_recap
 
 app = Flask(__name__)
 
 quarterly = load(open('./notes/2024/1 spring/quarter.yaml'),Loader=Loader)
+dates = StartFinish(quarterly['start'],quarterly['end'])
 
-year = '2024'
-season = f'Spring {year}'
+year = str(dates.sdate.year)
 theme = quarterly['theme']
-dates = StartFinish(datetime.strptime('2024-04-01', '%Y-%m-%d'), datetime.strptime('2024-05-31', '%Y-%m-%d'))
+def get_season(date_obj):
+    month = date_obj.month
+    if month in [12, 1, 2]:
+        return "Winter"
+    elif month in [3, 4, 5]:
+        return "Spring"
+    elif month in [6, 7, 8]:
+        return "Summer"
+    else:
+        return "Fall"
+    
+season = f'{get_season(dates.sdate)} {year}'
 
 @app.route('/')
 def root():
@@ -43,8 +54,7 @@ app.add_url_rule('/daily_planner','daily_planner',build_daily_planner(dates,acti
 weekly_activities = quarterly['weekly']
 app.add_url_rule('/weekly_planner','weekly_planner',build_weekly_planner(dates, season, weekly_activities))
 
-mr = build_sectional_icon_list('Monthly Recap',['January','February','March'],7,'notebook.png')
-app.add_url_rule('/monthly_recap','monthly_recap',mr)
+app.add_url_rule('/monthly_recap','monthly_recap',build_monthly_recap(dates))
 
 app.add_url_rule('/couples_bible_study','couples_bible_study',
                  build_weekly(dates, 'Couples Bible Study',Day_Of_Week.SATURDAY,'../bible.png'))

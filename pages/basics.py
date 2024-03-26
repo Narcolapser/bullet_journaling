@@ -60,10 +60,16 @@ def get_sectional_row_height(num_sections, rows_per_section):
 
 def build_sectional_icon_list(title: str, section_titles: List[str], rows_per_section: int, icon: str):
     height = get_sectional_row_height(len(section_titles),rows_per_section)
-    def monthly_recap():
+    def sectional():
         return render_template('icon_list_sections.html',title=title,rows=rows_per_section, img=icon,height=height,
                             sections=section_titles)
-    return monthly_recap
+    return sectional
+
+def build_monthly_recap(dates):
+    # Calculate the difference in months
+    months_difference = (dates.fdate.year - dates.sdate.year) * 12 + dates.fdate.month - dates.sdate.month + 1
+    months = [(dates.sdate+delta(days=31*i)).strftime('%B') for i in range(months_difference)]
+    return build_sectional_icon_list('Monthly Recap',months,7,'notebook.png')
 
 def build_notes():
     return build_icon_list('Notes', 21, 'notebook.png')
