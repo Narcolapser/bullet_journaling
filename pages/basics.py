@@ -51,5 +51,19 @@ def build_weekly(dates:StartFinish, title: str, day_of_week: Day_Of_Week, backgr
                                background=background)
     return weekly
 
+def get_sectional_row_height(num_sections, rows_per_section):
+    section_pixels = 50
+    total_height = 400
+    row_total = total_height - section_pixels*num_sections
+    return str(int(row_total/(rows_per_section*num_sections)))
+
+
+def build_sectional_icon_list(title: str, section_titles: List[str], rows_per_section: int, icon: str):
+    height = get_sectional_row_height(len(section_titles),rows_per_section)
+    def monthly_recap():
+        return render_template('icon_list_sections.html',title=title,rows=rows_per_section, img=icon,height=height,
+                            sections=section_titles)
+    return monthly_recap
+
 def build_notes():
     return build_icon_list('Notes', 21, 'notebook.png')
