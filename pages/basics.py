@@ -46,9 +46,11 @@ def build_icon_list(title:str, rows: int, background: str):
             10:'40',
             12:'40',
             11:'60',
+            6:'100',
             4:'150'
         }
-        return render_template('icon_list.html',title=title,rows=rows,img=background,height=height_map[rows])
+        height = str(600/rows)
+        return render_template('icon_list.html',title=title,rows=rows,img=background,height=height)
     return page
 
 def build_weekly(dates:StartFinish, title: str, day_of_week: Day_Of_Week, background: str):
@@ -145,3 +147,8 @@ def build_pixels():
             collections.append({'months':months,'weeks':weeks})
         return render_template('pixels_annual.html',collections=collections,emotions=emotions)
     return annual_pixels
+
+def build_picture_grid(title,picture,rows,cols):
+    def picture_grid():
+        return render_template('picture_grid.html',rows=rows, cols=cols, title=title, picture=picture)
+    return picture_grid

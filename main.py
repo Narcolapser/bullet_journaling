@@ -9,7 +9,7 @@ from datetime import datetime, timedelta as delta
 
 from pages.util import Day_Of_Week, StartFinish
 from pages.exercises import build_core, build_running, build_body_fat
-from pages.basics import build_goals, build_notes, build_icon_list, build_weekly, build_daily_planner, build_weekly_planner, build_monthly_recap, build_static_page, build_pixels
+from pages.basics import build_goals, build_notes, build_icon_list, build_weekly, build_daily_planner, build_weekly_planner, build_monthly_recap, build_static_page, build_pixels, build_picture_grid
 
 app = Flask(__name__)
 
@@ -52,6 +52,15 @@ app.add_url_rule('/new_games','new_games',build_icon_list('New Video Games',12,'
 app.add_url_rule('/books','books',build_icon_list('Books (P=Paper, A=Audiobook)',25,'book.png'))
 app.add_url_rule('/notable_events','notable_events',build_icon_list('Notable Events',12,'calendar.jpg'))
 app.add_url_rule('/pixels','pixels',build_pixels())
+app.add_url_rule('/community_events','community_events',build_icon_list('Community Events',12,'calendar.jpg'))
+app.add_url_rule('/camping_trips','camping_trips',build_icon_list('Camping Trips',6,'tent.png'))
+app.add_url_rule('/gigi_time','gigi_time',build_picture_grid('Gigi Time','grandma.webp',4,3))
+app.add_url_rule('/call_nathan','call_nathan',build_picture_grid('Call Nathan','phone.jpg',4,3))
+app.add_url_rule('/call_brady','call_brady',build_picture_grid('Call Brady','phone.jpg',4,3))
+
+'''
+* Date Night
+'''
 
 # Quarter Pages - Recurring
 why = quarterly['why']
