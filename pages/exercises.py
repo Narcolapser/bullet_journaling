@@ -4,6 +4,11 @@ from datetime import timedelta as delta
 
 from flask import render_template
 
+def build_body_fat(year):
+    def body():
+        months = ['April','May','June','July','August','September','October','November','December','January','February','March']
+        return render_template('body_fat.html',year=year,months=months)
+    return body
 
 def get_biking(sdate,fdate):
     def biking():

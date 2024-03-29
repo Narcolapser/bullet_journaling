@@ -8,12 +8,13 @@ from flask import Flask, render_template
 from datetime import datetime, timedelta as delta
 
 from pages.util import Day_Of_Week, StartFinish
-from pages.exercises import build_core, build_running
-from pages.basics import build_goals, build_notes, build_icon_list, build_weekly, build_daily_planner, build_weekly_planner, build_monthly_recap
+from pages.exercises import build_core, build_running, build_body_fat
+from pages.basics import build_goals, build_notes, build_icon_list, build_weekly, build_daily_planner, build_weekly_planner, build_monthly_recap, build_static_page, build_pixels
 
 app = Flask(__name__)
 
 quarterly = load(open('./notes/2024/1 spring/quarter.yaml'),Loader=Loader)
+yearly = load(open('./notes/2024/year.yaml'),Loader=Loader)
 dates = StartFinish(quarterly['start'],quarterly['end'])
 
 year = str(dates.sdate.year)
@@ -42,6 +43,15 @@ def root():
     pages.sort()
     return render_template('index.html',pages=pages)
 
+# Yearly Pages
+app.add_url_rule('/cover','cover',build_static_page('cover.html'))
+app.add_url_rule('/yearly_goals','yearly_goals',build_goals('Annual Goals','','',yearly['goals']))
+app.add_url_rule('/themes','themes',build_icon_list('Themes',4,'rainbow.png'))
+app.add_url_rule('/body_fat','body_fat',build_body_fat('2024'))
+app.add_url_rule('/new_games','new_games',build_icon_list('New Video Games',12,'joystick.png'))
+app.add_url_rule('/books','books',build_icon_list('Books (P=Paper, A=Audiobook)',25,'book.png'))
+app.add_url_rule('/notable_events','notable_events',build_icon_list('Notable Events',12,'calendar.jpg'))
+app.add_url_rule('/pixels','pixels',build_pixels())
 
 # Quarter Pages - Recurring
 why = quarterly['why']
