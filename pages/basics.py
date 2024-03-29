@@ -38,19 +38,10 @@ def build_daily_planner(dates, activities: List[str], season, num_months=3):
         return render_template('daily_planner.html',season=season, months=months, days=days, activities=activities)
     return planner
 
-def build_icon_list(title:str, rows: int, background: str):
+def build_icon_list(title:str, rows: int, icon: str, background=''):
     def page():
-        height_map = {
-            25:'12',
-            21:'20',
-            10:'40',
-            12:'40',
-            11:'60',
-            6:'100',
-            4:'150'
-        }
         height = str(600/rows)
-        return render_template('icon_list.html',title=title,rows=rows,img=background,height=height)
+        return render_template('icon_list.html',title=title,rows=rows,img=icon,background=background,height=height)
     return page
 
 def build_weekly(dates:StartFinish, title: str, day_of_week: Day_Of_Week, background: str):

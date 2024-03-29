@@ -9,7 +9,7 @@ from datetime import datetime, timedelta as delta
 
 from pages.util import Day_Of_Week, StartFinish
 from pages.exercises import build_core, build_running, build_body_fat
-from pages.basics import build_goals, build_notes, build_icon_list, build_weekly, build_daily_planner, build_weekly_planner, build_monthly_recap, build_static_page, build_pixels, build_picture_grid
+from pages.basics import build_goals, build_notes, build_icon_list, build_sectional_icon_list, build_weekly, build_daily_planner, build_weekly_planner, build_monthly_recap, build_static_page, build_pixels, build_picture_grid
 
 app = Flask(__name__)
 
@@ -74,18 +74,24 @@ app.add_url_rule('/weekly_planner','weekly_planner',build_weekly_planner(dates, 
 app.add_url_rule('/monthly_recap','monthly_recap',build_monthly_recap(dates))
 
 app.add_url_rule('/couples_bible_study','couples_bible_study',
-                 build_weekly(dates, 'Couples Bible Study',Day_Of_Week.SATURDAY,'../bible.png'))
+                 build_weekly(dates, 'Couples Bible Study: Experiencing God Together',Day_Of_Week.SATURDAY,'../bible.png'))
 
 app.add_url_rule('/lucy_time','lucy_time',
-                 build_weekly(dates, 'Lucy Time',Day_Of_Week.TUESDAY,'dalle - snow playing.png'))
+                 build_weekly(dates, 'Lucy Time',Day_Of_Week.TUESDAY,'playground2.webp'))
 
-app.add_url_rule('/house_projects','house_projects',build_icon_list('House Projects',11,'handyman.png'))
+app.add_url_rule('/house_projects','house_projects',build_icon_list('House Projects',11,'checkedbox.png','handyman.png'))
 app.add_url_rule('/celebrations','celebrations',build_icon_list('Celebrations!',21,'tada.png'))
 
 # Seasonal
 app.add_url_rule('/family_game_night','family_game_night',
                  build_weekly(dates, 'Family Game Night!',Day_Of_Week.SUNDAY,'pegs and a die.jpg'))
 app.add_url_rule('/dnd','dnd',build_icon_list('Dungeons and Dragons Campaign',10,'d20.png'))
+app.add_url_rule('/electronics_project','electronics_project',build_icon_list('Notes', 21, 'notebook.png'))
+app.add_url_rule('/sour_dough','sour_dough',
+                 build_sectional_icon_list('Sour Dough Experiments', [f'Try {i}' for i in range(4)],4,'notebook.png'))
+
+app.add_url_rule('/health_cookie','health_cookie',
+                 build_sectional_icon_list('Health Cookie Experiments', [f'Try {i}' for i in range(6)],2,'notebook.png'))
 
 # Exercise
 app.add_url_rule('/core','core', build_core(dates, Day_Of_Week.TUESDAY))
