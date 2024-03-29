@@ -10,7 +10,7 @@
                 {% if pic_width is defined %}
                     <td style="border: 1px solid black;"><img src="http://localhost:5000/static/{{picture}}" style="object-fit: cover; width:{{pic_width}}%"/></td>
                 {% else %}
-                    <td style="border: 1px solid black;"><center><img src="http://localhost:5000/static/{{picture}}" style="object-fit: cover; width:{{pic_width}}%"/></center></td>
+                    <td style="border: 1px solid black;"><center><img src="http://localhost:5000/static/{{picture}}" style="object-fit: cover; width:100%"/></center></td>
                 {% endif %}
             {% endfor %}
         </tr>

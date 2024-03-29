@@ -57,10 +57,8 @@ app.add_url_rule('/camping_trips','camping_trips',build_icon_list('Camping Trips
 app.add_url_rule('/gigi_time','gigi_time',build_picture_grid('Gigi Time','grandma.webp',4,3))
 app.add_url_rule('/call_nathan','call_nathan',build_picture_grid('Call Nathan','phone.jpg',4,3))
 app.add_url_rule('/call_brady','call_brady',build_picture_grid('Call Brady','phone.jpg',4,3))
+app.add_url_rule('/date_night','date_night',build_picture_grid('Date Night','hearts.gif',4,3))
 
-'''
-* Date Night
-'''
 
 # Quarter Pages - Recurring
 why = quarterly['why']
