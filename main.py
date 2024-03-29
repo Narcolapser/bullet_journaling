@@ -9,7 +9,7 @@ from datetime import datetime, timedelta as delta
 
 from pages.util import Day_Of_Week, StartFinish
 from pages.exercises import build_core, build_running, build_body_fat
-from pages.basics import build_goals, build_notes, build_icon_list, build_sectional_icon_list, build_weekly, build_daily_planner, build_weekly_planner, build_monthly_recap, build_static_page, build_pixels, build_picture_grid
+from pages.basics import build_goals, build_notes, build_icon_list, build_sectional_icon_list, build_table, build_weekly, build_daily_planner, build_weekly_planner, build_monthly_recap, build_static_page, build_pixels, build_picture_grid
 
 app = Flask(__name__)
 
@@ -92,6 +92,10 @@ app.add_url_rule('/sour_dough','sour_dough',
 
 app.add_url_rule('/health_cookie','health_cookie',
                  build_sectional_icon_list('Health Cookie Experiments', [f'Try {i}' for i in range(6)],2,'notebook.png'))
+
+columns = [('','10'),('Lesson',90)]
+rows = ['1.1','1.2','1.3','2.1','2.2']
+app.add_url_rule('/seed_to_table','seed_to_table',build_table('Seed to Table',columns,rows))
 
 # Exercise
 app.add_url_rule('/core','core', build_core(dates, Day_Of_Week.TUESDAY))

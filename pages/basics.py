@@ -143,3 +143,8 @@ def build_picture_grid(title,picture,rows,cols):
     def picture_grid():
         return render_template('picture_grid.html',rows=rows, cols=cols, title=title, picture=picture)
     return picture_grid
+
+def build_table(title,columns,row_titles):
+    def table():
+        return render_template('table.html',title=title,columns=columns,rows=row_titles)
+    return table

@@ -55,10 +55,14 @@
         </tr>
       </thead>
       <tbody>
-        {% for row in range(rows) %}
+        {% for row in rows %}
         <tr style="height: {{height}}px;">
           {% for column in columns %}
-          <td></td>
+            {% if loop.index == 0 %}
+              <td>{{row}}</td>
+            {% else %}
+              <td></td >
+            {% endif %}
           {% endfor %}
         </tr>
         {% endfor %}
