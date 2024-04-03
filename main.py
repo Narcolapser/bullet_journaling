@@ -94,7 +94,33 @@ app.add_url_rule('/health_cookie','health_cookie',
                  build_sectional_icon_list('Health Cookie Experiments', [f'Try {i}' for i in range(6)],2,'notebook.png'))
 
 columns = [('','10'),('Lesson',90)]
-rows = ['1.1','1.2','1.3','2.1','2.2']
+rows = [('<img src="/static/vegetable academy.png"/>',i) for i in [
+    '1.1: Grower Assessment',
+    '1.2: Site Assessment',
+    '1.3: Getting In the Zone',
+    '2.1: Bed Layout',
+    '2.2: Calculating Production',
+    '2.3: Garden Planning',
+    '2.4: Seed Selection',
+    '3.1: Soil Preparation',
+    '3.2: Irrigation Systems',
+    '3.3: Weed Management',
+    '3.4: Supporting Infrastructure',
+    '4.1: Your Planting Log',
+    '4.2: Indoor Planting Techniques',
+    '4.3: Outdoor Planting Techniques',
+    '5.1: Pruning',
+    '5.2: Trellising',
+    '5.3: Pest Management',
+    '5.4: Season Extension',
+    '6.1: Harvest Timing',
+    '6.2: Harvest Handling',
+    '6.3: Curing Storage Crops',
+    '7.1: Storage Zones',
+    '7.2: Processing Methods',
+    '8.1: Eating in Season',
+    '8.2: Waste Management'
+]]
 app.add_url_rule('/seed_to_table','seed_to_table',build_table('Seed to Table',columns,rows))
 
 # Exercise

@@ -17,7 +17,6 @@
       }
       
       td {
-        text-align: center;
         vertical-align: middle;
         height: {{height}}px;
         border: 1px solid #ddd;
@@ -58,11 +57,7 @@
         {% for row in rows %}
         <tr style="height: {{height}}px;">
           {% for column in columns %}
-            {% if loop.index == 0 %}
-              <td>{{row}}</td>
-            {% else %}
-              <td></td >
-            {% endif %}
+            <td>{{row[loop.index-1]|safe}}</td>
           {% endfor %}
         </tr>
         {% endfor %}
