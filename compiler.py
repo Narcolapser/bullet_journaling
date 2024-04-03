@@ -123,56 +123,61 @@ def compile_journal(directory, pad_path=None, folio_size=8, starting_page_num=1)
     index.write(open('out.pdf','wb'))
 
 
-pages = [
+pages_raw = [
     ## Yearly Pages
-    ('cover'),
+    'cover',
 
-    ('yearly_goals'),
-    ('themes'),
+    'yearly_goals',
+    'themes',
 
-    ('body_fat'),
-    ('new_games'),
+    'body_fat',
+    'new_games',
 
-    ('books'),
-    ('notable_events'),
+    'books',
+    'notable_events',
 
-    ('pixels'),
-    ('community_events'),
+    'pixels',
+    'community_events',
 
-    ('camping_trips'),
-    ('gigi_time'),
+    'camping_trips',
+    'gigi_time',
 
-    ('call_brady'),
-    ('call_nathan'),
+    'call_brady',
+    'call_nathan',
 
-    ('date_night'),
+    'date_night',
+    'notes',
+
+    'notes',
 
     ## Spring pages.
-    ('quarter_goals', 'portrait'),
+    'quarter_goals',
 
     ('daily_planner', 'landscape'),
     ('weekly_planner', 'landscape'),
 
-    ('monthly_recap', 'portrait'),
-    ('celebrations', 'portrait'),
+    'monthly_recap',
+    'celebrations',
 
-    ('lucy_time', 'portrait'),
-    ('couples_bible_study', 'portrait'),
+    'lucy_time',
+    'couples_bible_study',
 
-    ('house_projects', 'portrait'),
-    ('family_game_night'),
+    'house_projects',
+    'family_game_night',
 
-    ('dnd'),
-    ('electronics_project'),
+    'dnd',
+    'electronics_project',
 
-    ('sour_dough'),
-    ('health_cookie'),
+    'sour_dough',
+    'health_cookie',
 
-    ('seed_to_table'),
+    'seed_to_table',
     ('running', 'landscape'),
 
-    ('ultimate')
+    'ultimate'
 ]
+
+pages = [(i,'portrait') if isinstance(i,str) else i for i in pages_raw]
 
 while len(pages)%4 != 0:
     pages.append(('notes', 'portrait'))
@@ -189,5 +194,5 @@ def print_journal(pages):
 
 if __name__ == '__main__':
     print_journal(pages)
-    compile_journal('./', starting_page_num=65)
+    compile_journal('./', starting_page_num=1)
 
