@@ -124,29 +124,54 @@ def compile_journal(directory, pad_path=None, folio_size=8, starting_page_num=1)
 
 
 pages = [
-         ('quarter_goals', 'portrait'),
+    ## Yearly Pages
+    ('cover'),
 
-         ('daily_planner', 'landscape'),
-         ('weekly_planner', 'landscape'),
+    ('yearly_goals'),
+    ('themes'),
 
-         ('monthly_recap', 'portrait'),
-         ('celebrations', 'portrait'),
+    ('body_fat'),
+    ('new_games'),
 
-         ('hospitality', 'portrait'),
-         ('lucy_time', 'portrait'),
+    ('books'),
+    ('notable_events'),
 
-         ('couples_bible_study', 'portrait'),
-         ('house_projects', 'portrait'),
+    ('pixels'),
+    ('community_events'),
 
-         # Seasonal pages
-         ('sunday_night_family_time','portrait'),
-         ('dnd','portrait'),
+    ('camping_trips'),
+    ('gigi_time'),
 
-         # exercises
-         ('arms','portrait'),
-         ('core', 'portrait'),
+    ('call_brady'),
+    ('call_nathan'),
 
-         ('biking','landscape'),
+    ('date_night'),
+
+    ## Spring pages.
+    ('quarter_goals', 'portrait'),
+
+    ('daily_planner', 'landscape'),
+    ('weekly_planner', 'landscape'),
+
+    ('monthly_recap', 'portrait'),
+    ('celebrations', 'portrait'),
+
+    ('lucy_time', 'portrait'),
+    ('couples_bible_study', 'portrait'),
+
+    ('house_projects', 'portrait'),
+    ('family_game_night'),
+
+    ('dnd'),
+    ('electronics_project'),
+
+    ('sour_dough'),
+    ('health_cookie'),
+
+    ('seed_to_table'),
+    ('running', 'landscape'),
+
+    ('ultimate')
 ]
 
 while len(pages)%4 != 0:

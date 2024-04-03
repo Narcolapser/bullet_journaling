@@ -23,7 +23,7 @@ def build_daily_planner(dates, activities: List[str], season, num_months=3):
     def planner():
         # We later strip off the date and use just the month, so we just need to know that we got to the next month with
         # these sequence of dates not that we got to the first of said month. 
-        months = [dates.sdate+delta(days=31*i) for i in range(num_months)]
+        months = [dates.sdate+delta(days=31*i+7) for i in range(num_months)]
         ms = '%Y-%m'
         days = []
         day = delta(days=1)

@@ -126,6 +126,8 @@ app.add_url_rule('/seed_to_table','seed_to_table',build_table('Seed to Table',co
 # Exercise
 app.add_url_rule('/core','core', build_core(dates, Day_Of_Week.TUESDAY))
 app.add_url_rule('/running','running', build_running(dates, [Day_Of_Week.MONDAY, Day_Of_Week.FRIDAY], miles=4.5, minutes=45))
+app.add_url_rule('/ultimate','ultimate',
+                 build_weekly(dates, 'Ultimate Frisbee',Day_Of_Week.SATURDAY,'ultimate frisbee.png'))
 
 # Lastly the filler.
 app.add_url_rule('/notes','notes', build_notes())
