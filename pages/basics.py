@@ -54,9 +54,10 @@ def build_weekly(dates:StartFinish, title: str, day_of_week: Day_Of_Week, backgr
 
 def get_sectional_row_height(num_sections, rows_per_section):
     section_pixels = 50
-    total_height = 400
+    total_height = 500
     row_total = total_height - section_pixels*num_sections
-    return str(int(row_total/(rows_per_section*num_sections)))
+    row_height = row_total/(rows_per_section*num_sections)
+    return str(max(int(row_height),12))
 
 
 def build_sectional_icon_list(title: str, section_titles: List[str], rows_per_section: int, icon: str):
@@ -70,6 +71,8 @@ def build_monthly_recap(dates):
     # Calculate the difference in months
     months_difference = (dates.fdate.year - dates.sdate.year) * 12 + dates.fdate.month - dates.sdate.month + 1
     months = [(dates.sdate+delta(days=31*i)).strftime('%B') for i in range(months_difference)]
+    # temporary code for this season only:
+    months = months[1:]
     return build_sectional_icon_list('Monthly Recap',months,7,'notebook.png')
 
 def build_notes():

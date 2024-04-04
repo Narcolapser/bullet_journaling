@@ -88,13 +88,13 @@ app.add_url_rule('/family_game_night','family_game_night',
 app.add_url_rule('/dnd','dnd',build_icon_list('Dungeons and Dragons Campaign',10,'d20.png'))
 app.add_url_rule('/electronics_project','electronics_project',build_icon_list('Notes', 21, 'notebook.png'))
 app.add_url_rule('/sour_dough','sour_dough',
-                 build_sectional_icon_list('Sour Dough Experiments', [f'Try {i}' for i in range(4)],4,'notebook.png'))
+                 build_sectional_icon_list('Sour Dough Experiments', [f'Try {i+1}' for i in range(4)],4,'notebook.png'))
 
 app.add_url_rule('/health_cookie','health_cookie',
-                 build_sectional_icon_list('Health Cookie Experiments', [f'Try {i}' for i in range(6)],2,'notebook.png'))
+                 build_sectional_icon_list('Health Cookie Experiments', [f'Try {i+1}' for i in range(6)],2,'notebook.png'))
 
 columns = [('','10'),('Lesson',90)]
-rows = [('<img src="/static/vegetable academy.png"/>',i) for i in [
+rows = [('<img src="http://localhost:5000/static/vegetable academy.png" style="height: 25px;"/>',i) for i in [
     '1.1: Grower Assessment',
     '1.2: Site Assessment',
     '1.3: Getting In the Zone',
@@ -125,7 +125,7 @@ app.add_url_rule('/seed_to_table','seed_to_table',build_table('Seed to Table',co
 
 # Exercise
 app.add_url_rule('/core','core', build_core(dates, Day_Of_Week.TUESDAY))
-app.add_url_rule('/running','running', build_running(dates, [Day_Of_Week.MONDAY, Day_Of_Week.FRIDAY], miles=4.5, minutes=45))
+app.add_url_rule('/running','running', build_running(dates, [Day_Of_Week.MONDAY, Day_Of_Week.THURSDAY], miles=4.5, minutes=45))
 app.add_url_rule('/ultimate','ultimate',
                  build_weekly(dates, 'Ultimate Frisbee',Day_Of_Week.SATURDAY,'ultimate frisbee.png'))
 
