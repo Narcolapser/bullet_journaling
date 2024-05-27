@@ -113,8 +113,15 @@ def compile_journal(directory, pad_path=None, folio_size=8, starting_page_num=1)
         folios.append(folio)
 
     joined_folios = []
+
+    ## The last folio may be shorter than the rest which can throw of the calculations below.
+    folio_size = max([len(folio) for folio in folios])
+
     for i,folio in enumerate(folios):
-        joined_folios.append(build_folio(folio,None,i*len(folio)+starting_page_num))
+        offset = 0
+        if i == 13:
+            offset = -3
+        joined_folios.append(build_folio(folio,None,i*folio_size+starting_page_num+offset))
         print(f'finished folio {i}')
     index = PdfFileWriter()
     for folio in joined_folios:
@@ -193,6 +200,6 @@ def print_journal(pages):
         outs = HTML(string=r.text).write_pdf('./{1:0>2}_{0}.pdf'.format(page[0],page[1]),stylesheets=[CSS(string='@page {size: ' + page[2] + '}')])
 
 if __name__ == '__main__':
-    print_journal(pages)
-    compile_journal('./', starting_page_num=1)
+#    print_journal(pages)
+    compile_journal('./', starting_page_num=81)
 

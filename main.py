@@ -86,7 +86,7 @@ app.add_url_rule('/celebrations','celebrations',build_icon_list('Celebrations!',
 app.add_url_rule('/family_game_night','family_game_night',
                  build_weekly(dates, 'Family Game Night!',Day_Of_Week.SUNDAY,'pegs and a die.jpg'))
 app.add_url_rule('/dnd','dnd',build_icon_list('Dungeons and Dragons Campaign',10,'d20.png'))
-app.add_url_rule('/electronics_project','electronics_project',build_icon_list('Notes', 21, 'notebook.png'))
+app.add_url_rule('/electronics_project','electronics_project',build_icon_list('Eletronics Project', 21, 'notebook.png'))
 app.add_url_rule('/sour_dough','sour_dough',
                  build_sectional_icon_list('Sour Dough Experiments', [f'Try {i+1}' for i in range(4)],4,'notebook.png'))
 
