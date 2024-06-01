@@ -1,93 +1,57 @@
-@app.route('/disc')
-def disc():
-    date1 = datetime.strptime('2021-04-06', '%Y-%m-%d')
-    date2 = datetime.strptime('2021-04-09', '%Y-%m-%d')
-    weeks = 12
-    dates = []
-    week_delta = delta(days=7)
-    for i in range(weeks):
-        dates.append(date1)
-        dates.append(date2)
-        date1 = date1 + week_delta
-        date2 = date2 + week_delta
-    return render_template('disc.html',dates=dates)
 
-@app.route('/bitcoin')
-def bitcoin():
-    rows = 4
-    cols = 3
-    title = "Bitcoin for the Befuddled"
-    picture = 'bitcoin.png'
-    return render_template('picture_grid.html',rows=4, cols=3, title=title, picture=picture)
+app.add_url_rule('/cover','cover',build_static_page('cover.html'))
+app.add_url_rule('/yearly_goals','yearly_goals',build_goals('Annual Goals','','',yearly['goals']))
+app.add_url_rule('/themes','themes',build_icon_list('Themes',4,'rainbow.png'))
+app.add_url_rule('/body_fat','body_fat',build_body_fat('2024'))
+app.add_url_rule('/new_games','new_games',build_icon_list('New Video Games',12,'joystick.png'))
+app.add_url_rule('/books','books',build_icon_list('Books (P=Paper, A=Audiobook)',25,'book.png'))
+app.add_url_rule('/notable_events','notable_events',build_icon_list('Notable Events',12,'calendar.jpg'))
+app.add_url_rule('/pixels','pixels',build_pixels())
+app.add_url_rule('/community_events','community_events',build_icon_list('Community Events',12,'calendar.jpg'))
+app.add_url_rule('/camping_trips','camping_trips',build_icon_list('Camping Trips',6,'tent.png'))
+app.add_url_rule('/gigi_time','gigi_time',build_picture_grid('Gigi Time','grandma.webp',4,3))
+app.add_url_rule('/call_nathan','call_nathan',build_picture_grid('Call Nathan','phone.jpg',4,3))
+app.add_url_rule('/call_brady','call_brady',build_picture_grid('Call Brady','phone.jpg',4,3))
+app.add_url_rule('/date_night','date_night',build_picture_grid('Date Night','hearts.gif',4,3))
 
-@app.route('/running')
-def running():
-    date1 = datetime.strptime('2021-04-05', '%Y-%m-%d')
-    date2 = datetime.strptime('2021-04-07', '%Y-%m-%d')
-    weeks = 12
-    dates = []
-    week_delta = delta(days=7)
-    for i in range(weeks):
-        dates.append(date1)
-        dates.append(date2)
-        date1 = date1 + week_delta
-        date2 = date2 + week_delta
-    units = ['Heart Rate (BPM)','Distance (M)','Time (m)']
-    unit_steps = [range(100,180,4),[v/10.0 for v in range(10,30)],range(10,30)]
-    return render_template('graph.html',dates=dates,title='Running',units=units,unit_steps=unit_steps)
 
-@app.route('/crypto_investing')
-def crypto_investing():
-    return render_template('large_item_table.html',rows=6,title='Crypto Investing',
-                           top_prompt='Reason',bottom_prompt='Initial Investment')
-                           
-@app.route('/board_games')
-def board_games():
-    return render_template('icon_list.html',title='New Board/Card Games',rows=12,img='d20.png',height='50')
 
-@app.route('/camping')
-def camping():
-    return render_template('icon_list.html',title='Camping',rows=6,img='tent.png',height='100')
+app.add_url_rule('/sour_dough','sour_dough',
+                 build_sectional_icon_list('Sour Dough Experiments', [f'Try {i+1}' for i in range(4)],4,'notebook.png'))
 
-@app.route('/notes')
-def notes():
-    return render_template('icon_list.html',title='Notes',rows=21,img='notebook.png',height='20')
+app.add_url_rule('/health_cookie','health_cookie',
+                 build_sectional_icon_list('Health Cookie Experiments', [f'Try {i+1}' for i in range(6)],2,'notebook.png'))
 
-@app.route('/body_fat')
-def body_fat():
-    months = ['April','May','June','July','August','September','October','November','December',
-              'January','February','March']
-    return render_template('body_fat.html',months=months)
+columns = [('','10'),('Lesson',90)]
+rows = [('<img src="http://localhost:5000/static/vegetable academy.png" style="height: 25px;"/>',i) for i in [
+    '1.1: Grower Assessment',
+    '1.2: Site Assessment',
+    '1.3: Getting In the Zone',
+    '2.1: Bed Layout',
+    '2.2: Calculating Production',
+    '2.3: Garden Planning',
+    '2.4: Seed Selection',
+    '3.1: Soil Preparation',
+    '3.2: Irrigation Systems',
+    '3.3: Weed Management',
+    '3.4: Supporting Infrastructure',
+    '4.1: Your Planting Log',
+    '4.2: Indoor Planting Techniques',
+    '4.3: Outdoor Planting Techniques',
+    '5.1: Pruning',
+    '5.2: Trellising',
+    '5.3: Pest Management',
+    '5.4: Season Extension',
+    '6.1: Harvest Timing',
+    '6.2: Harvest Handling',
+    '6.3: Curing Storage Crops',
+    '7.1: Storage Zones',
+    '7.2: Processing Methods',
+    '8.1: Eating in Season',
+    '8.2: Waste Management'
+]]
 
-@app.route('/cover')
-def cover():
-    return render_template('cover.html')
+app.add_url_rule('/seed_to_table','seed_to_table',build_table('Seed to Table',columns,rows))
 
-@app.route('/yearly_goals')
-def yearly_goals():
-    title = '2021 Goals'
-    goals = ['Learn to plumb','Draw 80 times','Brew a Rootbeer with a Gingerbug','Play 12 new video games','play 12 new board/card games','Read all of Harry Potter','Daily language lessons','Develop a six pack','Monthly Call w/ brady','Monthly Gigi time','Monthly tarts','Quarterly guys night','Do some freelance devops/dev work','Invest in stocks and crypto','Finish "Queens Theif" series','Read "Bitcoin for the Befuddled"','Setup Bible memorization scheme','Memorize several chunks of the Bible','Read a theology book','Beat ringfit','Track body fat','Run twice a week in summer','Teach Lucy "swim"','Make Lucy a mud kitchen','Get Lucy\'s car working','Migrate off of gmail to ProtonMail']
-    return render_template('goals.html',title=title,goals=goals)
-
-@app.route('/spring_goals')
-def spring_goals():
-    title = 'Spring 2021'
-    subtitle = 'Season of Enjoying'
-    goals = ['Brew a root beer with ginger bug','Play 3 new video games (min 3 hours)','Have a guys night','Read "Bitcoin for the Befuddled"','Invest in some Cryptos','Design Bible Memorization scheme','Fix Lucy\'s car','Invite someone over','Beat Prentis in 30 throws','Draw twice a week']
-    return render_template('goals.html',title=title,goals=goals,subtitle=subtitle)
-
-@app.route('/arms')
-def arms():
-    dates = get_date_sequence(FRIDAY)
-    items = ['Chest Press','Angel','Bicep Curl','Tricep Curl','Bent Over Row']
-    steps = 5
-    item_bounds = [[40,90],[24,75],[20,60],[20,60],[20,60]]
-    item_intervals = [int((bound[1]-bound[0])/steps) for bound in item_bounds]
-    item_units = []
-    for i,bounds in enumerate(item_bounds):
-        units = [bounds[1]]
-        for j in range(steps-1):
-            units.append(bounds[1] - item_intervals[i] * (j+1))
-        item_units.append(units)
-    return render_template('stacked_graph.html',dates=dates,title='Weight Lifting: Arms',items=items,
-        item_units=item_units, steps=steps)
+app.add_url_rule('/family_game_night','family_game_night',
+                 build_weekly(dates, 'Family Game Night!',Day_Of_Week.SUNDAY,'pegs and a die.jpg'))

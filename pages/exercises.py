@@ -62,3 +62,14 @@ def build_running(dates: StartFinish, days_of_week: List[Day_Of_Week], miles=2, 
         unit_steps = [get_heart_range(), distance_range, time_range]
         return render_template('graph.html',dates=date_sequence,title='Running',units=units,unit_steps=unit_steps)
     return running
+
+
+def build_swiming(dates: StartFinish, days_of_week: List[Day_Of_Week]):
+    def swimming():
+        date_sequence = get_multi_date_sequence(days_of_week, dates)
+        units = ['Heart Rate (BPM)','Laps','Fastest Lap', 'Average Lap']
+        lap_range = range(20,40)
+        lap_times = range(40,120,int(120/40))
+        unit_steps = [get_heart_range(), lap_range,lap_times,lap_times]
+        return render_template('graph.html',dates=date_sequence,title='Swimming',units=units,unit_steps=unit_steps)
+    return swimming

@@ -131,32 +131,6 @@ def compile_journal(directory, pad_path=None, folio_size=8, starting_page_num=1)
 
 
 pages_raw = [
-    ## Yearly Pages
-    'cover',
-
-    'yearly_goals',
-    'themes',
-
-    'body_fat',
-    'new_games',
-
-    'books',
-    'notable_events',
-
-    'pixels',
-    'community_events',
-
-    'camping_trips',
-    'gigi_time',
-
-    'call_brady',
-    'call_nathan',
-
-    'date_night',
-    'notes',
-
-    'notes',
-
     ## Spring pages.
     'quarter_goals',
 
@@ -170,17 +144,12 @@ pages_raw = [
     'couples_bible_study',
 
     'house_projects',
-    'family_game_night',
-
     'dnd',
+
     'electronics_project',
-
-    'sour_dough',
-    'health_cookie',
-
     'seed_to_table',
-    ('running', 'landscape'),
 
+    ('swimming', 'landscape'),
     'ultimate'
 ]
 
@@ -200,6 +169,6 @@ def print_journal(pages):
         outs = HTML(string=r.text).write_pdf('./{1:0>2}_{0}.pdf'.format(page[0],page[1]),stylesheets=[CSS(string='@page {size: ' + page[2] + '}')])
 
 if __name__ == '__main__':
-#    print_journal(pages)
+    print_journal(pages)
     compile_journal('./', starting_page_num=81)
 

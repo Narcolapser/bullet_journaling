@@ -71,8 +71,6 @@ def build_monthly_recap(dates):
     # Calculate the difference in months
     months_difference = (dates.fdate.year - dates.sdate.year) * 12 + dates.fdate.month - dates.sdate.month + 1
     months = [(dates.sdate+delta(days=31*i)).strftime('%B') for i in range(months_difference)]
-    # temporary code for this season only:
-    months = months[1:]
     return build_sectional_icon_list('Monthly Recap',months,7,'notebook.png')
 
 def build_notes():
