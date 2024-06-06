@@ -60,7 +60,7 @@ app.add_url_rule('/couples_bible_study','couples_bible_study',
                  build_weekly(dates, 'Couples Bible Study: Experiencing God Together',Day_Of_Week.SATURDAY,'../bible.png'))
 
 app.add_url_rule('/lucy_time','lucy_time',
-                 build_weekly(dates, 'Lucy Time',Day_Of_Week.TUESDAY,'playground2.webp'))
+                 build_weekly(dates, 'Lucy Time',Day_Of_Week.TUESDAY,'dalle - dad and daughter playing in the pool.png'))
 
 app.add_url_rule('/house_projects','house_projects',build_icon_list('House Projects',11,'checkedbox.png','handyman.png'))
 app.add_url_rule('/celebrations','celebrations',build_icon_list('Celebrations!',21,'tada.png'))
@@ -90,7 +90,7 @@ app.add_url_rule('/seed_to_table','seed_to_table',build_table('Seed to Table',co
 
 
 # Exercise
-app.add_url_rule('/swimming','swimming', build_swiming(dates, [Day_Of_Week.TUESDAY, Day_Of_Week.THURSDAY]))
+app.add_url_rule('/swimming','swimming', build_swiming(dates, [Day_Of_Week.TUESDAY, Day_Of_Week.FRIDAY]))
 app.add_url_rule('/ultimate','ultimate',
                  build_weekly(dates, 'Ultimate Frisbee',Day_Of_Week.SATURDAY,'ultimate frisbee.png'))
 
