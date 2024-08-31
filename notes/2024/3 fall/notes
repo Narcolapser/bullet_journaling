@@ -15,12 +15,33 @@ What can I measure? Lets start with objective things.
     2. How much documenation my code bases have.
 4. Academics
     1. How many CSC books I've read, which ones and when.
+    2. Online resources
+        1. Articles/blogs
+        2. Pod casts
+        3. Youtube Channels
 5. Soft skills
     1. Something with BlueEQ?
+6. Mentoring
+    1. Who mentored me and in what?
+    2. How am I helping those around me to excel?
+7. Technical skills
+    1. How often do I have a kubernetes activity that I:
+        1. Solve entirely on my own knowledge
+        2. Solve with a little bit of searching the internet
+        3. Solve with the assistance of some one else
+        4. Was unable to solve.
+    
+
+Measuring subjective things is a little harder. I would like to measure how often I am providing positive, useful feed back in PRs, I would like to track just how often my conversations in slack I was being positive, productive, not petty, not short or kurt, not demening or demanding. When I proposed having an AI provide this insight Megan said I was insane. Perhaps it's the techno-optomist in me but I'm not convinced she's right. But honestly I can't tell if my familiarity and comfort with this technology is giving me a good perspective of a bad one. Whatever the case I think harvesting the data, all my interactions, and storing them in a database locally is a good idea. I may judge my interactions myself, which would be a biased analysis to be sure. But it might give me what I need to make sure that an AI is doing a good job. I can always have the AI re-evaluate with a new prompt. Potentially I could have several prompts and generate concert model.
+
+I would like to follow up on the idea I had a few years ago about converting articles automatically into a self hosted pod cast. I think it woud get me a lot of what I need in a format I'm more likely to engage with. 
+
+This is going to be an interesting quarter to make pages for. So much of what I want to do this cycle is figure things out. How do I track figuring things out?
 
 Heart:
     Lulu time
     Games w/ Ben
+    Maybe make the space ship bridge simulator game with my fellow deltoids.
 
 Soul:
     "Experiencing God Together" for Couple's bible study
@@ -32,6 +53,7 @@ Mind:
     Hopefully read another book.
     Participate in Advent of Code, I am thinking I'll do it in C.
     Figure out programming exercises of some sort. I'm thinking of some sort of Code Kata.
+    Get some level of competence in Kuberentes
 
 Strength:
     Monday: Run
@@ -42,28 +64,26 @@ Strength:
 
 Pages:
 Recurring:
-1. Goals <- Check
-2. Daily Planner <- Check
-3. Weekly Planner <- Check
-4. Monthly Recap <- Check
-5. Celebrations <- Check
-6. Lucy Time <- Check
-7. Couples Bible Study <- Check
-8. House Projects <- Check
-9. Family Game Night <- Check
+1. Goals
+2. Daily Planner
+3. Weekly Planner
+4. Monthly Recap 
+5. Celebrations
+6. Lucy Time
+7. Couples Bible Study
+8. House Projects
+9. Family Game Night
+10. Eletronics Project
 
 Seasonal
-10. Eletronics Project <- check
-    Perhaps just a notes page. I don't intend to over burden myself with more than one project or set specific goals. So I think just a page for notes will be the most appropriate thing. 
-11. Cultivating a sour dough starter <- Check
-    A page with 6-10 entries to leave notes about experiments
-12. Seed to Table Course
-    Check boxes for all of the units.
-13. dnd campaign <- Check
-14. health cookie <- Check
-    A page with maybe 6 to 10 entries to leave notes about recipe attempts. 
+11. Kubernetes skills
+12. Objective Measurements made
+13. dnd campaign
+14. Data log established? like capturing slack conversations, prs, comments, etc.
 
 
 exercise
 15. Running
+xx. Arms
+xx. Core
 16. Ultimate
