@@ -11,6 +11,7 @@ goals:
 - Finish Garden Video 7.2
 - Finish Garden Video 8.1
 - Finish Garden Video 8.2
+- Help Megan get setup with Proton.
 daily:
 - Quiet Time
 - Dishes
@@ -27,3 +28,13 @@ weekly:
 - Clean Desks
 - Water Plants
 - Swap Batteries
+pages:
+  - title: "Couples Bible Study: Experiencing God Together"
+    template: weekly
+    day_of_week: saturday
+    background: bible.png
+  - title: House Projects
+    template: icon_list
+    rows: 11
+    icon: checkedbox.png
+    background: handyman.png

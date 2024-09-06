@@ -38,18 +38,30 @@ def build_daily_planner(dates, activities: List[str], season, num_months=3):
         return render_template('daily_planner.html',season=season, months=months, days=days, activities=activities)
     return planner
 
-def build_icon_list(title:str, rows: int, icon: str, background=''):
+def config_check(template_name, config, expected):
+    for item in expected:
+        if item[0] not in config or str(type(config[item[0]]))[8:-2] != item[1]:
+            raise Exception(f'{template_name} needs: {item[0]} type {item[1]}')
+
+def build_icon_list(config: dict):
+    config_check('Icon List',config,[('title','str'),('rows','int'),('icon','str'),('background','str')])
     def page():
-        height = str(600/rows)
-        return render_template('icon_list.html',title=title,rows=rows,img=icon,background=background,height=height)
+        height = str(600/config['rows'])
+        return render_template('icon_list.html',height=height, **config)
     return page
 
-def build_weekly(dates:StartFinish, title: str, day_of_week: Day_Of_Week, background: str):
+class WeeklyConfig:
+    dates:StartFinish
+    title: str
+    day_of_week: Day_Of_Week
+    background: str
+
+def build_weekly(config: WeeklyConfig):
     def weekly():
         return render_template('weekly.html',
-                               weeks=get_date_sequence(day_of_week, dates),
-                               title=title,
-                               background=background)
+                               weeks=get_date_sequence(config.day_of_week, config.dates),
+                               title=config.title,
+                               background=config.background)
     return weekly
 
 def get_sectional_row_height(num_sections, rows_per_section):
