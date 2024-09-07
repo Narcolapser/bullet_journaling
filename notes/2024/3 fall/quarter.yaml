@@ -88,7 +88,7 @@ pages:
       minutes:
         start: 10 
         end: 200
-  - title: Mermaid
+  - title: Kubernetes
     template: mermaid
-    file: test.mermaid
+    file: k8s.mermaid
     diagram_type: Sequence-diagram
