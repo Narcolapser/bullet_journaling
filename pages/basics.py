@@ -50,14 +50,22 @@ def build_icon_list(config: dict):
         return render_template('icon_list.html',height=height, **config)
     return page
 
+def upcast_config(config:dict, config_type: type):
+    ret = config_type()
+    for key in config:
+        setattr(ret,key,config[key])
+    return ret
+
 class WeeklyConfig:
     dates:StartFinish
     title: str
-    day_of_week: Day_Of_Week
+    day_of_week: str
     background: str
 
 def build_weekly(config: WeeklyConfig):
+    config = upcast_config(config,WeeklyConfig)
     def weekly():
+        print(config)
         return render_template('weekly.html',
                                weeks=get_date_sequence(config.day_of_week, config.dates),
                                title=config.title,

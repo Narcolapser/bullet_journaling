@@ -71,7 +71,7 @@ for page in quarterly['pages']:
 
 
 # app.add_url_rule('/couples_bible_study','couples_bible_study',
-#                  build_weekly(dates, 'Couples Bible Study: Experiencing God Together',Day_Of_Week.SATURDAY,'../bible.png'))
+
                  
 # app.add_url_rule('/house_projects','house_projects',build_icon_list('House Projects',11,'checkedbox.png','handyman.png'))
 # Manually Generated Pages.

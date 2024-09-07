@@ -40,7 +40,8 @@ def get_specific_multi_date_sequence(days_of_week:Day_Of_Week,start,end):
 def get_multi_date_sequence(days_of_week:Day_Of_Week,dates:StartFinish):
     return get_specific_multi_date_sequence(days_of_week,dates.sdate,dates.fdate)
 
-def get_date_sequence(dow:Day_Of_Week ,dates:StartFinish):
+def get_date_sequence(day_string:str ,dates:StartFinish):
+    dow = getattr(Day_Of_Week,day_string.upper())
     date = dates.sdate + delta(days=dow.value)
     week_delta = delta(days=7)
     date_sequence = []

@@ -1,7 +1,7 @@
 <html>
 <style>
 div {
-    background-image: url("static/backgrounds/{{background}}"); 
+    background-image: url("static/{{background}}"); 
     opacity: 0.3;
     background-size: 100%;
 }
@@ -15,7 +15,7 @@ img.bg_image {
 }
 </style>
 <center><h1>{{ title | safe}}</h1></center>
-<img class="bg_image" src="http://localhost:5000/static/backgrounds/{{background}}"/>
+<img class="bg_image" src="http://localhost:5000/static/{{background}}"/>
 
     {% for i in range(rows) %}
         <img style="margin:  0; height:{{height}}px" src="http://localhost:5000/static/{{icon}}"/>
