@@ -88,3 +88,7 @@ pages:
       minutes:
         start: 10 
         end: 200
+  - title: Mermaid
+    template: mermaid
+    file: test.mermaid
+    diagram_type: Sequence-diagram

@@ -11,18 +11,20 @@ from pages.util import Day_Of_Week, StartFinish
 from pages.exercises import build_running, build_stacked_graph
 from pages.basics import build_goals, build_notes, build_icon_list, build_weekly, build_daily_planner, build_weekly_planner, build_monthly_recap, build_pixels, build_picture_grid
 from pages.graph import build_month_graph
+from pages.mermaid import build_mermaid_diagram
 
 page_templates = {
     'icon_list': build_icon_list,
     'weekly': build_weekly,
     'running': build_running,
     'stacked_graph': build_stacked_graph,
-    'month_graph': build_month_graph
+    'month_graph': build_month_graph,
+    'mermaid': build_mermaid_diagram
 }
 
 app = Flask(__name__)
-
-quarterly = load(open('./notes/2024/3 fall/quarter.yaml'),Loader=Loader)
+quarter_root = './notes/2024/3 fall'
+quarterly = load(open(f'{quarter_root}/quarter.yaml'),Loader=Loader)
 yearly = load(open('./notes/2024/year.yaml'),Loader=Loader)
 dates = StartFinish(quarterly['start'],quarterly['end'])
 
@@ -70,6 +72,7 @@ for page in quarterly['pages']:
     print(page)
     url = re.sub(r'[^A-Za-z0-9_]', '_', page['title'])
     page['dates'] = dates
+    page['root'] = quarter_root
     app.add_url_rule(f'/{url}',url,page_templates[page['template']](page))
 
                  
