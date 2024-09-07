@@ -97,3 +97,6 @@ pages:
   - title: Slack
     template: mermaid
     file: slack.mermaid
+  - title: BlueEQ
+    template: mermaid
+    file: blueeq.mermaid
