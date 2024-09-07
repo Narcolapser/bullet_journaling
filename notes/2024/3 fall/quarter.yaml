@@ -56,3 +56,28 @@ pages:
     template: weekly
     day_of_week: sunday
     background: 'popcorn.png'
+  - title: Running
+    template: running
+    days_of_week:
+      - monday
+      - thursday
+    miles: 4
+    minutes: 40
+  - title: Core
+    template: stacked_graph
+    day_of_week: friday
+    exercises:
+      - planking
+      - toe taps
+      - shoulder taps
+      - russian twist
+      - cross crunches
+  - title: Arms
+    template: stacked_graph
+    day_of_week: wednesday
+    exercises:
+      - chest press
+      - inverse snow angel
+      - bicep curl
+      - tricep curl
+      - bent over row

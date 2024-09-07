@@ -25,7 +25,8 @@ class StartFinish():
         self.sdate=sdate
         self.fdate=fdate
 
-def get_specific_multi_date_sequence(days_of_week:Day_Of_Week,start,end):
+def get_specific_multi_date_sequence(days_of_week:list[str],start,end):
+    days_of_week = [getattr(Day_Of_Week,i.upper()) for i in days_of_week]
     dow_list = [start + delta(days=dow.value) for dow in days_of_week]
     week_delta = delta(days=7)
     dates = []
@@ -37,7 +38,7 @@ def get_specific_multi_date_sequence(days_of_week:Day_Of_Week,start,end):
             dow_list[i] = date + week_delta
     return dates
 
-def get_multi_date_sequence(days_of_week:Day_Of_Week,dates:StartFinish):
+def get_multi_date_sequence(days_of_week:list[str],dates:StartFinish):
     return get_specific_multi_date_sequence(days_of_week,dates.sdate,dates.fdate)
 
 def get_date_sequence(day_string:str ,dates:StartFinish):
@@ -49,6 +50,3 @@ def get_date_sequence(day_string:str ,dates:StartFinish):
         date_sequence.append(date)
         date = date + week_delta
     return date_sequence
-
-def get_heart_range():
-    return range(100,180,4)

@@ -8,12 +8,14 @@ except ImportError:
 from flask import Flask, render_template
 
 from pages.util import Day_Of_Week, StartFinish
-from pages.exercises import build_swiming
+from pages.exercises import build_running, build_stacked_graph
 from pages.basics import build_goals, build_notes, build_icon_list, build_table, build_weekly, build_daily_planner, build_weekly_planner, build_monthly_recap, build_static_page, build_pixels, build_picture_grid
 
 page_templates = {
     'icon_list': build_icon_list,
     'weekly': build_weekly,
+    'running': build_running,
+    'stacked_graph': build_stacked_graph
 }
 
 app = Flask(__name__)

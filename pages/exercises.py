@@ -1,8 +1,11 @@
 from typing import List
-from pages.util import StartFinish, get_multi_date_sequence, get_date_sequence, get_heart_range, Day_Of_Week
-from datetime import timedelta as delta
+from pages.util import StartFinish, get_multi_date_sequence, get_date_sequence, Day_Of_Week
 
 from flask import render_template
+
+
+def get_heart_range():
+    return range(100,180,4)
 
 def build_body_fat(year):
     def body():
@@ -23,20 +26,47 @@ class StrengthExercise:
         self.name = name
         self.lower_limit = lower_limit
         self.upper_limit = upper_limit
-
+# core exercises
 planking = StrengthExercise('Planking',100,180)
 toe_taps = StrengthExercise('90° Toe Taps',150,300)
 shoulder_taps = StrengthExercise('Shoulder Taps',60,120)
 russian_twist = StrengthExercise('Russian Twist',55,150)
 cross_crunches = StrengthExercise('Cross Crunches',150,300)
 
+# arm exercises
+chest_press = StrengthExercise('Chest Press', 50, 90)
+angel = StrengthExercise('Inverse Snow Angel', 35,75)
+bicep_curl = StrengthExercise('Bicep Curl', 28, 60)
+tricep_curl = StrengthExercise('Tricep Curl', 28, 60)
+bent_over_row = StrengthExercise('Bent Over Row', 28, 60)
+
+strengthExercises = {
+    'planking': planking,
+    'toe taps': toe_taps,
+    'shoulder taps': shoulder_taps,
+    'russian twist': russian_twist,
+    'cross crunches': cross_crunches,
+    'chest press': chest_press,
+    'inverse snow angel': angel,
+    'bicep curl': bicep_curl,
+    'tricep curl': tricep_curl,
+    'bent over row': bent_over_row
+}
+
 def build_core(dates, day_of_week):
     return build_stacked_graph(dates, 'Core Exercises', day_of_week, [
         planking, toe_taps, shoulder_taps, russian_twist, cross_crunches
     ])
 
-def build_stacked_graph(dates: StartFinish, title:str , day_of_week: Day_Of_Week, exercises: List[StrengthExercise]):
-    def core():
+def build_stacked_graph(config: dict):
+    dates = config['dates']
+    title = config['title']
+    day_of_week = config['day_of_week']
+    exercises: List[StrengthExercise] = []
+    for exercise in config['exercises']:
+        exercises.append(strengthExercises[exercise])
+
+    def handler():
         date_sequence = get_date_sequence(day_of_week,dates)
         items = [exercise.name for exercise in exercises]
         item_bounds = [(exercise.lower_limit, exercise.upper_limit) for exercise in exercises]
@@ -51,11 +81,13 @@ def build_stacked_graph(dates: StartFinish, title:str , day_of_week: Day_Of_Week
 
         return render_template('stacked_graph.html',dates=date_sequence, title=title ,items=items,
             item_units=item_units, steps=steps)
-    return core
+    return handler
 
-def build_running(dates: StartFinish, days_of_week: List[Day_Of_Week], miles=2, minutes=20):
+def build_running(config: dict):
+    miles = config['miles'] if 'miles' in config else 2
+    minutes = config['minutes'] if 'minutes' in config else 20
     def running():
-        date_sequence = get_multi_date_sequence(days_of_week, dates)
+        date_sequence = get_multi_date_sequence(config['days_of_week'], config['dates'])
         units = ['Heart Rate (BPM)','Distance (M)','Time (m)']
         distance_range = [v/10.0 for v in range(int(miles*10-20), int(miles*10))]
         time_range = range(minutes-20,minutes)
