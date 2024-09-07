@@ -89,21 +89,24 @@ pages:
       minutes:
         start: 10 
         end: 200
-  - title: Kubernetes
+  - title: Kubernetes Skill Tree
     template: mermaid
     file: k8s.mermaid
-  - title: Github
+  - title: Github Tracking System
     template: mermaid
     file: github.mermaid
-  - title: Slack
+  - title: Slack Tracking System
     template: mermaid
     file: slack.mermaid
-  - title: BlueEQ
+  - title: BlueEQ Tracking System
     template: mermaid
     file: blueeq.mermaid
-  - title: Media
+  - title: Media Tracking System
     template: mermaid
     file: media.mermaid
-  - title: Mentorship
+  - title: Mentorship Tracking System
     template: mermaid
     file: mentorship.mermaid
+  - title: Code Kata Tracking System
+    template: mermaid
+    file: kata.mermaid
