@@ -20,6 +20,8 @@ def build_mermaid_diagram(config: dict):
         def handler():
             diagram = Graph('Sequence-diagram', open(file_path).read())
             html = mermaid.Mermaid(diagram)._repr_html_()
+            ## This is an aweful hack, forgive me:
+            html = html.replace('smngrt','smart')
             return render_template('html.html',title=config['title'],html=html)
         return handler
     else:
