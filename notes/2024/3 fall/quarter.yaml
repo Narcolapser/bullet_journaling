@@ -91,4 +91,9 @@ pages:
   - title: Kubernetes
     template: mermaid
     file: k8s.mermaid
-    diagram_type: Sequence-diagram
+  - title: Github
+    template: mermaid
+    file: github.mermaid
+  - title: Slack
+    template: mermaid
+    file: slack.mermaid

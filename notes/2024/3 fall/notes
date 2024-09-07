@@ -42,6 +42,37 @@ I just went to try to do another BlueEQ but it looks like I will have to request
 
 I think I'll be able to make some interesting pages for my tracking goals with the use of mermaid diagrams. That will be the next frontier to explore I think. And it will be a fun new feature to add to my system. Should allow me to make interesting pages.
 
+
+Github harvesting:
+1. Figure out how to harvest from GH:
+    1. PRs made
+    2. PRs reviewed
+    3. Comments made
+2. Figure out how to store
+    1. PRs made
+    2. PRs reviewed
+    3. Comments made
+3. Derive Measurements:
+    1. How many PRs did I review
+        1. What was the quality of the review?
+    2. How many PRs did I make
+        1. Did they pass review on the first try?
+        2. How many comments were made on the reviews?
+        3. How many dumb mistakes did I make?
+
+Slack harvesiting:
+1. Figure out how to harvest from slack:
+    1. DMs
+    2. Channels
+2. Figure out how to store
+    1. DMs
+    2. Channels
+3. Derive Measurements:
+    1. Who Do I talk to?
+    2. Who Asks me questions?
+    3. Who do I ask questions?
+    4. Sentiment analysis on my statments, Am I positive? Humble? Hungry? Smart?
+
 Heart:
     Lulu time
     Games w/ Ben
@@ -68,22 +99,22 @@ Strength:
 
 Pages:
 Recurring:
-1. Goals
-2. Daily Planner
-3. Weekly Planner
-4. Monthly Recap 
-5. Celebrations
-6. Lucy Time
-7. Couples Bible Study
-8. House Projects
-9. Family Night
-10. Eletronics Project
+1. Goals <-- I will need to review the why statement.
+2. Daily Planner <-- Check
+3. Weekly Planner <-- Check
+4. Monthly Recap <-- Check
+5. Celebrations <-- Check
+6. Lucy Time <-- Check
+7. Couples Bible Study <-- Check
+8. House Projects <-- Check
+9. Family Night <-- Check
+10. Eletronics Project <-- Check
 
 Seasonal
-11. Kubernetes skills
+11. Kubernetes skills <-- Check
 12. Objective Measurements made
-xx. Advent of code graph
-xx. Plans made for harvesting Github
+13. Advent of code graph <-- Check
+14. Plans made for harvesting Github <-- Check
 xx. Plans made for harvesting Slack
 xx. Plans made for tracking BlueEQ
 xx. Plans made for tracking books and other resources
@@ -92,7 +123,7 @@ xx. Plans made for tracking code skills sharpening
 
 
 exercise
-15. Running
-xx. Arms
-xx. Core
-16. Ultimate
+15. Running <-- Check
+xx. Arms <-- Check
+xx. Core <-- Check
+16. Ultimate ???

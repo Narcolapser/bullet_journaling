@@ -61,7 +61,7 @@ goals = quarterly['goals']
 app.add_url_rule('/quarter_goals','quarter_goals',build_goals(season, theme, why, goals))
 
 activities = quarterly['daily']
-app.add_url_rule('/daily_planner','daily_planner',build_daily_planner(dates,activities,season,num_months=3))
+app.add_url_rule('/daily_planner','daily_planner',build_daily_planner(dates,activities,season,num_months=4))
 
 weekly_activities = quarterly['weekly']
 app.add_url_rule('/weekly_planner','weekly_planner',build_weekly_planner(dates, season, weekly_activities))
