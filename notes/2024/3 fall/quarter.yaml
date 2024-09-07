@@ -100,3 +100,6 @@ pages:
   - title: BlueEQ
     template: mermaid
     file: blueeq.mermaid
+  - title: Media
+    template: mermaid
+    file: media.mermaid

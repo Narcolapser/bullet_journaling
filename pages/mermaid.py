@@ -14,7 +14,6 @@ def build_mermaid_diagram(config: dict):
     '''
     file_path = config['root']+'/'+config['file']
     file_check = Path(file_path)
-    contents = open(file_path).read()
 
     if file_check.is_file():
         def handler():

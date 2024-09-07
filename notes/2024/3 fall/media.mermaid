@@ -1,0 +1,27 @@
+graph TD
+    subgraph Row1[Harvesting]
+        A1["Long Media (Books/Lecture Series)"] 
+        A2["Medium Media (0.5-3h video/article/podcast)"] 
+        A3["Short media"]
+    end
+
+    subgraph Row2[Storage]
+        B1[Long Media] --> B11[Reflection]
+        B2[Medium Media]  --> B21[Reflection]
+        B3[Short Media] --> B31[Reflection]
+    end
+
+    subgraph Row3[Derived Measurements]
+        C1[Long Media]
+        C1 --> C11[Was it good]
+        C1 --> C12[Was it relevent]
+        C2[Medium Media]
+        C2 --> C21[Was it good]
+        C2 --> C22[Was it relevent]
+        C3[Short Media]
+        C3 --> C31[Was it good]
+        C3 --> C32[Was it relevent]
+        
+    end
+    Row1 --> Row2
+    Row2 --> Row3
