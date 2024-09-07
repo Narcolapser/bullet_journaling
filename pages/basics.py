@@ -1,5 +1,5 @@
 from typing import List
-from pages.util import StartFinish, get_multi_date_sequence, get_date_sequence, get_heart_range, Day_Of_Week, get_specific_multi_date_sequence
+from pages.util import StartFinish, get_date_sequence, Day_Of_Week, get_specific_multi_date_sequence
 from datetime import datetime, timedelta as delta
 from flask import render_template
 
@@ -15,7 +15,7 @@ def build_static_page(page):
 
 def build_weekly_planner(dates, season, activities):
     def weekly_planner():
-        date_sequence = get_date_sequence(Day_Of_Week.SUNDAY, dates)
+        date_sequence = get_date_sequence('sunday', dates)
         return render_template('weekly_planner.html',season=season,activities=activities,weeks=date_sequence)
     return weekly_planner
 
@@ -94,7 +94,13 @@ def build_monthly_recap(dates):
     return build_sectional_icon_list('Monthly Recap',months,7,'notebook.png')
 
 def build_notes():
-    return build_icon_list('Notes', 21, 'notebook.png')
+    config = {
+        'title': 'Notes',
+        'rows': 21,
+        'icon': 'notebook.png',
+        'background': ''
+    }
+    return build_icon_list(config)
 
 def build_pixels():
     def annual_pixels():

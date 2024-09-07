@@ -68,31 +68,16 @@ for page in quarterly['pages']:
     page['dates'] = dates
     app.add_url_rule(f'/{url}',url,page_templates[page['template']](page))
 
-
-
-# app.add_url_rule('/couples_bible_study','couples_bible_study',
-
                  
-# app.add_url_rule('/house_projects','house_projects',build_icon_list('House Projects',11,'checkedbox.png','handyman.png'))
 # Manually Generated Pages.
-#app.add_url_rule('/lucy_time','lucy_time',
-                 #build_weekly(dates, 'Lucy Time',Day_Of_Week.TUESDAY,'dalle - dad and daughter playing in the pool.png'))
-
-#app.add_url_rule('/house_projects','house_projects',build_icon_list('House Projects',11,'checkedbox.png','handyman.png'))
-#app.add_url_rule('/celebrations','celebrations',build_icon_list('Celebrations!',21,'tada.png'))
-
-# Seasonal
-#app.add_url_rule('/dnd','dnd',build_icon_list('Dungeons and Dragons Campaign',10,'d20.png'))
-#app.add_url_rule('/electronics_project','electronics_project',build_icon_list('Eletronics Project', 21, 'notebook.png'))
 
 
 # Exercise
-app.add_url_rule('/swimming','swimming', build_swiming(dates, [Day_Of_Week.TUESDAY, Day_Of_Week.FRIDAY]))
 #app.add_url_rule('/ultimate','ultimate',
                  #build_weekly(dates, 'Ultimate Frisbee',Day_Of_Week.SATURDAY,'ultimate frisbee.png'))
 
 # Lastly the filler.
-#app.add_url_rule('/notes','notes', build_notes())
+app.add_url_rule('/notes','notes', build_notes())
 
 
 

@@ -38,3 +38,17 @@ pages:
     rows: 11
     icon: checkedbox.png
     background: handyman.png
+  - title: Lucy Time
+    template: weekly
+    day_of_week: tuesday
+    background: "dalle - dad and daughter playing in the pool.png"
+  - title: Celebrations
+    template: icon_list
+    rows: 21
+    icon: 'tada.png'
+    background: ''
+  - title: Electronics Project
+    template: icon_list
+    rows: 21
+    icon: notebook.png
+    background: ''
