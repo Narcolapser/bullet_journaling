@@ -41,7 +41,7 @@ pages:
   - title: Lucy Time
     template: weekly
     day_of_week: tuesday
-    background: "dalle - dad and daughter playing in the pool.png"
+    background: "dalle - dad and daughter building things together.png"
   - title: Celebrations
     template: icon_list
     rows: 21
@@ -52,3 +52,7 @@ pages:
     rows: 21
     icon: notebook.png
     background: ''
+  - title: Family Time
+    template: weekly
+    day_of_week: sunday
+    background: 'popcorn.png'
