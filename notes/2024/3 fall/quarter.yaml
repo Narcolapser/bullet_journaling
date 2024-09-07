@@ -12,6 +12,7 @@ goals:
 - Finish Garden Video 8.1
 - Finish Garden Video 8.2
 - Help Megan get setup with Proton.
+- Start trying to make a game with my fellow Deltoids
 daily:
 - Quiet Time
 - Dishes
@@ -103,3 +104,6 @@ pages:
   - title: Media
     template: mermaid
     file: media.mermaid
+  - title: Mentorship
+    template: mermaid
+    file: mentorship.mermaid
