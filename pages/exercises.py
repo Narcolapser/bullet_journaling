@@ -1,11 +1,12 @@
 from typing import List
+from pages.graph import GraphUnits, build_quarterly_graph
 from pages.util import StartFinish, get_multi_date_sequence, get_date_sequence, Day_Of_Week
 
 from flask import render_template
 
 
 def get_heart_range():
-    return range(100,180,4)
+    return {'start':100, 'end':180}
 
 def build_body_fat(year):
     def body():
@@ -86,14 +87,19 @@ def build_stacked_graph(config: dict):
 def build_running(config: dict):
     miles = config['miles'] if 'miles' in config else 2
     minutes = config['minutes'] if 'minutes' in config else 20
-    def running():
-        date_sequence = get_multi_date_sequence(config['days_of_week'], config['dates'])
-        units = ['Heart Rate (BPM)','Distance (M)','Time (m)']
-        distance_range = [v/10.0 for v in range(int(miles*10-20), int(miles*10))]
-        time_range = range(minutes-20,minutes)
-        unit_steps = [get_heart_range(), distance_range, time_range]
-        return render_template('graph.html',dates=date_sequence,title='Running',units=units,unit_steps=unit_steps)
-    return running
+    units = {
+        'Heart Rate (BPM)': get_heart_range(),
+        'Distance (M)': {'start':miles-2,'end':miles},
+        'Time (m)': {'start':minutes-20, 'end':minutes}
+    }
+
+    graph_config = {
+        'title': 'Running',
+        'dates': config['dates'],
+        'units': units,
+        'days_of_week': config['days_of_week']
+    }
+    return build_quarterly_graph(graph_config)
 
 
 def build_swiming(dates: StartFinish, days_of_week: List[Day_Of_Week]):

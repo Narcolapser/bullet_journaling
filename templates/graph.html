@@ -13,7 +13,7 @@
     {% endfor %}
     <tr>
         {% for sequence_step in sequence %}
-        <td style="border:1px solid black;">{{sequence_step}}</td>
+        <td style="border:1px solid black;">{{sequence_step|safe}}</td>
         {% endfor %}
         {% for unit in units %}
         <td style="border:1px solid black;">{{unit}}</td>

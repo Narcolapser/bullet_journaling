@@ -9,26 +9,30 @@ def float_range(start, end, steps=20):
     result = []
     i = 0
     while i < end:
-        result.append(start+i)
+        full = start+i
+        bumped = full * 10
+        rounded = round(bumped)
+        limited = rounded * 0.1
+        result.append(f"{limited:.1f}")
         i += step
     return result
 
 def int_range(start, end, steps=20):
-    return [round(i) for i in float_range(start, end, steps)]
+    return [round(float(i)) for i in float_range(start, end, steps)]
 
 GraphUnits = Dict[str, List[Union[str, int]]]
 
 class GraphConfig():
     title: str
     units: GraphUnits
-    sequnce: List[Union[str,int]]
+    sequence: List[Union[str,int]]
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.__dict__})"
 
 def build_graph(config: GraphConfig):
     def handler():
-        return render_template('graph.html',sequence=config.sequnce,title=config.title,units=config.units.keys(),unit_steps=config.units)
+        return render_template('graph.html',sequence=config.sequence,title=config.title,units=config.units.keys(),unit_steps=config.units)
     return handler
 
 def build_month_graph(config: dict):
@@ -54,5 +58,29 @@ def build_month_graph(config: dict):
     graph_config.units = units
 
     sdate, fdate = get_month_start_and_end(config['month'],config['dates'].sdate.year)
-    graph_config.sequnce = [i.day for i in get_specific_multi_date_sequence(FULL_WEEK, sdate, fdate)]
+    graph_config.sequence = [f'{i.day:02d}' for i in get_specific_multi_date_sequence(FULL_WEEK, sdate, fdate)]
+    return build_graph(graph_config)
+
+def build_quarterly_graph(config: dict):
+    '''
+    This is a convenience wrapper for build graph taht creates a graph spanning the entire quarter. Expected keys in config are:
+    title: the title of the page
+    dates: the start and end dates for this quarter over which to graph.
+    days_of_week: The days of the week as strings that will be included in the graph.
+    units: dictionary with a unit name and a dictionary of start and end keys with int or float values. 
+    '''
+    graph_config = GraphConfig()
+    graph_config.title = config['title']
+
+    units: GraphUnits = {}
+    for unit in config['units']:
+        start = config['units'][unit]['start']
+        end = config['units'][unit]['end']
+        if isinstance(start,float) or isinstance(end, float) or end - start < 20:
+            units[unit] = float_range(start,end)
+        else:
+            units[unit] = int_range(start,end)
+    graph_config.units = units
+
+    graph_config.sequence = [f'{i.month:02d}/<br>{i.day:02d}' for i in get_multi_date_sequence(config['days_of_week'],config['dates'])]
     return build_graph(graph_config)
