@@ -3,7 +3,7 @@
 <table style="border-collapse:collapse; width:100%">
     {% for i in range(20) %}
     <tr>
-        {% for date in dates %}
+        {% for sequence_step in sequence %}
         <td style="border:1px solid black;"></td>
         {% endfor %}
         {% for step in unit_steps %}
@@ -12,8 +12,8 @@
     </tr>
     {% endfor %}
     <tr>
-        {% for date in dates %}
-        <td style="border:1px solid black;">{{date.strftime('%d')}}</td>
+        {% for sequence_step in sequence %}
+        <td style="border:1px solid black;">{{sequence_step}}</td>
         {% endfor %}
         {% for unit in units %}
         <td style="border:1px solid black;">{{unit}}</td>

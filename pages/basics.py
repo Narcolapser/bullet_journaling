@@ -178,24 +178,25 @@ def build_table(title,columns,row_titles):
 
 def float_range(start, end, steps=20):
     distance = end - start
-    step = distance*1.0 / steps + 1
+    step = distance*1.0 / (steps - 1)
     result = []
     i = 0
     while i < end:
         result.append(start+i)
         i += step
-    result.append(start+i)
     return result
+
+def int_range(start, end, steps=20):
+    return [round(i) for i in float_range(start, end, steps)]
 
 def build_graph(config: dict):
     title = config['title']
     units = config['units'].keys()
+    print(config)
     unit_steps = []
     for unit in units:
-        unit_steps.append(float_range(config['units'][unit]['start'], config['units'][unit]['start']))
-    #sequence = [i for i in range(1,32)]
-    days_of_week = ['SUNDAY','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY']
-    sequence = get_specific_multi_date_sequence(days_of_week, '2024-12-01', '2024-12-31')
+        unit_steps.append(int_range(config['units'][unit]['start'], config['units'][unit]['end']))
+    sequence = [i for i in range(1,32)]
     def handler():
-        return render_template('graph.html',dates=sequence,title=title,units=units,unit_steps=unit_steps)
+        return render_template('graph.html',sequence=sequence,title=title,units=units,unit_steps=unit_steps)
     return handler
