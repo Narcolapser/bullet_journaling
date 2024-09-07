@@ -25,8 +25,7 @@ class StartFinish():
         self.sdate=sdate
         self.fdate=fdate
 
-def get_specific_multi_date_sequence(days_of_week:list[str],start,end):
-    days_of_week = [getattr(Day_Of_Week,i.upper()) for i in days_of_week]
+def get_specific_multi_date_sequence(days_of_week:Day_Of_Week,start,end):
     dow_list = [start + delta(days=dow.value) for dow in days_of_week]
     week_delta = delta(days=7)
     dates = []
@@ -39,6 +38,7 @@ def get_specific_multi_date_sequence(days_of_week:list[str],start,end):
     return dates
 
 def get_multi_date_sequence(days_of_week:list[str],dates:StartFinish):
+    days_of_week = [getattr(Day_Of_Week,i.upper()) for i in days_of_week]
     return get_specific_multi_date_sequence(days_of_week,dates.sdate,dates.fdate)
 
 def get_date_sequence(day_string:str ,dates:StartFinish):

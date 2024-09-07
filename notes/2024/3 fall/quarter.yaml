@@ -81,3 +81,9 @@ pages:
       - bicep curl
       - tricep curl
       - bent over row
+  - title: Advent of Code
+    template: graph
+    units: 
+      minutes:
+        start: 0 
+        end: 180
