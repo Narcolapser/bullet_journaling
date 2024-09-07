@@ -9,14 +9,15 @@ from flask import Flask, render_template
 
 from pages.util import Day_Of_Week, StartFinish
 from pages.exercises import build_running, build_stacked_graph
-from pages.basics import build_goals, build_notes, build_icon_list, build_graph, build_weekly, build_daily_planner, build_weekly_planner, build_monthly_recap, build_static_page, build_pixels, build_picture_grid
+from pages.basics import build_goals, build_notes, build_icon_list, build_weekly, build_daily_planner, build_weekly_planner, build_monthly_recap, build_pixels, build_picture_grid
+from pages.graph import build_month_graph
 
 page_templates = {
     'icon_list': build_icon_list,
     'weekly': build_weekly,
     'running': build_running,
     'stacked_graph': build_stacked_graph,
-    'graph': build_graph
+    'month_graph': build_month_graph
 }
 
 app = Flask(__name__)

@@ -1,5 +1,5 @@
-from typing import List
-from pages.util import FULL_WEEK, StartFinish, get_date_sequence, Day_Of_Week, get_specific_multi_date_sequence, get_multi_date_sequence
+from typing import List, Dict, Union
+from pages.util import FULL_WEEK, StartFinish, get_date_sequence, Day_Of_Week, get_month_start_and_end, get_specific_multi_date_sequence, get_multi_date_sequence
 from datetime import datetime, timedelta as delta
 from flask import render_template
 
@@ -175,28 +175,3 @@ def build_table(title,columns,row_titles):
     def table():
         return render_template('table.html',title=title,columns=columns,rows=row_titles)
     return table
-
-def float_range(start, end, steps=20):
-    distance = end - start
-    step = distance*1.0 / (steps - 1)
-    result = []
-    i = 0
-    while i < end:
-        result.append(start+i)
-        i += step
-    return result
-
-def int_range(start, end, steps=20):
-    return [round(i) for i in float_range(start, end, steps)]
-
-def build_graph(config: dict):
-    title = config['title']
-    units = config['units'].keys()
-    print(config)
-    unit_steps = []
-    for unit in units:
-        unit_steps.append(int_range(config['units'][unit]['start'], config['units'][unit]['end']))
-    sequence = [i for i in range(1,32)]
-    def handler():
-        return render_template('graph.html',sequence=sequence,title=title,units=units,unit_steps=unit_steps)
-    return handler

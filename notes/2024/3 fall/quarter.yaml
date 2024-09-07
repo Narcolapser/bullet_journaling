@@ -82,7 +82,8 @@ pages:
       - tricep curl
       - bent over row
   - title: Advent of Code
-    template: graph
+    template: month_graph
+    month: 12
     units: 
       minutes:
         start: 10 

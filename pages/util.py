@@ -1,5 +1,6 @@
-from datetime import timedelta as delta
+from datetime import timedelta as delta, date
 from enum import Enum
+from typing import List
 
 class Day_Of_Week(Enum):
     SUNDAY = 0
@@ -24,8 +25,11 @@ class StartFinish():
     def __init__(self,sdate,fdate):
         self.sdate=sdate
         self.fdate=fdate
+    
+    def __repr__(self):
+        return str({'sdate': self.sdate, 'fdate': self.fdate})
 
-def get_specific_multi_date_sequence(days_of_week:Day_Of_Week,start,end):
+def get_specific_multi_date_sequence(days_of_week:List[Day_Of_Week], start: date, end: date):
     dow_list = [start + delta(days=dow.value) for dow in days_of_week]
     week_delta = delta(days=7)
     dates = []
@@ -50,3 +54,20 @@ def get_date_sequence(day_string:str ,dates:StartFinish):
         date_sequence.append(date)
         date = date + week_delta
     return date_sequence
+
+def get_month_start_and_end(month: int, year: int):
+    # First day of the month
+    start_date = date(year, month, 1)
+    
+    # Calculate the last day of the month
+    if month == 12:
+        # If it's December, the next month is January of the next year
+        next_month = date(year + 1, 1, 1)
+    else:
+        # Otherwise, it's the 1st of the next month in the same year
+        next_month = date(year, month + 1, 1)
+    
+    # The last day of the current month is one day before the next month's start
+    end_date = next_month - delta(days=1)
+    
+    return start_date, end_date
