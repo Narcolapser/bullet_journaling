@@ -59,21 +59,28 @@ def root():
 why = quarterly['why']
 goals = quarterly['goals']
 app.add_url_rule('/quarter_goals','quarter_goals',build_goals(season, theme, why, goals))
+pages_raw = ['quarter_goals']
 
 activities = quarterly['daily']
 app.add_url_rule('/daily_planner','daily_planner',build_daily_planner(dates,activities,season,num_months=4))
+pages_raw.append(('daily_planner','landscape'))
 
 weekly_activities = quarterly['weekly']
 app.add_url_rule('/weekly_planner','weekly_planner',build_weekly_planner(dates, season, weekly_activities))
+pages_raw.append(('weekly_planner','landscape'))
 
 app.add_url_rule('/monthly_recap','monthly_recap',build_monthly_recap(dates))
+pages_raw.append('monthly_recap')
 
 for page in quarterly['pages']:
-    print(page)
     url = re.sub(r'[^A-Za-z0-9_]', '_', page['title'])
     page['dates'] = dates
     page['root'] = quarter_root
     app.add_url_rule(f'/{url}',url,page_templates[page['template']](page))
+    if page['template'] in ['running','stacked_graph','month_graph']:
+        pages_raw.append((url,'landscape'))
+    else:
+        pages_raw.append(url)
 
                  
 # Manually Generated Pages.
@@ -86,7 +93,15 @@ for page in quarterly['pages']:
 # Lastly the filler.
 app.add_url_rule('/notes','notes', build_notes())
 
-
+print('pages_raw = [')
+for i,page in enumerate(pages_raw):
+    if (i+1)%2==0:
+        print()
+    if isinstance(page,str):
+        print(f'\t\'{page}\',')
+    else:
+        print(f'\t{page},')
+print(']')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port = 5000)

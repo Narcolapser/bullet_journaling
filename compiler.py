@@ -131,26 +131,37 @@ def compile_journal(directory, pad_path=None, folio_size=8, starting_page_num=1)
 
 
 pages_raw = [
-    ## Spring pages.
-    'quarter_goals',
+	'quarter_goals',
 
-    ('daily_planner', 'landscape'),
-    ('weekly_planner', 'landscape'),
+	('daily_planner', 'landscape'),
+	('weekly_planner', 'landscape'),
 
-    'monthly_recap',
-    'celebrations',
+	'monthly_recap',
+	'Couples_Bible_Study__Experiencing_God_Together',
 
-    'lucy_time',
-    'couples_bible_study',
+	'House_Projects',
+	'Lucy_Time',
 
-    'house_projects',
-    'dnd',
+	'Celebrations',
+	'Electronics_Project',
 
-    'electronics_project',
-    'seed_to_table',
+	'Family_Time',
+	('Running', 'landscape'),
 
-    ('swimming', 'landscape'),
-    'ultimate'
+	('Core', 'landscape'),
+	('Arms', 'landscape'),
+
+	('Advent_of_Code', 'landscape'),
+	'Kubernetes_Skill_Tree',
+
+	'Github_Tracking_System',
+	'Slack_Tracking_System',
+
+	'BlueEQ_Tracking_System',
+	'Media_Tracking_System',
+
+	('Mentorship_Tracking_System', 'landscape'),
+	'Code_Kata_Tracking_System',
 ]
 
 pages = [(i,'portrait') if isinstance(i,str) else i for i in pages_raw]
