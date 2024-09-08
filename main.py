@@ -77,7 +77,7 @@ for page in quarterly['pages']:
     page['dates'] = dates
     page['root'] = quarter_root
     app.add_url_rule(f'/{url}',url,page_templates[page['template']](page))
-    if page['template'] in ['running','stacked_graph','month_graph']:
+    if page['template'] in ['running','month_graph'] or ('landscape' in page and page['landscape']):
         pages_raw.append((url,'landscape'))
     else:
         pages_raw.append(url)
@@ -93,15 +93,16 @@ for page in quarterly['pages']:
 # Lastly the filler.
 app.add_url_rule('/notes','notes', build_notes())
 
-print('pages_raw = [')
+compiler_directive = ['pages_raw = [']
 for i,page in enumerate(pages_raw):
     if (i+1)%2==0:
-        print()
+        compiler_directive.append('')
     if isinstance(page,str):
-        print(f'\t\'{page}\',')
+        compiler_directive.append(f'\t\'{page}\',')
     else:
-        print(f'\t{page},')
-print(']')
+        compiler_directive.append(f'\t{page},')
+compiler_directive.append(']')
+open('compiler_pages.py','w').write('\n'.join(compiler_directive))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port = 5000)

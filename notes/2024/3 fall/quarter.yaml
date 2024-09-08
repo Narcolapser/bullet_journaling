@@ -1,11 +1,10 @@
 ---
 theme: Season of Professional Foundations.
-start: 2024-09-01
+start: 2024-09-08
 end: 2024-12-31
-why: Having successfully been promoted to Dev Level 3 my attention now starts to pivot towards aspirations of Dev Level 4. I do not expect, of course, to be promoted any time soon. But I want to start laying foundations that I can build on over the next few years as I work towards the objective of being promoted. One of the significant foundations I want to establish grafana dashboards to track my development. These will change over the years, but should provide a good start.
+why: Last quarter I was promoted to Dev 3. Aspirations of Dev 4 will be some time coming. This quarter I want to start laying foundations upon which to build. Particularly the focus will be on establishing systems to track progress and provide objective measure of my development. What these systems even look like is a thing I will need to figure out. They will grow and change over the years but this quarter I will make a start.
 goals:
-- Find/Make a time tracking software and start making use of it.
-- Setup a system for keeping records of the various things I want to track.
+- Find/Make a time tracking software
 - Finish Garden Video 6.3
 - Finish Garden Video 7.1
 - Finish Garden Video 7.2
@@ -13,10 +12,10 @@ goals:
 - Finish Garden Video 8.2
 - Help Megan get setup with Proton.
 - Start trying to make a game with my fellow Deltoids
+- Play and beat Ohmygit.org
 daily:
 - Quiet Time
 - Dishes
-- Walk Garden
 - Exercise
 - Update Journal
 weekly:
@@ -48,15 +47,48 @@ pages:
     rows: 21
     icon: 'tada.png'
     background: ''
+  - title: Family Time
+    template: weekly
+    day_of_week: sunday
+    background: 'popcorn.png'
   - title: Electronics Project
     template: icon_list
     rows: 21
     icon: notebook.png
     background: ''
-  - title: Family Time
-    template: weekly
-    day_of_week: sunday
-    background: 'popcorn.png'
+  - title: Kubernetes Skill Tree
+    template: mermaid
+    file: k8s.mermaid
+  - title: Github Tracking System
+    template: mermaid
+    file: github.mermaid
+  - title: Slack Tracking System
+    template: mermaid
+    file: slack.mermaid
+    landscape: True
+  - title: BlueEQ Tracking System
+    template: mermaid
+    file: blueeq.mermaid
+  - title: Media Tracking System
+    template: mermaid
+    file: media.mermaid
+  - title: Mentorship Tracking System
+    template: mermaid
+    file: mentorship.mermaid
+    landscape: True
+  - title: Code Kata Tracking System
+    template: mermaid
+    file: kata.mermaid
+    landscape: True
+
+  - title: Advent of Code
+    template: month_graph
+    month: 12
+    units: 
+      minutes:
+        start: 10 
+        end: 200
+
   - title: Running
     template: running
     days_of_week:
@@ -82,31 +114,3 @@ pages:
       - bicep curl
       - tricep curl
       - bent over row
-  - title: Advent of Code
-    template: month_graph
-    month: 12
-    units: 
-      minutes:
-        start: 10 
-        end: 200
-  - title: Kubernetes Skill Tree
-    template: mermaid
-    file: k8s.mermaid
-  - title: Github Tracking System
-    template: mermaid
-    file: github.mermaid
-  - title: Slack Tracking System
-    template: mermaid
-    file: slack.mermaid
-  - title: BlueEQ Tracking System
-    template: mermaid
-    file: blueeq.mermaid
-  - title: Media Tracking System
-    template: mermaid
-    file: media.mermaid
-  - title: Mentorship Tracking System
-    template: mermaid
-    file: mentorship.mermaid
-  - title: Code Kata Tracking System
-    template: mermaid
-    file: kata.mermaid

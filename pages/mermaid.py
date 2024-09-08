@@ -18,10 +18,17 @@ def build_mermaid_diagram(config: dict):
     if file_check.is_file():
         def handler():
             diagram = Graph('Sequence-diagram', open(file_path).read())
-            html = mermaid.Mermaid(diagram)._repr_html_()
+            render = mermaid.Mermaid(diagram)
+
+            #html = render._repr_html_()
             ## This is an aweful hack, forgive me:
-            html = html.replace('smngrt','smart')
-            return render_template('html.html',title=config['title'],html=html)
+            #html = html.replace('smngrt','smart')
+            #return render_template('html.html',title=config['title'],html=html)
+            img_name = config["file"].replace(".mermaid",".png")
+            render.to_png(f'./static/generated/{img_name}')
+            img_tag = f'<img src="http://localhost:5000/static/generated/{img_name}" style="object-fit: cover; width:100%"/>'
+            return render_template('html.html',title=config['title'],html=img_tag)
+        
         return handler
     else:
         raise Exception(f'Was not able to file a file at {file_path}')

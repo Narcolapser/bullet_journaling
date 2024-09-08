@@ -1,4 +1,3 @@
-from io import BytesIO
 import os
 from weasyprint import HTML, CSS
 import requests
@@ -8,6 +7,7 @@ from PyPDF3.pdf import PageObject
 
 from fpdf import FPDF
 
+from compiler_pages import pages_raw
 
 class NumberPDF(FPDF):
     def __init__(self, lpage, rpage):
@@ -129,41 +129,6 @@ def compile_journal(directory, pad_path=None, folio_size=8, starting_page_num=1)
             index.addPage(page)
     index.write(open('out.pdf','wb'))
 
-
-pages_raw = [
-	'quarter_goals',
-
-	('daily_planner', 'landscape'),
-	('weekly_planner', 'landscape'),
-
-	'monthly_recap',
-	'Couples_Bible_Study__Experiencing_God_Together',
-
-	'House_Projects',
-	'Lucy_Time',
-
-	'Celebrations',
-	'Electronics_Project',
-
-	'Family_Time',
-	('Running', 'landscape'),
-
-	('Core', 'landscape'),
-	('Arms', 'landscape'),
-
-	('Advent_of_Code', 'landscape'),
-	'Kubernetes_Skill_Tree',
-
-	'Github_Tracking_System',
-	'Slack_Tracking_System',
-
-	'BlueEQ_Tracking_System',
-	'Media_Tracking_System',
-
-	('Mentorship_Tracking_System', 'landscape'),
-	'Code_Kata_Tracking_System',
-]
-
 pages = [(i,'portrait') if isinstance(i,str) else i for i in pages_raw]
 
 while len(pages)%4 != 0:
@@ -181,5 +146,5 @@ def print_journal(pages):
 
 if __name__ == '__main__':
     print_journal(pages)
-    compile_journal('./', starting_page_num=33)
+    compile_journal('./', starting_page_num=49)
 
