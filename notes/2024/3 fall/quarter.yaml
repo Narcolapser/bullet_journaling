@@ -66,12 +66,10 @@ pages:
     template: mermaid
     file: slack.mermaid
     landscape: True
-  - title: BlueEQ Tracking System
-    template: mermaid
-    file: blueeq.mermaid
   - title: Media Tracking System
     template: mermaid
     file: media.mermaid
+    landscape: True
   - title: Mentorship Tracking System
     template: mermaid
     file: mentorship.mermaid
@@ -89,22 +87,6 @@ pages:
         start: 10 
         end: 200
 
-  - title: Running
-    template: running
-    days_of_week:
-      - monday
-      - thursday
-    miles: 4
-    minutes: 40
-  - title: Core
-    template: stacked_graph
-    day_of_week: friday
-    exercises:
-      - planking
-      - toe taps
-      - shoulder taps
-      - russian twist
-      - cross crunches
   - title: Arms
     template: stacked_graph
     day_of_week: wednesday
@@ -114,3 +96,19 @@ pages:
       - bicep curl
       - tricep curl
       - bent over row
+  - title: Core
+    template: stacked_graph
+    day_of_week: friday
+    exercises:
+      - planking
+      - toe taps
+      - shoulder taps
+      - russian twist
+      - cross crunches
+  - title: Running
+    template: running
+    days_of_week:
+      - monday
+      - thursday
+    miles: 4
+    minutes: 40

@@ -19,15 +19,14 @@ pages_raw = [
 	'Github_Tracking_System',
 	('Slack_Tracking_System', 'landscape'),
 
-	'BlueEQ_Tracking_System',
-	'Media_Tracking_System',
-
+	('Media_Tracking_System', 'landscape'),
 	('Mentorship_Tracking_System', 'landscape'),
+
 	('Code_Kata_Tracking_System', 'landscape'),
-
 	('Advent_of_Code', 'landscape'),
-	('Running', 'landscape'),
 
-	'Core',
 	'Arms',
+	'Core',
+
+	('Running', 'landscape'),
 ]
