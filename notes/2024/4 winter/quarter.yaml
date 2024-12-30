@@ -1,0 +1,77 @@
+---
+theme: Season of Making Pregnancy Tollerable
+start: 2025-01-06
+end: 2025-03-29
+why: We are entering in to the third trimester of this pregnancy. This go round has been extra rough on Megan so this following quarter my focus is going to be on doing all I can to make it tollerable for her. Additionally there are some smaller tasks that I didn't get done last quarter due to it's surprises like the cancelled adoption. I will try to catch up on some of those tasks.
+goals:
+- Find/Make a time tracking software
+- Play and beat Ohmygit.org
+- Develop an ongoing motivation for exercise. 
+daily:
+- Quiet Time
+- Dishes
+- Exercise
+- Update Journal
+weekly:
+- Read News Letter
+- Lucy Time!
+- Games with Ben
+- Couples Bible study
+- Chore
+- Clean Garage
+- Clean Desks
+- Water Plants
+- Swap Batteries
+pages:
+  - title: "Couples Bible Study: Experiencing God Together"
+    template: weekly
+    day_of_week: saturday
+    background: bible.png
+  - title: House Projects
+    template: icon_list
+    rows: 11
+    icon: checkedbox.png
+    background: handyman.png
+  - title: Lucy Time
+    template: weekly
+    day_of_week: tuesday
+    background: "dalle - dad and daughter building things together.png"
+  - title: Celebrations
+    template: icon_list
+    rows: 21
+    icon: 'tada.png'
+    background: ''
+  - title: Family Time
+    template: weekly
+    day_of_week: sunday
+    background: 'popcorn.png'
+  - title: Electronics Project
+    template: icon_list
+    rows: 21
+    icon: notebook.png
+    background: ''
+
+  - title: Arms
+    template: stacked_graph
+    day_of_week: wednesday
+    exercises:
+      - chest press
+      - inverse snow angel
+      - bicep curl
+      - tricep curl
+      - bent over row
+  - title: Core
+    template: stacked_graph
+    day_of_week: friday
+    exercises:
+      - planking
+      - toe taps
+      - shoulder taps
+      - russian twist
+      - cross crunches
+  - title: Biking
+    template: Biking
+    days_of_week:
+      - monday
+      - thursday
+    minutes: 40

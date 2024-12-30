@@ -101,6 +101,23 @@ def build_running(config: dict):
     }
     return build_quarterly_graph(graph_config)
 
+def build_biking(config: dict):
+    miles = config['miles'] if 'miles' in config else 2
+    minutes = config['minutes'] if 'minutes' in config else 20
+    units = {
+        'Heart Rate (BPM)': get_heart_range(),
+        'Distance (M)': {'start':5,'end':12},
+        'Time (m)': {'start':minutes-20, 'end':minutes}
+    }
+
+    graph_config = {
+        'title': 'Biking',
+        'dates': config['dates'],
+        'units': units,
+        'days_of_week': config['days_of_week']
+    }
+    return build_quarterly_graph(graph_config)
+
 
 def build_swiming(dates: StartFinish, days_of_week: List[Day_Of_Week]):
     def swimming():
