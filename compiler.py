@@ -1,5 +1,6 @@
 import os
-from weasyprint import HTML, CSS
+#from weasyprint import HTML, CSS
+from xhtml2pdf import pisa
 import requests
 
 from PyPDF3 import PdfFileWriter, PdfFileReader
@@ -142,7 +143,11 @@ def print_journal(pages):
         print('Printing ./{1:0>2}_{0}.pdf'.format(page[0],page[1]), end='...')
         r = requests.get(f'http://localhost:5000/{page[0]}')
         print(r.status_code)
-        outs = HTML(string=r.text).write_pdf('./{1:0>2}_{0}.pdf'.format(page[0],page[1]),stylesheets=[CSS(string='@page {size: ' + page[2] + '}')])
+        #outs = HTML(string=r.text).write_pdf('./{1:0>2}_{0}.pdf'.format(page[0],page[1]),
+                                             #stylesheets=[CSS(string='@page {size: ' + page[2] + '}')])
+        with open('./{1:0>2}_{0}.pdf'.format(page[0],page[1]), 'wb') as pdf_file:
+             pisa.CreatePDF(r.text, dest=pdf_file)
+
 
 if __name__ == '__main__':
     print_journal(pages)
