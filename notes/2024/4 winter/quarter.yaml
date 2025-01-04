@@ -1,12 +1,13 @@
 ---
 theme: Season of Making Pregnancy Tollerable
-start: 2025-01-06
+start: 2025-01-05
 end: 2025-03-29
 why: We are entering in to the third trimester of this pregnancy. This go round has been extra rough on Megan so this following quarter my focus is going to be on doing all I can to make it tollerable for her. Additionally there are some smaller tasks that I didn't get done last quarter due to it's surprises like the cancelled adoption. I will try to catch up on some of those tasks.
 goals:
 - Find/Make a time tracking software
 - Play and beat Ohmygit.org
 - Develop an ongoing motivation for exercise. 
+- Clear off habitica todo list again.
 daily:
 - Quiet Time
 - Dishes
@@ -36,7 +37,7 @@ pages:
     template: weekly
     day_of_week: tuesday
     background: "dalle - dad and daughter baking.png"
-  - title: Wifely Gratitude
+  - title: Acts Megan Appreciated
     template: weekly
     day_of_week: saturday
     background: hearts.gif
@@ -44,22 +45,26 @@ pages:
     template: icon_list
     rows: 21
     icon: 'tada.png'
-    background: ''
+    background: blank.png
   - title: Family Time
     template: weekly
     day_of_week: sunday
-    background: 'popcorn.png'
+    background: 'pegs and a die.jpg'
   - title: Electronics Project
     template: icon_list
     rows: 21
     icon: notebook.png
     background: circuit_diagram.png
 
-  - title: 'Reason for exercising: A manifesto'
+  - title: Kubernetes Skill Tree
+    template: mermaid
+    file: k8s.mermaid
+
+  - title: 'Reason for Exercising: A Manifesto'
     template: icon_list
     rows: 21
-    icon: dumbell.webp
-    background: ''
+    icon: 'blank.png'
+    background: 'dumbell.webp'
 
   - title: Arms
     template: stacked_graph

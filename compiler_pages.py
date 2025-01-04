@@ -10,15 +10,17 @@ pages_raw = [
 	'House_Projects',
 	'Lucy_Time',
 
-	'Wifely_Gratitude',
+	'Acts_Megan_Appreciated',
 	'Celebrations',
 
 	'Family_Time',
 	'Electronics_Project',
 
-	'Reason_for_exercising__A_manifesto',
-	'Arms',
+	'Kubernetes_Skill_Tree',
+	'Reason_for_Exercising__A_Manifesto',
 
+	'Arms',
 	'Core',
+
 	('Stationary_Biking', 'landscape'),
 ]

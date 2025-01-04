@@ -71,7 +71,7 @@ def build_stacked_graph(config: dict):
         date_sequence = get_date_sequence(day_of_week,dates)
         items = [exercise.name for exercise in exercises]
         item_bounds = [(exercise.lower_limit, exercise.upper_limit) for exercise in exercises]
-        steps = 4
+        steps = 6
         item_intervals = [int((bound[1]-bound[0])/steps) for bound in item_bounds]
         item_units = []
         for i,bounds in enumerate(item_bounds):

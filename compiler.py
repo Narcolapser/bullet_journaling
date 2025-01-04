@@ -20,9 +20,10 @@ class NumberPDF(FPDF):
         self.set_y(-15)
         self.set_font('Arial', 'I', 8)
         if self.lpage:
-            self.cell(129, 10, str(self.lpage), 0, 0, 'L')
+            #self.cell(129, 10, str(self.lpage), 0, 0, 'L')
+            self.cell(129, 20, str(self.lpage), 0, 0, 'L')
         if self.rpage:
-            self.cell(129, 10, str(self.rpage), 0, 0, 'R')
+            self.cell(129, 20, str(self.rpage), 0, 0, 'R')
 
 tmp_file = '/tmp/rotpdf.pdf'
 
@@ -163,7 +164,17 @@ def render_pypputeer(url, name, orientation):
         browser = await launch(options={'args': ['--no-sandbox']})
         page = await browser.newPage()
         await page.goto(url)
-        await page.pdf({'path': f'./{name}', 'format': 'letter', 'landscape':orientation=='landscape'})
+        await page.pdf({
+            'path': f'./{name}',
+            'format': 'letter',
+            'landscape': orientation == 'landscape',
+            'margin': {
+                'top': '0.25in',
+                'right': '0.25in',
+                'bottom': '0.5in',
+                'left': '0.25in'
+            }
+        })
         await browser.close()
 
     asyncio.get_event_loop().run_until_complete(main())
