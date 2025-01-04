@@ -137,27 +137,30 @@ while len(pages)%4 != 0:
 pages = [(page[0],i,page[1] if len(page) > 1 else 'portrait') for i,page in enumerate(pages)]
 
 
-def print_journal_weasy(pages):
+def render_weasy(url, name, orientation='portrait'):
     from weasyprint import HTML, CSS
-    for page in pages:
-        print('Printing ./{1:0>2}_{0}.pdf'.format(page[0],page[1]), end='...')
-        r = requests.get(f'http://localhost:5000/{page[0]}')
-        print(r.status_code)
-        filename = './{1:0>2}_{0}.pdf'.format(page[0],page[1])
-        stylesheets = [CSS(string='@page {size: ' + page[2] + '}')]
-        outs = HTML(string=r.text).write_pdf(filename,stylesheets=stylesheets)
-        # with open('./{1:0>2}_{0}.pdf'.format(page[0],page[1]), 'wb') as pdf_file:
-        #      pisa.CreatePDF(r.text, dest=pdf_file)
+    print(f'Rendering ./{name} from {url}', end='...')
+    r = requests.get(url)
+    print(r.status_code)
+    stylesheets = [CSS(string='@page {size: ' + orientation + '}')]
+    outs = HTML(string=r.text).write_pdf(f'./{name}',stylesheets=stylesheets)
 
 def print_journal_pisa(pages):
     from xhtml2pdf import pisa
     for page in pages:
         print('Printing ./{1:0>2}_{0}.pdf'.format(page[0],page[1]), end='...')
-        r = requests.get(f'http://localhost:5000/{page[0]}')
+        r = requests.get(url)
         print(r.status_code)
         filename = './{1:0>2}_{0}.pdf'.format(page[0],page[1])
         with open(filename, 'wb') as pdf_file:
               pisa.CreatePDF(r.text, dest=pdf_file)
+
+
+def render_pages(pages):
+    for page in pages:
+        url = f'http://localhost:5000/{page[0]}'
+        filename = './{1:0>2}_{0}.pdf'.format(page[0],page[1])
+        render_weasy(url,filename,page[2])
 
 
 if __name__ == '__main__':
@@ -169,7 +172,7 @@ if __name__ == '__main__':
             os.remove(p)
     else:
         print('No previous files to clean up')
-    print_journal_pisa(pages)
+    render_pages(pages)
     # print_journal(pages)
     compile_journal('./', starting_page_num=49)
     
