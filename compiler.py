@@ -155,13 +155,25 @@ def print_journal_pisa(pages):
         with open(filename, 'wb') as pdf_file:
               pisa.CreatePDF(r.text, dest=pdf_file)
 
+def render_pypputeer(url, name, orientation):
+    import asyncio
+    from pyppeteer import launch
+
+    async def main():
+        browser = await launch(options={'args': ['--no-sandbox']})
+        page = await browser.newPage()
+        await page.goto(url)
+        await page.pdf({'path': f'./{name}', 'format': 'letter', 'landscape':orientation=='landscape'})
+        await browser.close()
+
+    asyncio.get_event_loop().run_until_complete(main())
 
 def render_pages(pages):
     for page in pages:
         url = f'http://localhost:5000/{page[0]}'
         filename = './{1:0>2}_{0}.pdf'.format(page[0],page[1])
-        render_weasy(url,filename,page[2])
-
+        #render_weasy(url,filename,page[2])
+        render_pypputeer(url, filename, page[2])
 
 if __name__ == '__main__':
     files = os.listdir('.')
