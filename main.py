@@ -8,7 +8,7 @@ except ImportError:
 from flask import Flask, render_template
 
 from pages.util import Day_Of_Week, StartFinish
-from pages.exercises import build_running, build_stacked_graph
+from pages.exercises import build_running, build_stacked_graph, build_biking
 from pages.basics import build_goals, build_notes, build_icon_list, build_weekly, build_daily_planner, build_weekly_planner, build_monthly_recap, build_pixels, build_picture_grid
 from pages.graph import build_month_graph
 from pages.mermaid import build_mermaid_diagram
@@ -17,13 +17,15 @@ page_templates = {
     'icon_list': build_icon_list,
     'weekly': build_weekly,
     'running': build_running,
+    'biking': build_biking,
     'stacked_graph': build_stacked_graph,
     'month_graph': build_month_graph,
-    'mermaid': build_mermaid_diagram
+    'mermaid': build_mermaid_diagram,
+    'icon_list': build_icon_list,
 }
 
 app = Flask(__name__)
-quarter_root = './notes/2024/3 fall'
+quarter_root = './notes/2024/4 winter'
 quarterly = load(open(f'{quarter_root}/quarter.yaml'),Loader=Loader)
 yearly = load(open('./notes/2024/year.yaml'),Loader=Loader)
 dates = StartFinish(quarterly['start'],quarterly['end'])
@@ -62,7 +64,7 @@ app.add_url_rule('/quarter_goals','quarter_goals',build_goals(season, theme, why
 pages_raw = ['quarter_goals']
 
 activities = quarterly['daily']
-app.add_url_rule('/daily_planner','daily_planner',build_daily_planner(dates,activities,season,num_months=4))
+app.add_url_rule('/daily_planner','daily_planner',build_daily_planner(dates,activities,season,num_months=3))
 pages_raw.append(('daily_planner','landscape'))
 
 weekly_activities = quarterly['weekly']
@@ -77,7 +79,7 @@ for page in quarterly['pages']:
     page['dates'] = dates
     page['root'] = quarter_root
     app.add_url_rule(f'/{url}',url,page_templates[page['template']](page))
-    if page['template'] in ['running','month_graph'] or ('landscape' in page and page['landscape']):
+    if page['template'] in ['running','month_graph','biking'] or ('landscape' in page and page['landscape']):
         pages_raw.append((url,'landscape'))
     else:
         pages_raw.append(url)

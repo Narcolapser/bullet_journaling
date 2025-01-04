@@ -35,7 +35,11 @@ pages:
   - title: Lucy Time
     template: weekly
     day_of_week: tuesday
-    background: "dalle - dad and daughter building things together.png"
+    background: "dalle - dad and daughter baking.png"
+  - title: Wifely Gratitude
+    template: weekly
+    day_of_week: saturday
+    background: hearts.gif
   - title: Celebrations
     template: icon_list
     rows: 21
@@ -49,6 +53,12 @@ pages:
     template: icon_list
     rows: 21
     icon: notebook.png
+    background: circuit_diagram.png
+
+  - title: 'Reason for exercising: A manifesto'
+    template: icon_list
+    rows: 21
+    icon: dumbell.webp
     background: ''
 
   - title: Arms
@@ -69,8 +79,8 @@ pages:
       - shoulder taps
       - russian twist
       - cross crunches
-  - title: Biking
-    template: Biking
+  - title: Stationary Biking
+    template: biking
     days_of_week:
       - monday
       - thursday

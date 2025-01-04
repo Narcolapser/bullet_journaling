@@ -10,23 +10,15 @@ pages_raw = [
 	'House_Projects',
 	'Lucy_Time',
 
+	'Wifely_Gratitude',
 	'Celebrations',
+
 	'Family_Time',
-
 	'Electronics_Project',
-	'Kubernetes_Skill_Tree',
 
-	'Github_Tracking_System',
-	('Slack_Tracking_System', 'landscape'),
-
-	('Media_Tracking_System', 'landscape'),
-	('Mentorship_Tracking_System', 'landscape'),
-
-	('Code_Kata_Tracking_System', 'landscape'),
-	('Advent_of_Code', 'landscape'),
-
+	'Reason_for_exercising__A_manifesto',
 	'Arms',
-	'Core',
 
-	('Running', 'landscape'),
+	'Core',
+	('Stationary_Biking', 'landscape'),
 ]
