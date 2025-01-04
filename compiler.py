@@ -1,6 +1,5 @@
 import os
-from weasyprint import HTML, CSS
-from xhtml2pdf import pisa
+import sys
 import requests
 
 from PyPDF3 import PdfFileWriter, PdfFileReader
@@ -138,7 +137,8 @@ while len(pages)%4 != 0:
 pages = [(page[0],i,page[1] if len(page) > 1 else 'portrait') for i,page in enumerate(pages)]
 
 
-def print_journal(pages):
+def print_journal_weasy(pages):
+    from weasyprint import HTML, CSS
     for page in pages:
         print('Printing ./{1:0>2}_{0}.pdf'.format(page[0],page[1]), end='...')
         r = requests.get(f'http://localhost:5000/{page[0]}')
@@ -149,8 +149,35 @@ def print_journal(pages):
         # with open('./{1:0>2}_{0}.pdf'.format(page[0],page[1]), 'wb') as pdf_file:
         #      pisa.CreatePDF(r.text, dest=pdf_file)
 
+def print_journal_pisa(pages):
+    from xhtml2pdf import pisa
+    for page in pages:
+        print('Printing ./{1:0>2}_{0}.pdf'.format(page[0],page[1]), end='...')
+        r = requests.get(f'http://localhost:5000/{page[0]}')
+        print(r.status_code)
+        filename = './{1:0>2}_{0}.pdf'.format(page[0],page[1])
+        with open(filename, 'wb') as pdf_file:
+              pisa.CreatePDF(r.text, dest=pdf_file)
+
 
 if __name__ == '__main__':
-    print_journal(pages)
+    files = os.listdir('.')
+    pdfs = [pdf for pdf in files if '.pdf' in pdf]
+    if len(pdfs):
+        for p in pdfs:
+            print(f'Deleting previous run: {p}')
+            os.remove(p)
+    else:
+        print('No previous files to clean up')
+    print_journal_pisa(pages)
+    # print_journal(pages)
     compile_journal('./', starting_page_num=49)
+    
+    if '-k' not in sys.argv:
+        files = os.listdir('.')
+        pdfs = [pdf for pdf in files if '.pdf' in pdf and pdf != 'out.pdf']
+        for p in pdfs:
+            print(f'cleaning up temp file {p}')
+            os.remove(p)
+
 
