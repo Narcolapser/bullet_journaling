@@ -16,11 +16,9 @@ pages_raw = [
 	'Family_Time',
 	'Electronics_Project',
 
-	'Kubernetes_Skill_Tree',
 	'Reason_for_Exercising__A_Manifesto',
-
 	'Arms',
-	'Core',
 
+	'Core',
 	('Stationary_Biking', 'landscape'),
 ]

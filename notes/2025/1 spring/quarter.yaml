@@ -6,6 +6,7 @@ why: We survived Connie's pregnancy. This next quarter is a period of recover, p
 goals:
 - Develop concrete goals for fitness
 - Remodel main floor bathroom
+- Build Pergula between black berries and Forsythia beds. (Maybe)
 daily:
 - Quiet Time
 - Dishes
@@ -53,10 +54,6 @@ pages:
     rows: 21
     icon: notebook.png
     background: circuit_diagram.png
-
-  - title: Kubernetes Skill Tree
-    template: mermaid
-    file: k8s.mermaid
 
   - title: 'Reason for Exercising: A Manifesto'
     template: icon_list

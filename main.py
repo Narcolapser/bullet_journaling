@@ -25,9 +25,9 @@ page_templates = {
 }
 
 app = Flask(__name__)
-quarter_root = './notes/2024/4 winter'
+quarter_root = './notes/2025/1 spring'
 quarterly = load(open(f'{quarter_root}/quarter.yaml'),Loader=Loader)
-yearly = load(open('./notes/2024/year.yaml'),Loader=Loader)
+yearly = load(open('./notes/2025/year.yaml'),Loader=Loader)
 dates = StartFinish(quarterly['start'],quarterly['end'])
 
 year = str(dates.sdate.year)
@@ -57,6 +57,7 @@ def root():
     return render_template('index.html',pages=pages)
 
 
+# The old way, hard coding routes.
 # Quarter Pages - Recurring
 why = quarterly['why']
 goals = quarterly['goals']
@@ -84,7 +85,21 @@ for page in quarterly['pages']:
     else:
         pages_raw.append(url)
 
-                 
+# The new way, dynamic pages
+@app.route('/page/<page_name>')
+def page(page_name):
+    quarterly = load(open(f'{quarter_root}/quarter.yaml'),Loader=Loader)
+    year = str(dates.sdate.year)
+    season = f'{get_season(dates.sdate)} {year}'
+    theme = quarterly['theme']
+    why = quarterly['why']
+    goals = quarterly['goals']
+
+    if page_name == 'quarter_goals':
+        return build_goals(season, theme, why, goals)()
+    else:
+        return '404, page not found'
+
 # Manually Generated Pages.
 
 
