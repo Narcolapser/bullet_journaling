@@ -61,18 +61,18 @@ def root():
 # Quarter Pages - Recurring
 why = quarterly['why']
 goals = quarterly['goals']
-app.add_url_rule('/quarter_goals','quarter_goals',build_goals(season, theme, why, goals))
+# app.add_url_rule('/quarter_goals','quarter_goals',build_goals(season, theme, why, goals))
 pages_raw = ['quarter_goals']
 
 activities = quarterly['daily']
-app.add_url_rule('/daily_planner','daily_planner',build_daily_planner(dates,activities,season,num_months=3))
+#app.add_url_rule('/daily_planner','daily_planner',build_daily_planner(dates,activities,season,num_months=3))
 pages_raw.append(('daily_planner','landscape'))
 
 weekly_activities = quarterly['weekly']
-app.add_url_rule('/weekly_planner','weekly_planner',build_weekly_planner(dates, season, weekly_activities))
+#app.add_url_rule('/weekly_planner','weekly_planner',build_weekly_planner(dates, season, weekly_activities))
 pages_raw.append(('weekly_planner','landscape'))
 
-app.add_url_rule('/monthly_recap','monthly_recap',build_monthly_recap(dates))
+#app.add_url_rule('/monthly_recap','monthly_recap',build_monthly_recap(dates))
 pages_raw.append('monthly_recap')
 
 for page in quarterly['pages']:
@@ -97,6 +97,12 @@ def page(page_name):
 
     if page_name == 'quarter_goals':
         return build_goals(season, theme, why, goals)()
+    elif page_name == 'daily_planner':
+        return build_daily_planner(dates,activities,season,num_months=2)()
+    elif page_name == 'weekly_planner':
+        return build_weekly_planner(dates, season, weekly_activities)()
+    elif page_name == 'monthly_recap':
+        return build_monthly_recap(dates)
     else:
         return '404, page not found'
 
