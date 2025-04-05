@@ -36,10 +36,6 @@ pages:
     template: weekly
     day_of_week: tuesday
     background: "dalle - dad and daughter baking.png"
-  - title: Acts Megan Appreciated
-    template: weekly
-    day_of_week: saturday
-    background: hearts.gif
   - title: Celebrations
     template: icon_list
     rows: 21
@@ -79,9 +75,3 @@ pages:
       - shoulder taps
       - russian twist
       - cross crunches
-  - title: Stationary Biking
-    template: biking
-    days_of_week:
-      - monday
-      - thursday
-    minutes: 40

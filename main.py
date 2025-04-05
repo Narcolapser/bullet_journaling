@@ -26,12 +26,7 @@ page_templates = {
 
 app = Flask(__name__)
 quarter_root = './notes/2025/1 spring'
-quarterly = load(open(f'{quarter_root}/quarter.yaml'),Loader=Loader)
-yearly = load(open('./notes/2025/year.yaml'),Loader=Loader)
-dates = StartFinish(quarterly['start'],quarterly['end'])
 
-year = str(dates.sdate.year)
-theme = quarterly['theme']
 def get_season(date_obj):
     month = date_obj.month
     if month in [12, 1, 2]:
@@ -43,8 +38,6 @@ def get_season(date_obj):
     else:
         return "Fall"
     
-season = f'{get_season(dates.sdate)} {year}'
-
 @app.route('/')
 def root():
     pages = []
@@ -57,32 +50,13 @@ def root():
     return render_template('index.html',pages=pages)
 
 
-# The old way, hard coding routes.
-# Quarter Pages - Recurring
-why = quarterly['why']
-goals = quarterly['goals']
-pages_raw = ['quarter_goals']
-
-activities = quarterly['daily']
-pages_raw.append(('daily_planner','landscape'))
-
-weekly_activities = quarterly['weekly']
-pages_raw.append(('weekly_planner','landscape'))
-pages_raw.append('monthly_recap')
-
-for page in quarterly['pages']:
-    url = re.sub(r'[^A-Za-z0-9_]', '_', page['title'])
-    page['dates'] = dates
-    page['root'] = quarter_root
-    if page['template'] in ['running','month_graph','biking'] or ('landscape' in page and page['landscape']):
-        pages_raw.append((url,'landscape'))
-    else:
-        pages_raw.append(url)
-
-# The new way, dynamic pages
 @app.route('/page/<page_name>')
 def page(page_name):
     quarterly = load(open(f'{quarter_root}/quarter.yaml'),Loader=Loader)
+    yearly = load(open('./notes/2025/year.yaml'),Loader=Loader)
+    dates = StartFinish(quarterly['start'],quarterly['end'])
+    weekly_activities = quarterly['weekly']
+    activities = quarterly['daily']
     year = str(dates.sdate.year)
     season = f'{get_season(dates.sdate)} {year}'
     theme = quarterly['theme']
@@ -109,16 +83,36 @@ def page(page_name):
     else:
         return '404, page not found'
 
-compiler_directive = ['pages_raw = [']
-for i,page in enumerate(pages_raw):
-    if (i+1)%2==0:
-        compiler_directive.append('')
-    if isinstance(page,str):
-        compiler_directive.append(f'\t\'{page}\',')
-    else:
-        compiler_directive.append(f'\t{page},')
-compiler_directive.append(']')
-open('compiler_pages.py','w').write('\n'.join(compiler_directive))
+@app.route('/build_compiler')
+def build_compiler():
+    quarterly = load(open(f'{quarter_root}/quarter.yaml'),Loader=Loader)
+    yearly = load(open('./notes/2025/year.yaml'),Loader=Loader)
+    dates = StartFinish(quarterly['start'],quarterly['end'])
+    pages_raw = ['quarter_goals']
+    pages_raw.append(('daily_planner','landscape'))
+    pages_raw.append(('weekly_planner','landscape'))
+    pages_raw.append('monthly_recap')
+
+    for page in quarterly['pages']:
+        url = re.sub(r'[^A-Za-z0-9_]', '_', page['title'])
+        page['dates'] = dates
+        page['root'] = quarter_root
+        if page['template'] in ['running','month_graph','biking'] or ('landscape' in page and page['landscape']):
+            pages_raw.append((url,'landscape'))
+        else:
+            pages_raw.append(url)
+
+    compiler_directive = ['pages_raw = [']
+    for i,page in enumerate(pages_raw):
+        if (i+1)%2==0:
+            compiler_directive.append('')
+        if isinstance(page,str):
+            compiler_directive.append(f'\t\'{page}\',')
+        else:
+            compiler_directive.append(f'\t{page},')
+    compiler_directive.append(']')
+    open('compiler_pages.py','w').write('\n'.join(compiler_directive))
+    return '<br/>'.join(compiler_directive)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port = 5000)
