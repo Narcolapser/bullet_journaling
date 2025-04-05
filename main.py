@@ -25,7 +25,6 @@ page_templates = {
     'stacked_graph': build_stacked_graph,
     'month_graph': build_month_graph,
     'mermaid': build_mermaid_diagram,
-    'icon_list': build_icon_list,
 }
 
 app = Flask(__name__)
@@ -51,9 +50,9 @@ def load_plugins():
     plugins_dir = pathlib.Path(__file__).parent / "plugins"
     class Plugin:
         module = None
-        def templates():
+        def templates(self):
             return {}
-        def default_pages():
+        def default_pages(self):
             return []
 
     for file in plugins_dir.glob("*.py"):
@@ -105,7 +104,8 @@ def page(page_name):
     elif page_name in page_urls:
         page = page_urls[page_name]
         print(f"For page {page_name} pulling up template: {page_urls[page_name]['template']}")
-        return page_templates[page['template']](page)()
+        return templates[page['template']](meta, page)
+        #return page_templates[page['template']](page)()
     else:
         return '404, page not found'
 

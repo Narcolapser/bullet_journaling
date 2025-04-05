@@ -75,3 +75,10 @@ pages:
       - shoulder taps
       - russian twist
       - cross crunches
+  - title: Running
+    template: running
+    days_of_week:
+      - monday
+      - thursday
+    miles: 4
+    minutes: 40
