@@ -49,6 +49,13 @@ def load_plugins():
     plugins = []
 
     plugins_dir = pathlib.Path(__file__).parent / "plugins"
+    class Plugin:
+        module = None
+        def templates():
+            return {}
+        def default_pages():
+            return []
+
     for file in plugins_dir.glob("*.py"):
         if file.name == "__init__.py":
             continue
@@ -58,16 +65,16 @@ def load_plugins():
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
 
-        plugin_info = {}
+        plugin_info = Plugin()
 
         if hasattr(module, "templates"):
-            plugin_info["templates"] = module.templates()
+            plugin_info.templates = module.templates
 
         if hasattr(module, "default_pages"):
-            plugin_info["default_pages"] = module.default_pages()
+            plugin_info.default_pages = module.default_pages
 
         if plugin_info:
-            plugin_info["module"] = module
+            plugin_info.module = module
             plugins.append(plugin_info)
 
     return plugins
@@ -152,12 +159,14 @@ def build_compiler():
 if __name__ == '__main__':
     plugins = load_plugins()
     for plugin in plugins:
-        for template in plugin['templates']:
+        plugin_templates = plugin.templates()
+        for template in plugin_templates:
             if template in templates:
                 print(f'Template collision, {template} is already used. Loading templates from {plugin["module"]}')
                 sys.exit(1)
             else:
-                templates[template] = plugin['templates'][template]
-        default_pages += plugin['default_pages']
+                templates[template] = plugin_templates[template]
+
+        default_pages += plugin.default_pages()
 
     app.run(host='0.0.0.0', port = 5000)
