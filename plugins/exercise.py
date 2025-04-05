@@ -95,7 +95,7 @@ def build_running(meta, config):
         'units': units,
         'days_of_week': config['days_of_week']
     }
-    return build_quarterly_graph(graph_config)
+    return build_quarterly_graph(meta, graph_config)
 
 def build_biking(meta, config):
     miles = config['miles'] if 'miles' in config else 2
@@ -112,7 +112,7 @@ def build_biking(meta, config):
         'units': units,
         'days_of_week': config['days_of_week']
     }
-    return build_quarterly_graph(graph_config)
+    return build_quarterly_graph(meta, graph_config)
 
 
 def build_swiming(meta, page):

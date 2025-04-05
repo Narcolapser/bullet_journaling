@@ -98,10 +98,11 @@ def page(page_name):
     page_urls = {}
     for page in quarterly['pages']:
         page_urls[re.sub(r'[^A-Za-z0-9_]', '_', page['title'])] = page
+    
+    for page in default_pages:
+        page_urls[re.sub(r'[^A-Za-z0-9_]', '_', page)] = {'template':page}
 
-    if page_name in ['goals','daily_planner','weekly_planner','monthly_recap','notes']:
-        return templates[page_name](meta)
-    elif page_name in page_urls:
+    if page_name in page_urls:
         page = page_urls[page_name]
         print(f"For page {page_name} pulling up template: {page_urls[page_name]['template']}")
         return templates[page['template']](meta, page)
@@ -152,5 +153,11 @@ if __name__ == '__main__':
                 templates[template] = plugin_templates[template]
 
         default_pages += plugin.default_pages()
+    
+    print('Found the following templates:')
+    for template in templates: print(template)
+
+    print('including the following default pages')
+    print(default_pages)
 
     app.run(host='0.0.0.0', port = 5000)

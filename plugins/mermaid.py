@@ -3,7 +3,7 @@ import mermaid
 from mermaid.graph import Graph
 from pathlib import Path
 
-def build_mermaid_diagram(config: dict):
+def build_mermaid_diagram(meta, config: dict):
     '''
     Takes a mermaid diagram and converts it into html to be rendered.
     title: title of the page

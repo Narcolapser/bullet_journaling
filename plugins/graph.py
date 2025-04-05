@@ -30,10 +30,10 @@ class GraphConfig():
     def __repr__(self):
         return f"{self.__class__.__name__}({self.__dict__})"
 
-def build_graph(config: GraphConfig):
+def build_graph(meta, config: GraphConfig):
     return render_template('graph.html',sequence=config.sequence,title=config.title,units=config.units.keys(),unit_steps=config.units)
 
-def build_month_graph(config: dict):
+def build_month_graph(meta, config: dict):
     '''
     This is a convenience wrapper for build graph that creates a graph spanning a month. Expected keys in config are:
     title: The title of the page
@@ -57,9 +57,9 @@ def build_month_graph(config: dict):
 
     sdate, fdate = get_month_start_and_end(config['month'],config['dates'].sdate.year)
     graph_config.sequence = [f'{i.day:02d}' for i in get_specific_multi_date_sequence(FULL_WEEK, sdate, fdate)]
-    return build_graph(graph_config)
+    return build_graph(meta, graph_config)
 
-def build_quarterly_graph(config: dict):
+def build_quarterly_graph(meta, config: dict):
     '''
     This is a convenience wrapper for build graph taht creates a graph spanning the entire quarter. Expected keys in config are:
     title: the title of the page
@@ -81,7 +81,7 @@ def build_quarterly_graph(config: dict):
     graph_config.units = units
 
     graph_config.sequence = [f'{i.month:02d}/<br>{i.day:02d}' for i in get_multi_date_sequence(config['days_of_week'],config['dates'])]
-    return build_graph(graph_config)
+    return build_graph(meta, graph_config)
 
 def templates(): 
     return {

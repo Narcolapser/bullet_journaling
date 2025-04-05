@@ -1,4 +1,4 @@
-def render_pixels():
+def render_pixels(meta, config):
     emotions = ['Happy','Fun','Relaxed','Productive','Tired','Sad','Anxious']
     sdate1 = datetime.strptime('2024-04-01', '%Y-%m-%d')
     sdate2 = datetime.strptime('2024-08-01', '%Y-%m-%d')

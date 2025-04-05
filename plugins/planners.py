@@ -1,12 +1,12 @@
 from pages.util import get_date_sequence
 from datetime import datetime, timedelta as delta
-from flask import 
+from flask import render_template
 
-def render_weekly_planner(meta):
+def render_weekly_planner(meta, config):
     date_sequence = get_date_sequence('sunday', meta['dates'])
     return render_template('weekly_planner.html',season=meta['season'],activities=meta['weekly_activities'],weeks=date_sequence)
 
-def render_daily_planner(meta):
+def render_daily_planner(meta, config):
     # We later strip off the date and use just the month, so we just need to know that we got to the next month with
     # these sequence of dates not that we got to the first of said month. 
     months = [meta['dates'].sdate+delta(days=31*i+7) for i in range(meta['dates'].getNumberOfMonths())]

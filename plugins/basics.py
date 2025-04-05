@@ -15,50 +15,36 @@ def get_sectional_row_height(num_sections, rows_per_section):
     row_height = row_total/(rows_per_section*num_sections)
     return str(max(int(row_height),12))
 
-def upcast_config(config:dict, config_type: type):
-    ret = config_type()
-    for key in config:
-        setattr(ret,key,config[key])
-    return ret
-
-def render_icon_list(config: dict):
+def render_icon_list(meta, config: dict):
     config_check('Icon List',config,[('title','str'),('rows','int'),('icon','str'),('background','str')])
     height = str(600/config['rows'])
     return render_template('icon_list.html',height=height, **config)
 
-class WeeklyConfig:
-    dates:StartFinish
-    title: str
-    day_of_week: str
-    background: str
-
-def render_goals(meta):
+def render_goals(meta, page):
     return render_template('goals.html',title=meta['season'],goals=meta['goals'],subtitle=meta['theme'],why_theme=meta['why'])
 
-def render_static_page(page):
+def render_static_page(meta, page):
     return render_template(page)
 
-def render_weekly(config: WeeklyConfig):
-    config = upcast_config(config,WeeklyConfig)
-    print(config)
+def render_weekly(meta, config):
     return render_template('weekly.html',
-                            weeks=get_date_sequence(config.day_of_week, config.dates),
-                            title=config.title,
-                            background=config.background)
+                            weeks=get_date_sequence(config['day_of_week'], meta['dates']),
+                            title=config['title'],
+                            background=config['background'])
 
 def render_sectional_icon_list(title: str, section_titles: List[str], rows_per_section: int, icon: str):
     height = get_sectional_row_height(len(section_titles),rows_per_section)
     return render_template('icon_list_sections.html',title=title,rows=rows_per_section, img=icon,height=height,
                         sections=section_titles, background='blank.png')
 
-def render_monthly_recap(meta):
+def render_monthly_recap(meta, config):
     dates = meta['dates']
     # Calculate the difference in months
     months_difference = (dates.fdate.year - dates.sdate.year) * 12 + dates.fdate.month - dates.sdate.month + 1
     months = [(dates.sdate+delta(days=31*i)).strftime('%B') for i in range(months_difference)]
     return render_sectional_icon_list('Monthly Recap',months,7,'notebook.png')
 
-def render_notes(meta):
+def render_notes(meta, config):
     config = {
         'title': 'Notes',
         'rows': 21,
@@ -67,11 +53,11 @@ def render_notes(meta):
     }
     return render_icon_list(config)
 
-def render_picture_grid(title,picture,rows,cols):
-    return render_template('picture_grid.html',rows=rows, cols=cols, title=title, picture=picture)
+def render_picture_grid(meta, config):
+    return render_template('picture_grid.html',rows=config['rows'], cols=config['cols'], title=config['title'], picture=config['picture'])
 
-def render_table(title,columns,row_titles):
-    return render_template('table.html',title=title,columns=columns,rows=row_titles)
+def render_table(meta, config):
+    return render_template('table.html',title=config['title'],columns=config['columns'],rows=config['row_titles'])
 
 def templates():
     return {
