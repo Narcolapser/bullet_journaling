@@ -11,7 +11,7 @@ except ImportError:
 
 from flask import Flask, render_template
 
-from pages.util import get_journal_metadata
+from plugins.util import get_journal_metadata
 
 app = Flask(__name__)
 plugins = []

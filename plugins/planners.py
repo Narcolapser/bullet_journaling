@@ -1,4 +1,4 @@
-from pages.util import get_date_sequence
+from plugins.util import get_date_sequence
 from datetime import datetime, timedelta as delta
 from flask import render_template
 

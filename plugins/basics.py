@@ -1,5 +1,5 @@
 from typing import List, Dict, Union
-from pages.util import FULL_WEEK, StartFinish, get_date_sequence, Day_Of_Week, get_month_start_and_end, get_specific_multi_date_sequence, get_multi_date_sequence, get_journal_metadata
+from plugins.util import FULL_WEEK, StartFinish, get_date_sequence, Day_Of_Week, get_month_start_and_end, get_specific_multi_date_sequence, get_multi_date_sequence, get_journal_metadata
 from datetime import datetime, timedelta as delta
 from flask import render_template
 
@@ -51,7 +51,7 @@ def render_notes(meta, config):
         'icon': 'notebook.png',
         'background': 'blank.png'
     }
-    return render_icon_list(config)
+    return render_icon_list(meta, config)
 
 def render_picture_grid(meta, config):
     return render_template('picture_grid.html',rows=config['rows'], cols=config['cols'], title=config['title'], picture=config['picture'])

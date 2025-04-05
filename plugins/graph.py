@@ -1,5 +1,5 @@
 from typing import List, Dict, Union
-from pages.util import FULL_WEEK, StartFinish, get_date_sequence, Day_Of_Week, get_month_start_and_end, get_specific_multi_date_sequence, get_multi_date_sequence
+from plugins.util import FULL_WEEK, StartFinish, get_date_sequence, Day_Of_Week, get_month_start_and_end, get_specific_multi_date_sequence, get_multi_date_sequence
 from datetime import datetime, timedelta as delta
 from flask import render_template
 
