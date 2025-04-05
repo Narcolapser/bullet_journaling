@@ -2,6 +2,12 @@ from datetime import timedelta as delta, date, datetime
 from enum import Enum
 from typing import List
 
+from yaml import load
+try:
+    from yaml import CLoader as Loader
+except ImportError:
+    from yaml import Loader
+
 class Day_Of_Week(Enum):
     SUNDAY = 0
     MONDAY = 1
@@ -74,3 +80,29 @@ def get_month_start_and_end(month: int, year: int):
     end_date = next_month - delta(days=1)
     
     return start_date, end_date
+
+def get_season(date_obj):
+    month = date_obj.month
+    if month in [12, 1, 2]:
+        return "Winter"
+    elif month in [3, 4, 5]:
+        return "Spring"
+    elif month in [6, 7, 8]:
+        return "Summer"
+    else:
+        return "Fall"
+
+def get_journal_metadata(path_to_yaml):
+    quarterly = load(open(path_to_yaml),Loader=Loader)
+    dates = StartFinish(quarterly['start'],quarterly['end'])
+    year = str(dates.sdate.year)
+    return {
+        'dates': dates,
+        'weekly_activities': quarterly['weekly'],
+        'activities': quarterly['daily'],
+        'year': year,
+        'season': f'{get_season(dates.sdate)} {year}',
+        'theme': quarterly['theme'],
+        'why': quarterly['why'],
+        'goals': quarterly['goals']
+    }

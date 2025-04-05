@@ -11,12 +11,11 @@ except ImportError:
 
 from flask import Flask, render_template
 
-from pages.util import Day_Of_Week, StartFinish
+from pages.util import Day_Of_Week, StartFinish, get_journal_metadata
 from pages.exercises import build_running, build_stacked_graph, build_biking
 from pages.basics import build_goals, build_notes, build_icon_list, build_weekly, build_daily_planner, build_weekly_planner, build_monthly_recap, build_pixels, build_picture_grid
 from pages.graph import build_month_graph
 from pages.mermaid import build_mermaid_diagram
-from plugins.basics import get_journal_metadata
 
 page_templates = {
     'icon_list': build_icon_list,
