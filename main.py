@@ -110,7 +110,7 @@ def page(page_name):
     elif page_name == 'monthly_recap':
         return templates[page_name](meta)
     elif page_name == 'notes':
-        return templates[page_name]()
+        return templates[page_name](meta)
     elif page_name in page_urls:
         page = page_urls[page_name]
         print(f"For page {page_name} pulling up template: {page_urls[page_name]['template']}")

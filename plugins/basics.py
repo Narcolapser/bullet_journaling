@@ -88,7 +88,7 @@ def render_monthly_recap(meta):
     months = [(dates.sdate+delta(days=31*i)).strftime('%B') for i in range(months_difference)]
     return render_sectional_icon_list('Monthly Recap',months,7,'notebook.png')
 
-def render_notes():
+def render_notes(meta):
     config = {
         'title': 'Notes',
         'rows': 21,
