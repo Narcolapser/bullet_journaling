@@ -1,3 +1,7 @@
+import os
+import importlib.util
+import pathlib
+
 from yaml import load
 import re
 try:
@@ -25,6 +29,9 @@ page_templates = {
 }
 
 app = Flask(__name__)
+plugins = []
+templates = {}
+default_pages = []
 quarter_root = './notes/2025/1 spring'
 
 def get_season(date_obj):
@@ -37,9 +44,37 @@ def get_season(date_obj):
         return "Summer"
     else:
         return "Fall"
+
+def load_plugins():
+    plugins = []
+
+    plugins_dir = pathlib.Path(__file__).parent / "plugins"
+    for file in plugins_dir.glob("*.py"):
+        if file.name == "__init__.py":
+            continue
+
+        module_name = file.stem
+        spec = importlib.util.spec_from_file_location(module_name, file)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+
+        plugin_info = {}
+
+        if hasattr(module, "templates"):
+            plugin_info["templates"] = module.templates()
+
+        if hasattr(module, "default_pages"):
+            plugin_info["default_pages"] = module.default_pages()
+
+        if plugin_info:
+            plugin_info["module"] = module
+            plugins.append(plugin_info)
+
+    return plugins
     
 @app.route('/')
 def root():
+    quarterly = load(open(f'{quarter_root}/quarter.yaml'),Loader=Loader)
     pages = []
     for page in quarterly['pages']:
         url = re.sub(r'[^A-Za-z0-9_]', '_', page['title'])
@@ -67,7 +102,7 @@ def page(page_name):
         page_urls[re.sub(r'[^A-Za-z0-9_]', '_', page['title'])] = page
 
     if page_name == 'quarter_goals':
-        return build_goals(season, theme, why, goals)()
+        return templates['goals'](season, theme, why, goals)
     elif page_name == 'daily_planner':
         return build_daily_planner(dates,activities,season,num_months=2)()
     elif page_name == 'weekly_planner':
@@ -115,4 +150,13 @@ def build_compiler():
     return '<br/>'.join(compiler_directive)
 
 if __name__ == '__main__':
+    plugins = load_plugins()
+    for plugin in plugins:
+        for template in plugin['templates']:
+            if template in templates:
+                print(f'Template collision, {template} is already used. Loading templates from {plugin["module"]}')
+                sys.exit(1)
+            else:
+                templates[template] = plugin['templates'][template]
+
     app.run(host='0.0.0.0', port = 5000)
