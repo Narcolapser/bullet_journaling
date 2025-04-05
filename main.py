@@ -11,38 +11,13 @@ except ImportError:
 
 from flask import Flask, render_template
 
-from pages.util import Day_Of_Week, StartFinish, get_journal_metadata
-from pages.exercises import build_running, build_stacked_graph, build_biking
-from pages.basics import build_goals, build_notes, build_icon_list, build_weekly, build_daily_planner, build_weekly_planner, build_monthly_recap, build_pixels, build_picture_grid
-from pages.graph import build_month_graph
-from pages.mermaid import build_mermaid_diagram
-
-page_templates = {
-    'icon_list': build_icon_list,
-    'weekly': build_weekly,
-    'running': build_running,
-    'biking': build_biking,
-    'stacked_graph': build_stacked_graph,
-    'month_graph': build_month_graph,
-    'mermaid': build_mermaid_diagram,
-}
+from pages.util import get_journal_metadata
 
 app = Flask(__name__)
 plugins = []
 templates = {}
 default_pages = []
 quarter_root = './notes/2025/1 spring'
-
-def get_season(date_obj):
-    month = date_obj.month
-    if month in [12, 1, 2]:
-        return "Winter"
-    elif month in [3, 4, 5]:
-        return "Spring"
-    elif month in [6, 7, 8]:
-        return "Summer"
-    else:
-        return "Fall"
 
 def load_plugins():
     plugins = []
@@ -112,9 +87,10 @@ def page(page_name):
 
 @app.route('/build_compiler')
 def build_compiler():
+    meta = get_journal_metadata(f'{quarter_root}/quarter.yaml')
     quarterly = load(open(f'{quarter_root}/quarter.yaml'),Loader=Loader)
     yearly = load(open('./notes/2025/year.yaml'),Loader=Loader)
-    dates = StartFinish(quarterly['start'],quarterly['end'])
+    dates = meta['dates']
     pages_raw = ['quarter_goals']
     pages_raw.append(('daily_planner','landscape'))
     pages_raw.append(('weekly_planner','landscape'))
