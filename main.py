@@ -79,7 +79,7 @@ def root():
     for page in quarterly['pages']:
         url = re.sub(r'[^A-Za-z0-9_]', '_', page['title'])
         pages.append(f'/page/{url}')
-    for page in ['quarter_goals', 'daily_planner','weekly_planner','monthly_recap','notes']:
+    for page in default_pages:
         pages.append(f'/page/{page}')
     pages.sort()
     return render_template('index.html',pages=pages)
@@ -101,16 +101,16 @@ def page(page_name):
     for page in quarterly['pages']:
         page_urls[re.sub(r'[^A-Za-z0-9_]', '_', page['title'])] = page
 
-    if page_name == 'quarter_goals':
-        return templates['goals'](season, theme, why, goals)
+    if page_name == 'goals':
+        return templates[page_name](season, theme, why, goals)
     elif page_name == 'daily_planner':
-        return build_daily_planner(dates,activities,season,num_months=2)()
+        return templates[page_name](dates,activities,season,num_months=2)
     elif page_name == 'weekly_planner':
-        return build_weekly_planner(dates, season, weekly_activities)()
+        return templates[page_name](dates, season, weekly_activities)
     elif page_name == 'monthly_recap':
-        return build_monthly_recap(dates)
+        return templates[page_name](dates)
     elif page_name == 'notes':
-        return build_notes()()
+        return templates[page_name]()
     elif page_name in page_urls:
         page = page_urls[page_name]
         print(f"For page {page_name} pulling up template: {page_urls[page_name]['template']}")
@@ -158,5 +158,6 @@ if __name__ == '__main__':
                 sys.exit(1)
             else:
                 templates[template] = plugin['templates'][template]
+        default_pages += plugin['default_pages']
 
     app.run(host='0.0.0.0', port = 5000)

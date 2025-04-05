@@ -165,7 +165,10 @@ def templates():
     'weekly_planner': render_weekly_planner,
     'daily_planner': render_daily_planner,
     'sectional_icon_list': render_sectional_icon_list,
-    'montly_recap': render_monthly_recap,
+    'monthly_recap': render_monthly_recap,
     'notes': render_notes,
     'pixels': render_pixels
 }
+
+def default_pages():
+    return ['goals', 'daily_planner','weekly_planner','monthly_recap','notes']
