@@ -81,7 +81,8 @@ def render_sectional_icon_list(title: str, section_titles: List[str], rows_per_s
     return render_template('icon_list_sections.html',title=title,rows=rows_per_section, img=icon,height=height,
                         sections=section_titles, background='blank.png')
 
-def render_monthly_recap(dates):
+def render_monthly_recap(meta):
+    dates = meta['dates']
     # Calculate the difference in months
     months_difference = (dates.fdate.year - dates.sdate.year) * 12 + dates.fdate.month - dates.sdate.month + 1
     months = [(dates.sdate+delta(days=31*i)).strftime('%B') for i in range(months_difference)]

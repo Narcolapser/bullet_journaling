@@ -108,7 +108,7 @@ def page(page_name):
     elif page_name == 'weekly_planner':
         return templates[page_name](meta)
     elif page_name == 'monthly_recap':
-        return templates[page_name](meta['dates'])
+        return templates[page_name](meta)
     elif page_name == 'notes':
         return templates[page_name]()
     elif page_name in page_urls:
