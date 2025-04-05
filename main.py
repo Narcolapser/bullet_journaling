@@ -48,14 +48,11 @@ season = f'{get_season(dates.sdate)} {year}'
 @app.route('/')
 def root():
     pages = []
-    # for rule in app.url_map.iter_rules():
-    #     if "GET" in rule.methods:
-    #         if rule.endpoint in ['root','static']:
-    #             continue
-    #         pages.append(rule.endpoint)
     for page in quarterly['pages']:
         url = re.sub(r'[^A-Za-z0-9_]', '_', page['title'])
         pages.append(f'/page/{url}')
+    for page in ['quarter_goals', 'daily_planner','weekly_planner','monthly_recap','notes']:
+        pages.append(f'/page/{page}')
     pages.sort()
     return render_template('index.html',pages=pages)
 
@@ -64,25 +61,19 @@ def root():
 # Quarter Pages - Recurring
 why = quarterly['why']
 goals = quarterly['goals']
-# app.add_url_rule('/quarter_goals','quarter_goals',build_goals(season, theme, why, goals))
 pages_raw = ['quarter_goals']
 
 activities = quarterly['daily']
-#app.add_url_rule('/daily_planner','daily_planner',build_daily_planner(dates,activities,season,num_months=3))
 pages_raw.append(('daily_planner','landscape'))
 
 weekly_activities = quarterly['weekly']
-#app.add_url_rule('/weekly_planner','weekly_planner',build_weekly_planner(dates, season, weekly_activities))
 pages_raw.append(('weekly_planner','landscape'))
-
-#app.add_url_rule('/monthly_recap','monthly_recap',build_monthly_recap(dates))
 pages_raw.append('monthly_recap')
 
 for page in quarterly['pages']:
     url = re.sub(r'[^A-Za-z0-9_]', '_', page['title'])
     page['dates'] = dates
     page['root'] = quarter_root
-    #app.add_url_rule(f'/{url}',url,page_templates[page['template']](page))
     if page['template'] in ['running','month_graph','biking'] or ('landscape' in page and page['landscape']):
         pages_raw.append((url,'landscape'))
     else:
@@ -109,22 +100,14 @@ def page(page_name):
         return build_weekly_planner(dates, season, weekly_activities)()
     elif page_name == 'monthly_recap':
         return build_monthly_recap(dates)
+    elif page_name == 'notes':
+        return build_notes()()
     elif page_name in page_urls:
         page = page_urls[page_name]
         print(f"For page {page_name} pulling up template: {page_urls[page_name]['template']}")
         return page_templates[page['template']](page)()
     else:
         return '404, page not found'
-
-# Manually Generated Pages.
-
-
-# Exercise
-#app.add_url_rule('/ultimate','ultimate',
-                 #build_weekly(dates, 'Ultimate Frisbee',Day_Of_Week.SATURDAY,'ultimate frisbee.png'))
-
-# Lastly the filler.
-app.add_url_rule('/notes','notes', build_notes())
 
 compiler_directive = ['pages_raw = [']
 for i,page in enumerate(pages_raw):
