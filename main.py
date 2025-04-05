@@ -48,11 +48,14 @@ season = f'{get_season(dates.sdate)} {year}'
 @app.route('/')
 def root():
     pages = []
-    for rule in app.url_map.iter_rules():
-        if "GET" in rule.methods:
-            if rule.endpoint in ['root','static']:
-                continue
-            pages.append(rule.endpoint)
+    # for rule in app.url_map.iter_rules():
+    #     if "GET" in rule.methods:
+    #         if rule.endpoint in ['root','static']:
+    #             continue
+    #         pages.append(rule.endpoint)
+    for page in quarterly['pages']:
+        url = re.sub(r'[^A-Za-z0-9_]', '_', page['title'])
+        pages.append(f'/page/{url}')
     pages.sort()
     return render_template('index.html',pages=pages)
 
@@ -79,7 +82,7 @@ for page in quarterly['pages']:
     url = re.sub(r'[^A-Za-z0-9_]', '_', page['title'])
     page['dates'] = dates
     page['root'] = quarter_root
-    app.add_url_rule(f'/{url}',url,page_templates[page['template']](page))
+    #app.add_url_rule(f'/{url}',url,page_templates[page['template']](page))
     if page['template'] in ['running','month_graph','biking'] or ('landscape' in page and page['landscape']):
         pages_raw.append((url,'landscape'))
     else:
@@ -94,6 +97,9 @@ def page(page_name):
     theme = quarterly['theme']
     why = quarterly['why']
     goals = quarterly['goals']
+    page_urls = {}
+    for page in quarterly['pages']:
+        page_urls[re.sub(r'[^A-Za-z0-9_]', '_', page['title'])] = page
 
     if page_name == 'quarter_goals':
         return build_goals(season, theme, why, goals)()
@@ -103,6 +109,10 @@ def page(page_name):
         return build_weekly_planner(dates, season, weekly_activities)()
     elif page_name == 'monthly_recap':
         return build_monthly_recap(dates)
+    elif page_name in page_urls:
+        page = page_urls[page_name]
+        print(f"For page {page_name} pulling up template: {page_urls[page_name]['template']}")
+        return page_templates[page['template']](page)()
     else:
         return '404, page not found'
 
