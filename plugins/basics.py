@@ -17,9 +17,9 @@ def render_goals(meta):
 def render_static_page(page):
     return render_template(page)
 
-def render_weekly_planner(dates, season, activities):
-    date_sequence = get_date_sequence('sunday', dates)
-    return render_template('weekly_planner.html',season=season,activities=activities,weeks=date_sequence)
+def render_weekly_planner(meta):
+    date_sequence = get_date_sequence('sunday', meta['dates'])
+    return render_template('weekly_planner.html',season=meta['season'],activities=meta['weekly_activities'],weeks=date_sequence)
 
 def render_daily_planner(meta):
     # We later strip off the date and use just the month, so we just need to know that we got to the next month with

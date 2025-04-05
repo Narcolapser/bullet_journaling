@@ -106,7 +106,7 @@ def page(page_name):
     elif page_name == 'daily_planner':
         return templates[page_name](meta)
     elif page_name == 'weekly_planner':
-        return templates[page_name](meta['dates'], meta['season'], meta['weekly_activities'])
+        return templates[page_name](meta)
     elif page_name == 'monthly_recap':
         return templates[page_name](meta['dates'])
     elif page_name == 'notes':
