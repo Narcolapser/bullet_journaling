@@ -101,15 +101,7 @@ def page(page_name):
     for page in quarterly['pages']:
         page_urls[re.sub(r'[^A-Za-z0-9_]', '_', page['title'])] = page
 
-    if page_name == 'goals':
-        return templates[page_name](meta)
-    elif page_name == 'daily_planner':
-        return templates[page_name](meta)
-    elif page_name == 'weekly_planner':
-        return templates[page_name](meta)
-    elif page_name == 'monthly_recap':
-        return templates[page_name](meta)
-    elif page_name == 'notes':
+    if page_name in ['goals','daily_planner','weekly_planner','monthly_recap','notes']:
         return templates[page_name](meta)
     elif page_name in page_urls:
         page = page_urls[page_name]
