@@ -1,9 +1,9 @@
 import os
 import importlib.util
 import pathlib
+import re
 
 from yaml import load
-import re
 try:
     from yaml import CLoader as Loader
 except ImportError:
@@ -16,6 +16,7 @@ from pages.exercises import build_running, build_stacked_graph, build_biking
 from pages.basics import build_goals, build_notes, build_icon_list, build_weekly, build_daily_planner, build_weekly_planner, build_monthly_recap, build_pixels, build_picture_grid
 from pages.graph import build_month_graph
 from pages.mermaid import build_mermaid_diagram
+from plugins.basics import get_journal_metadata
 
 page_templates = {
     'icon_list': build_icon_list,
@@ -95,27 +96,19 @@ def root():
 @app.route('/page/<page_name>')
 def page(page_name):
     quarterly = load(open(f'{quarter_root}/quarter.yaml'),Loader=Loader)
-    yearly = load(open('./notes/2025/year.yaml'),Loader=Loader)
-    dates = StartFinish(quarterly['start'],quarterly['end'])
-    weekly_activities = quarterly['weekly']
-    activities = quarterly['daily']
-    year = str(dates.sdate.year)
-    season = f'{get_season(dates.sdate)} {year}'
-    theme = quarterly['theme']
-    why = quarterly['why']
-    goals = quarterly['goals']
+    meta = get_journal_metadata(f'{quarter_root}/quarter.yaml')
     page_urls = {}
     for page in quarterly['pages']:
         page_urls[re.sub(r'[^A-Za-z0-9_]', '_', page['title'])] = page
 
     if page_name == 'goals':
-        return templates[page_name](season, theme, why, goals)
+        return templates[page_name](meta['season'], meta['theme'], meta['why'], meta['goals'])
     elif page_name == 'daily_planner':
-        return templates[page_name](dates,activities,season,num_months=2)
+        return templates[page_name](meta['dates'], quarterly['daily'],meta['season'],num_months=2)
     elif page_name == 'weekly_planner':
-        return templates[page_name](dates, season, weekly_activities)
+        return templates[page_name](meta['dates'], meta['season'], meta['weekly_activities'])
     elif page_name == 'monthly_recap':
-        return templates[page_name](dates)
+        return templates[page_name](meta['dates'])
     elif page_name == 'notes':
         return templates[page_name]()
     elif page_name in page_urls:

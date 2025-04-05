@@ -1,3 +1,9 @@
+from yaml import load
+try:
+    from yaml import CLoader as Loader
+except ImportError:
+    from yaml import Loader
+
 from typing import List, Dict, Union
 from pages.util import FULL_WEEK, StartFinish, get_date_sequence, Day_Of_Week, get_month_start_and_end, get_specific_multi_date_sequence, get_multi_date_sequence
 from datetime import datetime, timedelta as delta
@@ -155,6 +161,32 @@ def render_picture_grid(title,picture,rows,cols):
 
 def render_table(title,columns,row_titles):
     return render_template('table.html',title=title,columns=columns,rows=row_titles)
+
+def get_season(date_obj):
+    month = date_obj.month
+    if month in [12, 1, 2]:
+        return "Winter"
+    elif month in [3, 4, 5]:
+        return "Spring"
+    elif month in [6, 7, 8]:
+        return "Summer"
+    else:
+        return "Fall"
+
+def get_journal_metadata(path_to_yaml):
+    quarterly = load(open(path_to_yaml),Loader=Loader)
+    dates = StartFinish(quarterly['start'],quarterly['end'])
+    year = str(dates.sdate.year)
+    return {
+        'dates': dates,
+        'weekly_activities': quarterly['weekly'],
+        'activities': quarterly['daily'],
+        'year': year,
+        'season': f'{get_season(dates.sdate)} {year}',
+        'theme': quarterly['theme'],
+        'why': quarterly['why'],
+        'goals': quarterly['goals']
+    }
 
 def templates():
     return {
