@@ -102,9 +102,9 @@ def page(page_name):
         page_urls[re.sub(r'[^A-Za-z0-9_]', '_', page['title'])] = page
 
     if page_name == 'goals':
-        return templates[page_name](meta['season'], meta['theme'], meta['why'], meta['goals'])
+        return templates[page_name](meta)
     elif page_name == 'daily_planner':
-        return templates[page_name](meta['dates'], quarterly['daily'],meta['season'],num_months=2)
+        return templates[page_name](meta)
     elif page_name == 'weekly_planner':
         return templates[page_name](meta['dates'], meta['season'], meta['weekly_activities'])
     elif page_name == 'monthly_recap':

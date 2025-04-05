@@ -1,3 +1,5 @@
+import datetime
+
 from yaml import load
 try:
     from yaml import CLoader as Loader
@@ -9,8 +11,8 @@ from pages.util import FULL_WEEK, StartFinish, get_date_sequence, Day_Of_Week, g
 from datetime import datetime, timedelta as delta
 from flask import render_template
 
-def render_goals(season, theme, why, goals:List[str]):
-    return render_template('goals.html',title=season,goals=goals,subtitle=theme,why_theme=why)
+def render_goals(meta):
+    return render_template('goals.html',title=meta['season'],goals=meta['goals'],subtitle=meta['theme'],why_theme=meta['why'])
 
 def render_static_page(page):
     return render_template(page)
@@ -19,10 +21,10 @@ def render_weekly_planner(dates, season, activities):
     date_sequence = get_date_sequence('sunday', dates)
     return render_template('weekly_planner.html',season=season,activities=activities,weeks=date_sequence)
 
-def render_daily_planner(dates, activities: List[str], season, num_months=3):
+def render_daily_planner(meta):
     # We later strip off the date and use just the month, so we just need to know that we got to the next month with
     # these sequence of dates not that we got to the first of said month. 
-    months = [dates.sdate+delta(days=31*i+7) for i in range(num_months)]
+    months = [meta['dates'].sdate+delta(days=31*i+7) for i in range(meta['dates'].getNumberOfMonths())]
     ms = '%Y-%m'
     days = []
     day = delta(days=1)
@@ -34,7 +36,7 @@ def render_daily_planner(dates, activities: List[str], season, num_months=3):
             temp_month += day
             dc += 1
         days.append(dc)
-    return render_template('daily_planner.html',season=season, months=months, days=days, activities=activities)
+    return render_template('daily_planner.html',season=meta['season'], months=months, days=days, activities=meta['activities'])
 
 def config_check(template_name, config, expected):
     for item in expected:

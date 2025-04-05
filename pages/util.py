@@ -1,4 +1,4 @@
-from datetime import timedelta as delta, date
+from datetime import timedelta as delta, date, datetime
 from enum import Enum
 from typing import List
 
@@ -28,6 +28,9 @@ class StartFinish():
     
     def __repr__(self):
         return str({'sdate': self.sdate, 'fdate': self.fdate})
+
+    def getNumberOfMonths(self):
+        return (self.fdate.year - self.sdate.year) * 12 + (self.fdate.month - self.sdate.month) + 1
 
 def get_specific_multi_date_sequence(days_of_week:List[Day_Of_Week], start: date, end: date):
     dow_list = [start + delta(days=dow.value) for dow in days_of_week]
