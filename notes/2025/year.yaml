@@ -25,6 +25,11 @@ pages:
       - "Stretch Goal: Do while camping."
       - Find large cuts of meat, learn to process them.
       - Make a simple game for Nintendo Switch
+      - Obtain recipes that consistenly make for us these breads
+      - English Muffin
+      - Frozen Garlic Bread
+      - Dinner Rolls/Burger Buns
+      - Hot Dog Buns
       - Read 4 computer science books off of my book shelf
       - 1 ___________________________________
       - 2 ___________________________________
@@ -85,3 +90,18 @@ pages:
     rows: 3
     columns: 3
     opacity: 50%
+  - title: Visit Spirit Mound
+    template: picture_grid
+    picture: spirit mound.png
+    rows: 4
+    columns: 3
+  - title: Work Outside
+    template: picture_grid
+    picture: out door desk.png
+    rows: 3
+    columns: 2
+  - title: Invite people over
+    template: picture_grid
+    picture: inviting people over.png
+    rows: 3
+    columns: 3
