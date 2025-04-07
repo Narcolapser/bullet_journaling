@@ -59,6 +59,9 @@ def render_picture_grid(meta, config):
 def render_table(meta, config):
     return render_template('table.html',title=config['title'],columns=config['columns'],rows=config['row_titles'])
 
+def render_cover(meta, config):
+    return render_template('cover.html',year=config['year'],seasons=config['seasons'])
+
 def templates():
     return {
     'icon_list': render_icon_list,
@@ -68,4 +71,5 @@ def templates():
     'sectional_icon_list': render_sectional_icon_list,
     'monthly_recap': render_monthly_recap,
     'notes': render_notes,
+    'cover': render_cover
 }
