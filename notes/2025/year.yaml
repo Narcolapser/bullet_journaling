@@ -16,6 +16,7 @@ pages:
     template: goals    
     why: ''
     goals:
+      - Continue 1 hour daily quiet time
       - Pickling - Find a Refridgerator pickle recipe we both like
       - Pickling - Find a Shelf stable pickle recipe we both like
       - Pickling - Try pickling other things
@@ -29,7 +30,8 @@ pages:
       - 2 ___________________________________
       - 3 ___________________________________
       - 4 ___________________________________
-      - Continue 1 hour daily quiet time
+      - Go Camping
+      - "Stretch Goal: Go Camping Twice"
       - Store more produce
   - title: Themes
     template: icon_list
@@ -56,3 +58,30 @@ pages:
   - title: 2025 in Pixels
     template: pixels
     emotions: ['Happy','Fun','Relaxed','Productive','Tired','Sad','Anxious']
+  - title: Community Events
+    template: icon_list
+    rows: 12
+    icon: calendar.jpg
+    background: ''
+  - title: Gigi Time
+    template: picture_grid
+    picture: 'grandma.webp'
+    rows: 4
+    columns: 3
+    opacity: 25%
+  - title: Call Brady
+    template: picture_grid
+    picture: phone.jpg
+    rows: 4
+    columns: 3
+  - title: Call Nathan
+    template: picture_grid
+    picture: phone.jpg
+    rows: 4
+    columns: 3
+  - title: Date Night
+    template: picture_grid
+    picture: hearts.gif
+    rows: 3
+    columns: 3
+    opacity: 50%

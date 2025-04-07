@@ -1,17 +1,19 @@
 <html>
-    <center><h1>{{title}}</h1></center>
-    <table style="border-collapse:collapse; width:100%">
+    <center><h1>{{ title }}</h1></center>
+    <table style="border-collapse: collapse; width: 100%;">
         {% for i in range(rows) %}
         <tr>
             {% if row_titles is defined %}
-                <td style="width:100px; border: 1px solid black;">{{row_titles[i]}}</td>
+                <td style="width: 100px; border: 1px solid black;">{{ row_titles[i] }}</td>
             {% endif %}
-            {% for j in range(cols) %}
-                {% if pic_width is defined %}
-                    <td style="border: 1px solid black;"><img src="http://localhost:5000/static/{{picture}}" style="object-fit: cover; width:{{pic_width}}%"/></td>
-                {% else %}
-                    <td style="border: 1px solid black;"><center><img src="http://localhost:5000/static/{{picture}}" style="object-fit: cover; width:100%"/></center></td>
-                {% endif %}
+            {% for j in range(columns) %}
+                <td style="border: 1px solid black;">
+                    {% set width = pic_width if pic_width is defined else 100 %}
+                    <center>
+                        <img src="http://localhost:5000/static/{{ picture }}"
+                             style="object-fit: cover; width: {{ width }}%; opacity: {{ opacity if opacity is defined else 1 }};" />
+                    </center>
+                </td>
             {% endfor %}
         </tr>
         {% endfor %}

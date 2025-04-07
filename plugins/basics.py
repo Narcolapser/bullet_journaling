@@ -53,8 +53,36 @@ def render_notes(meta, config):
     }
     return render_icon_list(meta, config)
 
+def parse_percent(value):
+    """
+    Parse a percentage value from a string.
+    Accepts formats like '10' or '10%'.
+    Returns a float between 0.0 and 1.0.
+    Raises ValueError if the input is invalid.
+    """
+    value = value.strip()
+    if value.endswith('%'):
+        value = value[:-1].strip()
+
+    try:
+        number = float(value)
+    except ValueError:
+        raise ValueError(f"Invalid percentage value: '{value}'")
+
+    if not (0 <= number <= 100):
+        raise ValueError(f"Percentage out of range: {number} (must be between 0 and 100)")
+
+    return number / 100
+
 def render_picture_grid(meta, config):
-    return render_template('picture_grid.html',rows=config['rows'], cols=config['cols'], title=config['title'], picture=config['picture'])
+    options = {
+        'title': config['title'],
+        'picture': config['picture'],
+        'rows': config['rows'],
+        'columns': config['columns'],
+        'opacity': '1' if 'opacity' not in config else parse_percent(config['opacity'])
+    }
+    return render_template('picture_grid.html', **options)
 
 def render_table(meta, config):
     return render_template('table.html',title=config['title'],columns=config['columns'],rows=config['row_titles'])
@@ -71,5 +99,6 @@ def templates():
     'sectional_icon_list': render_sectional_icon_list,
     'monthly_recap': render_monthly_recap,
     'notes': render_notes,
-    'cover': render_cover
+    'cover': render_cover,
+    'picture_grid': render_picture_grid,
 }
