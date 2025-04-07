@@ -1,6 +1,8 @@
 from datetime import timedelta as delta, date, datetime
 from enum import Enum
 from typing import List
+import os
+import re
 
 from yaml import load
 try:
@@ -106,3 +108,28 @@ def get_journal_metadata(path_to_yaml):
         'why': quarterly['why'],
         'goals': quarterly['goals']
     }
+
+# Journal data class
+class Journal:
+    def __init__(self, meta, pages):
+        self.meta = meta
+        self.pages = pages
+
+def load_journal(journal_id):
+    # In future: detect storage backend, like from config
+    return load_journal_from_yaml(journal_id)
+
+def load_journal_from_yaml(journal_id):
+    try:
+        year, filename = journal_id.split('_', 1)
+        file_path = os.path.join('./notes', year, f"{filename}.yaml")
+        with open(file_path) as f:
+            data = load(f, Loader=Loader)
+
+        meta = get_journal_metadata(file_path)
+        pages = data.get('pages', [])
+
+        return Journal(meta, pages)
+
+    except Exception as e:
+        raise RuntimeError(f"Failed to load journal from YAML: {e}")

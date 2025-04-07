@@ -9,15 +9,14 @@ try:
 except ImportError:
     from yaml import Loader
 
-from flask import Flask, render_template
+from flask import Flask, render_template, abort
 
-from plugins.util import get_journal_metadata
+from plugins.util import load_journal, get_journal_metadata
 
 app = Flask(__name__)
 plugins = []
 templates = {}
 default_pages = []
-quarter_root = './notes/2025/1 spring'
 
 def load_plugins():
     plugins = []
@@ -70,41 +69,44 @@ def root():
 @app.route('/journal/<journalid>')
 def journal(journalid):
     try:
-        year, filename = journalid.split('_', 1)
-        file_path = os.path.join('./notes', year, f"{filename}.yaml")
-        with open(file_path) as f:
-            quarterly = load(f, Loader=Loader)
+        journal = load_journal(journalid)
     except Exception as e:
         return f"Error loading journal: {e}", 404
 
     pages = []
-    for page in quarterly.get('pages', []):
+    for page in journal.pages:
         url = re.sub(r'[^A-Za-z0-9_]', '_', page['title'])
-        pages.append(f'/page/{url}')
+        pages.append(f'/journal/{journalid}/page/{url}')
     for page in default_pages:
-        pages.append(f'/page/{page}')
+        pages.append(f'/journal/{journalid}/page/{page}')
     pages.sort()
+
     return render_template('index.html', pages=pages)
 
+@app.route('/journal/<journalid>/page/<page_name>')
+def page(journalid, page_name):
+    try:
+        journal = load_journal(journalid)
+    except Exception as e:
+        return f"Error loading journal: {e}", 404
 
-@app.route('/page/<page_name>')
-def page(page_name):
-    quarterly = load(open(f'{quarter_root}/quarter.yaml'),Loader=Loader)
-    meta = get_journal_metadata(f'{quarter_root}/quarter.yaml')
+    meta = journal.meta
     page_urls = {}
-    for page in quarterly['pages']:
-        page_urls[re.sub(r'[^A-Za-z0-9_]', '_', page['title'])] = page
-    
+
+    for page in journal.pages:
+        safe_title = re.sub(r'[^A-Za-z0-9_]', '_', page['title'])
+        page_urls[safe_title] = page
+
     for page in default_pages:
-        page_urls[re.sub(r'[^A-Za-z0-9_]', '_', page)] = {'template':page}
+        page_urls[re.sub(r'[^A-Za-z0-9_]', '_', page)] = {'template': page}
 
     if page_name in page_urls:
-        page = page_urls[page_name]
-        print(f"For page {page_name} pulling up template: {page_urls[page_name]['template']}")
-        return templates[page['template']](meta, page)
-        #return page_templates[page['template']](page)()
+        page_data = page_urls[page_name]
+        print(f"For page {page_name} pulling up template: {page_data['template']}")
+        return templates[page_data['template']](meta, page_data)
     else:
-        return '404, page not found'
+        abort(404)
+
 
 @app.route('/build_compiler')
 def build_compiler():
