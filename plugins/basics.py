@@ -3,11 +3,6 @@ from plugins.util import FULL_WEEK, StartFinish, get_date_sequence, Day_Of_Week,
 from datetime import datetime, timedelta as delta
 from flask import render_template
 
-def config_check(template_name, config, expected):
-    for item in expected:
-        if item[0] not in config or str(type(config[item[0]]))[8:-2] != item[1]:
-            raise Exception(f'{template_name} needs: {item[0]} type {item[1]}')
-
 def get_sectional_row_height(num_sections, rows_per_section):
     section_pixels = 50
     total_height = 500
@@ -16,9 +11,14 @@ def get_sectional_row_height(num_sections, rows_per_section):
     return str(max(int(row_height),12))
 
 def render_icon_list(meta, config: dict):
-    config_check('Icon List',config,[('title','str'),('rows','int'),('icon','str'),('background','str')])
-    height = str(600/config['rows'])
-    return render_template('icon_list.html',height=height, **config)
+    options = {
+        'title': config['title'],
+        'icon': config['icon'],
+        'background': config['background'] if 'background' in config else '',
+        'rows': config['rows'],
+        'height': str(600/config['rows'])
+    }
+    return render_template('icon_list.html', **options)
 
 def render_goals(meta, config):
     return render_template('goals.html',title=meta['season'],goals=config['goals'],subtitle=meta['theme'],why_theme=config['why'])

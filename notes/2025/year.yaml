@@ -42,32 +42,27 @@ pages:
     template: icon_list
     rows: 4
     icon: rainbow.png
-    background: ''
   - title: Body Fat
     template: body_fat
   - title: New Video Games
     template: icon_list
     rows: 12
     icon: joystick.png
-    background: ''
   - title: Books (P=Paper, A=Audiobook)
     template: icon_list
     rows: 21
     icon: book.png
-    background: ''
   - title: Notable Events
     template: icon_list
     rows: 12
     icon: calendar.jpg
-    background: ''
   - title: 2025 in Pixels
     template: pixels
-    emotions: ['Happy','Fun','Relaxed','Productive','Tired','Sad','Anxious']
+    emotions: ['Happy','Fun','Relaxed','Productive','Tired','Sad','Anxious','Uneventful']
   - title: Community Events
     template: icon_list
     rows: 12
     icon: calendar.jpg
-    background: ''
   - title: Gigi Time
     template: picture_grid
     picture: 'grandma.webp'
