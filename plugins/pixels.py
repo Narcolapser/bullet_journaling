@@ -1,5 +1,9 @@
+from datetime import datetime
+from plugins.util import get_specific_multi_date_sequence, Day_Of_Week
+from flask import render_template
+
 def render_pixels(meta, config):
-    emotions = ['Happy','Fun','Relaxed','Productive','Tired','Sad','Anxious']
+    emotions = config['emotions']
     sdate1 = datetime.strptime('2024-04-01', '%Y-%m-%d')
     sdate2 = datetime.strptime('2024-08-01', '%Y-%m-%d')
     sdate3 = datetime.strptime('2024-12-01', '%Y-%m-%d')
