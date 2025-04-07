@@ -1,25 +1,34 @@
-goals:
-- Pickling - Find a Refridgerator pickle recipe we both like
-- Pickling - Find a Shelf stable pickle recipe we both like
-- Pickling - Try pickling other things
-- Go disc golfing 3-6 times
-- Go to the archery course
-- Stretch Goal: Do while camping.
-- Visit Spirit mound 10 times
-- Strech Goal: 12 times
-- Master The following breads
-- English Muffin
-- Frozen Garlic Bread
-- Dinner Rolls/Burger Buns
-- Hot Dog Buns
-- Find large cuts of meat, learn to process them.
-- Invite people over 6 times.
-- Stretch Goal: Invite over 9 times.
-- Store more produce
-- Make a simple game for Nintendo Switch
-- Read 4 computer science books off of my book shelf
-- 1 ___________________________________
-- 2 ___________________________________
-- 3 ___________________________________
-- 4 ___________________________________
-- Continue 1 hour daily quiet time
+---
+theme: 2025
+start: 2025-04-06
+end: 2025-05-31
+fill: notes
+pages:
+  - title: Cover Page
+    template: goals    
+    why:
+    goals:
+      - Pickling - Find a Refridgerator pickle recipe we both like
+      - Pickling - Find a Shelf stable pickle recipe we both like
+      - Pickling - Try pickling other things
+      - Go disc golfing 3-6 times
+      - Go to the archery course
+      - "Stretch Goal: Do while camping."
+      - Visit Spirit mound 10 times
+      - "Strech Goal: 12 times"
+      - Master The following breads
+      - English Muffin
+      - Frozen Garlic Bread
+      - Dinner Rolls/Burger Buns
+      - Hot Dog Buns
+      - Find large cuts of meat, learn to process them.
+      - Invite people over 6 times.
+      - "Stretch Goal: Invite over 9 times."
+      - Store more produce
+      - Make a simple game for Nintendo Switch
+      - Read 4 computer science books off of my book shelf
+      - 1 ___________________________________
+      - 2 ___________________________________
+      - 3 ___________________________________
+      - 4 ___________________________________
+      - Continue 1 hour daily quiet time
