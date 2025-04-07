@@ -71,4 +71,4 @@ def templates():
 }
 
 def default_pages():
-    return ['monthly_recap','notes']
+    return ['notes']

@@ -32,6 +32,8 @@ pages:
       - Water Plants
       - Swap Batteries
       - REPENT!
+  - title: "Monthly Recap"
+    template: monthly_recap
   - title: "Couples Bible Study: Experiencing God Together"
     template: weekly
     day_of_week: saturday
