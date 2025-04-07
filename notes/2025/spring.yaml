@@ -14,17 +14,20 @@ daily:
 - Dishes
 - Exercise
 - Update Journal
-weekly:
-- Read News Letter
-- Lucy Time!
-- Games with Ben
-- Couples Bible study
-- Chore
-- Clean Garage
-- Clean Desks
-- Water Plants
-- Swap Batteries
 pages:
+  - title: "Weekly Planner"
+    template: weekly_planner
+    activities: 
+      - Read News Letter
+      - Lucy Time!
+      - Games with Ben
+      - Couples Bible study
+      - Chore
+      - Clean Garage
+      - Clean Desks
+      - Water Plants
+      - Swap Batteries
+      - REPENT!
   - title: "Couples Bible Study: Experiencing God Together"
     template: weekly
     day_of_week: saturday

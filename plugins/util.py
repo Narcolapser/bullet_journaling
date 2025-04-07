@@ -100,7 +100,6 @@ def get_journal_metadata(path_to_yaml):
     year = str(dates.sdate.year)
     return {
         'dates': dates,
-        'weekly_activities': quarterly['weekly'],
         'activities': quarterly['daily'],
         'year': year,
         'season': f'{get_season(dates.sdate)} {year}',
