@@ -69,6 +69,3 @@ def templates():
     'monthly_recap': render_monthly_recap,
     'notes': render_notes,
 }
-
-def default_pages():
-    return ['notes']

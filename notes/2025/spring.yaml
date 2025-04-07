@@ -2,6 +2,7 @@
 theme: Season of Paternity Projects
 start: 2025-04-06
 end: 2025-05-31
+fill: notes
 pages:
   - title: Cover Page
     template: goals    
