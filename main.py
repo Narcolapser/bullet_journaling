@@ -55,15 +55,36 @@ def load_plugins():
     
 @app.route('/')
 def root():
-    quarterly = load(open(f'{quarter_root}/quarter.yaml'),Loader=Loader)
+    journals = []
+    notes_dir = './notes'
+    for year in os.listdir(notes_dir):
+        year_path = os.path.join(notes_dir, year)
+        if os.path.isdir(year_path):
+            for file in os.listdir(year_path):
+                if file.endswith('.yaml'):
+                    journal_id = f"{year}_{os.path.splitext(file)[0]}"
+                    journals.append(f'/journal/{journal_id}')
+    journals.sort()
+    return render_template('index.html', pages=journals)
+
+@app.route('/journal/<journalid>')
+def journal(journalid):
+    try:
+        year, filename = journalid.split('_', 1)
+        file_path = os.path.join('./notes', year, f"{filename}.yaml")
+        with open(file_path) as f:
+            quarterly = load(f, Loader=Loader)
+    except Exception as e:
+        return f"Error loading journal: {e}", 404
+
     pages = []
-    for page in quarterly['pages']:
+    for page in quarterly.get('pages', []):
         url = re.sub(r'[^A-Za-z0-9_]', '_', page['title'])
         pages.append(f'/page/{url}')
     for page in default_pages:
         pages.append(f'/page/{page}')
     pages.sort()
-    return render_template('index.html',pages=pages)
+    return render_template('index.html', pages=pages)
 
 
 @app.route('/page/<page_name>')
