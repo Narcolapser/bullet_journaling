@@ -2,21 +2,23 @@
 theme: Season of Paternity Projects
 start: 2025-04-06
 end: 2025-05-31
-why: We survived Connie's pregnancy. This next quarter is a period of recover, preparing the garden, and getting some larger projects done.
-goals:
-- Develop concrete goals for fitness.
-- Remodel main floor bathroom.
-- Put up shelving in craft closet.
-- Clean and organize the garage. (Be gone dark corners!)
-- Build pergula between black berries and Forsythia beds. (Maybe)
 pages:
+  - title: Cover Page
+    template: goals    
+    why: We survived Connie's pregnancy. This next quarter is a period of recover, preparing the garden, and getting some larger projects done.
+    goals:
+      - Develop concrete goals for fitness.
+      - Remodel main floor bathroom.
+      - Put up shelving in craft closet.
+      - Clean and organize the garage. (Be gone dark corners!)
+      - Build pergula between black berries and Forsythia beds. (Maybe)
   - title: "Daily Planner"
     template: daily_planner
     activities:
-    - Quiet Time
-    - Dishes
-    - Exercise
-    - Update Journal
+      - Quiet Time
+      - Dishes
+      - Exercise
+      - Update Journal
   - title: "Weekly Planner"
     template: weekly_planner
     activities: 

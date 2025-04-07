@@ -103,8 +103,6 @@ def get_journal_metadata(path_to_yaml):
         'year': year,
         'season': f'{get_season(dates.sdate)} {year}',
         'theme': quarterly['theme'],
-        'why': quarterly['why'],
-        'goals': quarterly['goals']
     }
 
 # Journal data class

@@ -20,8 +20,8 @@ def render_icon_list(meta, config: dict):
     height = str(600/config['rows'])
     return render_template('icon_list.html',height=height, **config)
 
-def render_goals(meta, page):
-    return render_template('goals.html',title=meta['season'],goals=meta['goals'],subtitle=meta['theme'],why_theme=meta['why'])
+def render_goals(meta, config):
+    return render_template('goals.html',title=meta['season'],goals=config['goals'],subtitle=meta['theme'],why_theme=config['why'])
 
 def render_static_page(meta, page):
     return render_template(page)
@@ -71,4 +71,4 @@ def templates():
 }
 
 def default_pages():
-    return ['goals', 'monthly_recap','notes']
+    return ['monthly_recap','notes']
