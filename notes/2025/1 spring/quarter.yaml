@@ -4,9 +4,11 @@ start: 2025-04-06
 end: 2025-05-31
 why: We survived Connie's pregnancy. This next quarter is a period of recover, preparing the garden, and getting some larger projects done.
 goals:
-- Develop concrete goals for fitness
-- Remodel main floor bathroom
-- Build Pergula between black berries and Forsythia beds. (Maybe)
+- Develop concrete goals for fitness.
+- Remodel main floor bathroom.
+- Put up shelving in craft closet.
+- Clean and organize the garage. (Be gone dark corners!)
+- Build pergula between black berries and Forsythia beds. (Maybe)
 daily:
 - Quiet Time
 - Dishes
@@ -35,7 +37,7 @@ pages:
   - title: Lucy Time
     template: weekly
     day_of_week: tuesday
-    background: "dalle - dad and daughter baking.png"
+    background: "dalle - dad and daughter playing in play room with ball pit.png"
   - title: Celebrations
     template: icon_list
     rows: 21
@@ -50,31 +52,6 @@ pages:
     rows: 21
     icon: notebook.png
     background: circuit_diagram.png
-
-  - title: 'Reason for Exercising: A Manifesto'
-    template: icon_list
-    rows: 21
-    icon: 'blank.png'
-    background: 'dumbell.webp'
-
-  - title: Arms
-    template: stacked_graph
-    day_of_week: wednesday
-    exercises:
-      - chest press
-      - inverse snow angel
-      - bicep curl
-      - tricep curl
-      - bent over row
-  - title: Core
-    template: stacked_graph
-    day_of_week: friday
-    exercises:
-      - planking
-      - toe taps
-      - shoulder taps
-      - russian twist
-      - cross crunches
   - title: Running
     template: running
     days_of_week:
