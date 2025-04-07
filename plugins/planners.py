@@ -21,7 +21,7 @@ def render_daily_planner(meta, config):
             temp_month += day
             dc += 1
         days.append(dc)
-    return render_template('daily_planner.html',season=meta['season'], months=months, days=days, activities=meta['activities'])
+    return render_template('daily_planner.html',season=meta['season'], months=months, days=days, activities=config['activities'])
 
 
 def templates():
@@ -29,6 +29,3 @@ def templates():
     'weekly_planner': render_weekly_planner,
     'daily_planner': render_daily_planner
 }
-
-def default_pages():
-    return ['daily_planner']

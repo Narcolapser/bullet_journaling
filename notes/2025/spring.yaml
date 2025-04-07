@@ -9,12 +9,14 @@ goals:
 - Put up shelving in craft closet.
 - Clean and organize the garage. (Be gone dark corners!)
 - Build pergula between black berries and Forsythia beds. (Maybe)
-daily:
-- Quiet Time
-- Dishes
-- Exercise
-- Update Journal
 pages:
+  - title: "Daily Planner"
+    template: daily_planner
+    activities:
+    - Quiet Time
+    - Dishes
+    - Exercise
+    - Update Journal
   - title: "Weekly Planner"
     template: weekly_planner
     activities: 
