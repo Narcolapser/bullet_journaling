@@ -16,7 +16,6 @@ from plugins.util import load_journal, get_journal_metadata
 app = Flask(__name__)
 plugins = []
 templates = {}
-default_pages = []
 
 def load_plugins():
     plugins = []
@@ -26,8 +25,6 @@ def load_plugins():
         module = None
         def templates(self):
             return {}
-        def default_pages(self):
-            return []
 
     for file in plugins_dir.glob("*.py"):
         if file.name == "__init__.py":
@@ -42,9 +39,6 @@ def load_plugins():
 
         if hasattr(module, "templates"):
             plugin_info.templates = module.templates
-
-        if hasattr(module, "default_pages"):
-            plugin_info.default_pages = module.default_pages
 
         if plugin_info:
             plugin_info.module = module
@@ -77,8 +71,6 @@ def journal(journalid):
     for page in journal.pages:
         url = re.sub(r'[^A-Za-z0-9_]', '_', page['title'])
         pages.append(f'/journal/{journalid}/page/{url}')
-    for page in default_pages:
-        pages.append(f'/journal/{journalid}/page/{page}')
     pages.sort()
 
     return render_template('index.html', pages=pages)
@@ -96,9 +88,6 @@ def page(journalid, page_name):
     for page in journal.pages:
         safe_title = re.sub(r'[^A-Za-z0-9_]', '_', page['title'])
         page_urls[safe_title] = page
-
-    for page in default_pages:
-        page_urls[re.sub(r'[^A-Za-z0-9_]', '_', page)] = {'template': page}
 
     if page_name in page_urls:
         page_data = page_urls[page_name]
@@ -150,13 +139,8 @@ if __name__ == '__main__':
                 sys.exit(1)
             else:
                 templates[template] = plugin_templates[template]
-
-        default_pages += plugin.default_pages()
     
     print('Found the following templates:')
     for template in templates: print(template)
-
-    print('including the following default pages')
-    print(default_pages)
 
     app.run(host='0.0.0.0', port = 5000)
