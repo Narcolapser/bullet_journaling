@@ -19,13 +19,13 @@ pages:
       - Continue 1 hour daily quiet time
       - Pickling - Find a Refridgerator pickle recipe we both like
       - Pickling - Find a Shelf stable pickle recipe we both like
-      - Pickling - Try pickling other things
+      - Pickling Stretch Goal - Try pickling other things
       - Go disc golfing 3-6 times
       - Go to the archery course
       - "Stretch Goal: Do while camping."
       - Find large cuts of meat, learn to process them.
       - Make a simple game for Nintendo Switch
-      - Obtain recipes that consistenly make for us these breads
+      - "Obtain recipes that consistenly make for us these breads:"
       - English Muffin
       - Frozen Garlic Bread
       - Dinner Rolls/Burger Buns
@@ -58,7 +58,7 @@ pages:
     icon: calendar.jpg
   - title: 2025 in Pixels
     template: pixels
-    emotions: ['Happy','Fun','Relaxed','Productive','Tired','Sad','Anxious','Uneventful']
+    emotions: ['Uneventful','Happy','Fun','Relaxed','Productive','Tired','Sad','Anxious']
   - title: Community Events
     template: icon_list
     rows: 12
