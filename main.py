@@ -99,26 +99,20 @@ def page(journalid, page_name):
 
 @app.route('/build_compiler')
 def build_compiler():
-    meta = get_journal_metadata(f'{quarter_root}/quarter.yaml')
-    quarterly = load(open(f'{quarter_root}/quarter.yaml'),Loader=Loader)
-    yearly = load(open('./notes/2025/year.yaml'),Loader=Loader)
-    dates = meta['dates']
-    pages_raw = ['quarter_goals']
-    pages_raw.append(('daily_planner','landscape'))
-    pages_raw.append(('weekly_planner','landscape'))
-    pages_raw.append('monthly_recap')
-
-    for page in quarterly['pages']:
-        url = re.sub(r'[^A-Za-z0-9_]', '_', page['title'])
-        page['dates'] = dates
-        page['root'] = quarter_root
-        if page['template'] in ['running','month_graph','biking'] or ('landscape' in page and page['landscape']):
-            pages_raw.append((url,'landscape'))
-        else:
-            pages_raw.append(url)
+    pages = []
+    jids = ['2025_year', '2025_spring']
+    journal = None
+    for journalid in jids:
+        journal = load_journal(journalid)
+        for page in journal.pages:
+            url = f"/journal/{journalid}/page/{re.sub(r'[^A-Za-z0-9_]', '_', page['title'])}"
+            if 'orientation' in page and page['orientation'] == 'landscape':
+                pages.append((url,'landscape'))
+            else:
+                pages.append(url)
 
     compiler_directive = ['pages_raw = [']
-    for i,page in enumerate(pages_raw):
+    for i,page in enumerate(pages):
         if (i+1)%2==0:
             compiler_directive.append('')
         if isinstance(page,str):

@@ -1,6 +1,7 @@
 import os
 import sys
 import requests
+import re
 
 from PyPDF3 import PdfFileWriter, PdfFileReader
 from PyPDF3.pdf import PageObject
@@ -165,7 +166,7 @@ def render_pypputeer(url, name, orientation):
         page = await browser.newPage()
         await page.goto(url)
         await page.pdf({
-            'path': f'./{name}',
+            'path': f"./{re.sub(r'[^A-Za-z0-9_]', '_', name)}",
             'format': 'letter',
             'landscape': orientation == 'landscape',
             'margin': {

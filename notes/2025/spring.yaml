@@ -20,6 +20,7 @@ pages:
       - Dishes
       - Exercise
       - Update Journal
+    orientation: landscape
   - title: "Weekly Planner"
     template: weekly_planner
     activities: 
@@ -32,7 +33,7 @@ pages:
       - Clean Desks
       - Water Plants
       - Swap Batteries
-      - REPENT!
+    orientation: landscape
   - title: "Monthly Recap"
     template: monthly_recap
   - title: "Couples Bible Study: Experiencing God Together"
@@ -69,3 +70,6 @@ pages:
       - thursday
     miles: 4
     minutes: 40
+    orientation: landscape
+  - title: Notes
+    template: notes
