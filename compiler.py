@@ -23,18 +23,11 @@ class NumberPDF(FPDF):
         if self.lpage:
             #self.cell(129, 10, str(self.lpage), 0, 0, 'L')
             self.cell(129, 20, str(self.lpage), 0, 0, 'L')
-        if self.rpage:
+        if self.rpage and self.rpage != 1:
+            # Skip putting the page number on the cover page.
             self.cell(129, 20, str(self.rpage), 0, 0, 'R')
 
 tmp_file = '/tmp/rotpdf.pdf'
-
-def merge_to_page(page1, page2):
-    outs = PageObject.createBlankPage(None, 17*72, 11*72)
-    outs.mergeScaledTranslatedPage(page1, 1, 0, 0)
-    outs.mergeScaledTranslatedPage(page2, 1, 8.5*72, 0)
-    outs.scaleTo(11*72,8.5*72)
-    outs.rotateCounterClockwise(90)
-    return outs
 
 def create_page(p1, p2, rot1=False, rot2=False, lpage_num=None, rpage_num=None):
     outs = PageObject.createBlankPage(None, 17*72, 11*72)
@@ -138,24 +131,6 @@ while len(pages)%4 != 0:
 
 pages = [(page[0],i,page[1] if len(page) > 1 else 'portrait') for i,page in enumerate(pages)]
 
-
-def render_weasy(url, name, orientation='portrait'):
-    from weasyprint import HTML, CSS
-    print(f'Rendering ./{name} from {url}', end='...')
-    r = requests.get(url)
-    print(r.status_code)
-    stylesheets = [CSS(string='@page {size: ' + orientation + '}')]
-    outs = HTML(string=r.text).write_pdf(f'./{name}',stylesheets=stylesheets)
-
-def print_journal_pisa(pages):
-    from xhtml2pdf import pisa
-    for page in pages:
-        print('Printing ./{1:0>2}_{0}.pdf'.format(page[0],page[1]), end='...')
-        r = requests.get(url)
-        print(r.status_code)
-        filename = './{1:0>2}_{0}.pdf'.format(page[0],page[1])
-        with open(filename, 'wb') as pdf_file:
-              pisa.CreatePDF(r.text, dest=pdf_file)
 
 def render_pypputeer(url, name, orientation):
     import asyncio
