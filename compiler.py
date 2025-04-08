@@ -166,7 +166,7 @@ def render_pypputeer(url, name, orientation):
         page = await browser.newPage()
         await page.goto(url)
         await page.pdf({
-            'path': f"./{re.sub(r'[^A-Za-z0-9_]', '_', name)}",
+            'path': f"./{re.sub(r'[^A-Za-z0-9_.]', '_', name)}",
             'format': 'letter',
             'landscape': orientation == 'landscape',
             'margin': {
@@ -183,7 +183,7 @@ def render_pypputeer(url, name, orientation):
 def render_pages(pages):
     for page in pages:
         url = f'http://localhost:5000/{page[0]}'
-        filename = './{1:0>2}_{0}.pdf'.format(page[0],page[1])
+        filename = '{1:0>2}_{0}.pdf'.format(page[0],page[1])
         #render_weasy(url,filename,page[2])
         render_pypputeer(url, filename, page[2])
 
@@ -198,7 +198,7 @@ if __name__ == '__main__':
         print('No previous files to clean up')
     render_pages(pages)
     # print_journal(pages)
-    compile_journal('./', starting_page_num=49)
+    compile_journal('./', starting_page_num=1)
     
     if '-k' not in sys.argv:
         files = os.listdir('.')

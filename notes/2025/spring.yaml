@@ -12,7 +12,7 @@ pages:
       - Remodel main floor bathroom.
       - Put up shelving in craft closet.
       - Clean and organize the garage. (Be gone dark corners!)
-      - Build pergula between black berries and Forsythia beds. (Maybe)
+      - Build pergula between black berries and forsythia beds.
   - title: "Daily Planner"
     template: daily_planner
     activities:
@@ -63,6 +63,7 @@ pages:
     rows: 21
     icon: notebook.png
     background: circuit_diagram.png
+    opacity: 15%
   - title: Running
     template: running
     days_of_week:

@@ -62,7 +62,7 @@ def render_pixels(meta, config):
                 weeks[month].append(week)
         
         collections.append({'months':months,'weeks':weeks})
-    return render_template('pixels_annual.html',collections=collections,emotions=emotions)
+    return render_template('pixels_annual.html',year=meta['year'], collections=collections,emotions=emotions)
 
 def templates():
     return {

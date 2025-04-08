@@ -16,7 +16,8 @@ def render_icon_list(meta, config: dict):
         'icon': config['icon'],
         'background': config['background'] if 'background' in config else '',
         'rows': config['rows'],
-        'height': str(600/config['rows'])
+        'height': str(600/config['rows']),
+        'opacity': '0.3' if 'opacity' not in config else parse_percent(config['opacity'])
     }
     return render_template('icon_list.html', **options)
 

@@ -6,7 +6,7 @@ div {
     background-size: 100%;
 }
 img.bg_image {
-    opacity:0.3;
+    opacity:{{opacity}};
     position: absolute;
     left: 0;
     top: 0;
@@ -15,7 +15,9 @@ img.bg_image {
 }
 </style>
 <center><h1>{{ title | safe}}</h1></center>
+{% if background %}
 <img class="bg_image" src="http://localhost:5000/static/{{background}}"/>
+{% endif %}
 
     {% for i in range(rows) %}
         <img style="margin:  0; height:{{height}}px" src="http://localhost:5000/static/{{icon}}"/>

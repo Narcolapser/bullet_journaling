@@ -11,7 +11,7 @@ pages:
       - Spring 2025
       - Summer 2025
       - Autumn 2025
-      - Winter 2025
+      - Winter 2026
   - title: Goals
     template: goals    
     why: ''
@@ -90,13 +90,16 @@ pages:
     picture: spirit mound.png
     rows: 4
     columns: 3
+    opacity: 50%
   - title: Work Outside
     template: picture_grid
     picture: out door desk.png
     rows: 3
     columns: 2
+    opacity: 50%
   - title: Invite people over
     template: picture_grid
     picture: inviting people over.png
     rows: 3
     columns: 3
+    opacity: 50%
