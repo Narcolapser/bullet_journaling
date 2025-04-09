@@ -2,15 +2,15 @@ pages_raw = [
 	'/journal/2025_year/page/Cover',
 
 	'/journal/2025_year/page/Goals',
-	'/journal/2025_year/page/Themes',
-
-	'/journal/2025_year/page/Body_Fat',
-	'/journal/2025_year/page/New_Video_Games',
-
-	'/journal/2025_year/page/Books__P_Paper__A_Audiobook_',
-	'/journal/2025_year/page/Notable_Events',
-
 	'/journal/2025_year/page/2025_in_Pixels',
+
+	'/journal/2025_year/page/Themes',
+	'/journal/2025_year/page/Body_Fat',
+
+	'/journal/2025_year/page/New_Video_Games',
+	'/journal/2025_year/page/Books__P_Paper__A_Audiobook_',
+
+	'/journal/2025_year/page/Notable_Events',
 	'/journal/2025_year/page/Community_Events',
 
 	'/journal/2025_year/page/Gigi_Time',

@@ -38,6 +38,9 @@ pages:
       - Go Camping
       - "Stretch Goal: Go Camping Twice"
       - Store more produce
+  - title: 2025 in Pixels
+    template: pixels
+    emotions: ['Uneventful','Happy','Fun','Relaxed','Productive','Tired','Sad','Anxious']
   - title: Themes
     template: icon_list
     rows: 4
@@ -56,9 +59,6 @@ pages:
     template: icon_list
     rows: 12
     icon: calendar.jpg
-  - title: 2025 in Pixels
-    template: pixels
-    emotions: ['Uneventful','Happy','Fun','Relaxed','Productive','Tired','Sad','Anxious']
   - title: Community Events
     template: icon_list
     rows: 12
