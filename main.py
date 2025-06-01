@@ -83,6 +83,7 @@ def page(journalid, page_name):
         return f"Error loading journal: {e}", 404
 
     meta = journal.meta
+    meta['journalid'] = journalid
     page_urls = {}
 
     for page in journal.pages:
@@ -97,10 +98,12 @@ def page(journalid, page_name):
         abort(404)
 
 
-@app.route('/build_compiler')
-def build_compiler():
+@app.route('/build_compiler/<journalid>')
+@app.route('/journal/<journalid>/build')
+def build_compiler(journalid):
     pages = []
-    jids = ['2025_year', '2025_spring']
+    #jids = ['2025_summer']
+    jids = [journalid]
     journal = None
     for journalid in jids:
         journal = load_journal(journalid)

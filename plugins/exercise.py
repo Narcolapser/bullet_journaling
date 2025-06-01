@@ -115,15 +115,20 @@ def build_biking(meta, config):
     return build_quarterly_graph(meta, graph_config)
 
 
-def build_swiming(meta, page):
-    dates = meta['dates']
-    days_of_week = config['days_of_week']
-    date_sequence = get_multi_date_sequence(days_of_week, dates)
-    units = ['Heart Rate (BPM)','Laps','Fastest Lap', 'Average Lap']
-    lap_range = range(20,40)
-    lap_times = range(40,120,int(120/40))
-    unit_steps = [get_heart_range(), lap_range,lap_times,lap_times]
-    return render_template('graph.html',dates=date_sequence,title='Swimming',units=units,unit_steps=unit_steps)
+def build_swimming(meta, config):
+    units = {
+        'BPM': get_heart_range(),
+        'Laps': {'start':20,'end':40},
+        'Fastest':{'start':45, 'end': 65},
+        'Average':{'start':60, 'end': 80}
+    }
+    graph_config = {
+        'title': 'Swimming',
+        'dates': meta['dates'],
+        'units': units,
+        'days_of_week': config['days_of_week']
+    }
+    return build_quarterly_graph(meta, graph_config)
 
 
 def templates():
@@ -133,5 +138,5 @@ def templates():
         'body_fat': build_body_fat,
         'biking': build_biking,
         'running': build_running,
-        'swiming': build_swiming,
+        'swimming': build_swimming,
     }

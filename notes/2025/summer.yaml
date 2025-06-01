@@ -1,0 +1,89 @@
+---
+theme: Season of Summer Living
+start: 2025-06-01
+end: 2025-08-30
+fill: notes
+pages:
+  - title: Cover Page
+    template: goals    
+    why: Summer is here. Our weekly schedule is full! There is a garden to care for and munchkins to manage. No reason to pile it on to deep.
+    goals:
+      - Develop concrete goals for fitness.
+      - Build pergula between black berries and forsythia beds.
+      - Figure out how to deal with compost
+      - Compile the information to decide on a walking cooler.
+  - title: "Daily Planner"
+    template: daily_planner
+    activities:
+      - Quiet Time
+      - Dishes
+      - Exercise
+      - Update Journal
+    orientation: landscape
+  - title: "Weekly Planner"
+    template: weekly_planner
+    activities: 
+      - Read News Letter
+      - Lucy Time!
+      - Games with Ben
+      - Couples Bible study
+      - Chore
+      - Clean Garage
+      - Clean Desks
+      - Water Plants
+      - Swap Batteries
+    orientation: landscape
+  - title: "Monthly Recap"
+    template: monthly_recap
+  - title: "Couples Bible Study: Experiencing God Together"
+    template: weekly
+    day_of_week: saturday
+    background: bible.png
+  - title: House Projects
+    template: icon_list
+    rows: 11
+    icon: checkedbox.png
+    background: handyman.png
+  - title: Lucy Time
+    template: weekly
+    day_of_week: monday
+    background: "dalle - dad and daughter playing in play room with ball pit.png"
+  - title: Celebrations
+    template: icon_list
+    rows: 21
+    icon: 'tada.png'
+    background: blank.png
+  - title: Family Time
+    template: weekly
+    day_of_week: sunday
+    background: 'movie_tape.jpg'
+  - title: Electronics Project
+    template: icon_list
+    rows: 21
+    icon: notebook.png
+    background: circuit_diagram.png
+    opacity: 15%
+  - title: This week in the Garden
+    template: weekly
+    day_of_week: saturday
+    background: seedling.jpg
+  - title: Piece of the Garage I cleaned
+    template: weekly
+    day_of_week: saturday
+    background: digging.png
+  - title: Hillside Game Night
+    template: weekly
+    day_of_week: tuesday
+    background: hillside logo.png
+  - title: Kubernetes Skill Tree
+    template: mermaid
+    file: k8s.mermaid
+
+  - title: Swimming
+    template: swimming
+    days_of_week:
+      - tuesday
+      - thursday
+    orientation: landscape
+  - title: Notes
+    template: notes

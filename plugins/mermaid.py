@@ -1,3 +1,4 @@
+import os
 from flask import render_template
 import mermaid
 from mermaid.graph import Graph
@@ -10,7 +11,11 @@ def build_mermaid_diagram(meta, config: dict):
     file: name of the file
     root: folder root for this quarter
     '''
-    file_path = config['root']+'/'+config['file']
+    print(config)
+    print(meta)
+    year, filename = meta['journalid'].split('_', 1)
+    file_path = os.path.join('./notes', year, config['file'])
+    #file_path = config['root']+'/'+config['file']
     file_check = Path(file_path)
 
     if file_check.is_file():
