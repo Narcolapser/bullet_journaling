@@ -173,7 +173,7 @@ if __name__ == '__main__':
         print('No previous files to clean up')
     render_pages(pages)
     # print_journal(pages)
-    compile_journal('./', starting_page_num=1)
+    compile_journal('./', starting_page_num=29)
     
     if '-k' not in sys.argv:
         files = os.listdir('.')

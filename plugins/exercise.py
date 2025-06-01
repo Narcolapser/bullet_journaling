@@ -118,9 +118,9 @@ def build_biking(meta, config):
 def build_swimming(meta, config):
     units = {
         'BPM': get_heart_range(),
-        'Laps': {'start':20,'end':40},
-        'Fastest':{'start':45, 'end': 65},
-        'Average':{'start':60, 'end': 80}
+        'Laps': {'start':25,'end':44},
+        'Fastest':{'start':45, 'end': 64},
+        'Average':{'start':60, 'end': 79}
     }
     graph_config = {
         'title': 'Swimming',

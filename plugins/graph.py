@@ -74,7 +74,7 @@ def build_quarterly_graph(meta, config: dict):
     for unit in config['units']:
         start = config['units'][unit]['start']
         end = config['units'][unit]['end']
-        if isinstance(start,float) or isinstance(end, float) or end - start < 20:
+        if isinstance(start,float) or isinstance(end, float) or end - start < 19:
             units[unit] = float_range(start,end)
         else:
             units[unit] = int_range(start,end)

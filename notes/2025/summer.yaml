@@ -43,11 +43,11 @@ pages:
     template: icon_list
     rows: 11
     icon: checkedbox.png
-    background: handyman.png
+    background: chatgpt - dad and daughter working on the house.png
   - title: Lucy Time
     template: weekly
     day_of_week: monday
-    background: "dalle - dad and daughter playing in play room with ball pit.png"
+    background: "chatgpt - dad and daughter playing in the pool.png"
   - title: Celebrations
     template: icon_list
     rows: 21
@@ -56,7 +56,7 @@ pages:
   - title: Family Time
     template: weekly
     day_of_week: sunday
-    background: 'movie_tape.jpg'
+    background: 'movie_tape.png'
   - title: Electronics Project
     template: icon_list
     rows: 21
