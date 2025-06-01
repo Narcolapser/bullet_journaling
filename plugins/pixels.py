@@ -3,6 +3,7 @@ from plugins.util import get_specific_multi_date_sequence, Day_Of_Week
 from flask import render_template
 
 def render_pixels(meta, config):
+    raise Exception('This needs to be fixed to line up the calendar again')
     emotions = config['emotions']
     sdate1 = datetime.strptime('2024-04-01', '%Y-%m-%d')
     sdate2 = datetime.strptime('2024-08-01', '%Y-%m-%d')
