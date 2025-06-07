@@ -165,15 +165,14 @@ def render_pages(pages):
 if __name__ == '__main__':
     files = os.listdir('.')
     pdfs = [pdf for pdf in files if '.pdf' in pdf]
-    if len(pdfs):
-        for p in pdfs:
-            print(f'Deleting previous run: {p}')
-            os.remove(p)
-    else:
-        print('No previous files to clean up')
-    render_pages(pages)
-    # print_journal(pages)
-    compile_journal('./', starting_page_num=29)
+    # if len(pdfs):
+    #     for p in pdfs:
+    #         print(f'Deleting previous run: {p}')
+    #         os.remove(p)
+    # else:
+    #     print('No previous files to clean up')
+    # render_pages(pages)
+    compile_journal('./', starting_page_num=65)
     
     if '-k' not in sys.argv:
         files = os.listdir('.')

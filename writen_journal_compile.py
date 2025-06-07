@@ -5,8 +5,8 @@ import markdown
 import pdfkit
 from PyPDF3 import PdfFileReader, PdfFileWriter
 
-year = 2023
-path = '/home/toby/obsidian/Personal/Journal'
+year = 2024
+path = '/home/toby/Documents/obsidian/Personal/Journal'
 month_names = ['01 January','02 February','03 March','04 April','05 May','06 June','07 July','08 August','09 September','10 October','11 November','12 December']
 months = [f'{path}/{year}/{month}' for month in month_names[3:]]
 months += [f'{path}/{year+1}/{month}' for month in month_names[0:3]]
